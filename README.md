@@ -1,5 +1,9 @@
-# disaster-relief-sanjose
-Exploration of civic tech involvement/cooperation with San Jose City government's disaster response agencies.
+# disaster-response-sj
+
+Inspired by civic tech volunteer responses to hurricanes Harvey and Irma,
+the goal of the disaster-response-sj project is to engage with San Jose's
+Office of Emergency Services to discuss how CfSJ can contribute to
+disaster response planning and execution.
 
 ## Plan
 
@@ -7,12 +11,11 @@ Exploration of civic tech involvement/cooperation with San Jose City government'
 2. Determine pain points or missing pieces of existing system
 3. Look for existing tools to address #2
 
-
 ## Resources
 
 _(will move this to its own page in a bit)_
 
-### Generic 
+### Generic
 
 #### Tools and Apps
 
@@ -20,7 +23,7 @@ _(will move this to its own page in a bit)_
 
 ^^ Comprehensive collection of relevant tools and organizations
 
-_note to self: add to KB_ https://www.projectptolemy.co
+_note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.org
 
 
 [the Irma-Response api](https://github.com/Irma-Response/irma-api)
@@ -41,7 +44,7 @@ _note to self: add to KB_ https://www.projectptolemy.co
 
 [schema.org](http://schema.org/docs/schemas.html)
 
-#### Documentation 
+#### Documentation
 
 [Community Emergency Response](https://www.ready.gov/community-emergency-response-team)
 
