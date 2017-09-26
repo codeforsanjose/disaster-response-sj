@@ -15,6 +15,18 @@ disaster response planning and execution.
 
 _(will move this to its own page in a bit)_
 
+### San Jose
+
+via @mthong:
+
+  [City Council video and documentation](http://sanjose.granicus.com/MediaPlayer.php?view_id=51&clip_id=9856)
+
+  Agenda items 3.5, 3.6 and 3.7 all relate to the flood response and future emergency management. I’d specifically recommend watching/listening to the City staff presentation and public comment (go to item 3.5 in the video index), or reading the staff memo for item 3.6.
+
+
+See particularly Sec. 3.6 Memorandum; it's 130 pages total (!!) but the TL;DR is Appendix B and C.
+
+
 ### Generic
 
 #### Tools and Apps
