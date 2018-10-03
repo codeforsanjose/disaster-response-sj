@@ -1,3 +1,9 @@
+# Local Development
+1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj/tree/inital-web-app`
+2. Install dependecies `npm i`
+3. Run application `npm start`
+
+
 # disaster-response-sj
 
 Inspired by civic tech volunteer responses to hurricanes Harvey and Irma,
