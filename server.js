@@ -1,23 +1,3 @@
-
-// var express = require('express')
-// var bodyParser = require('body-parser')
-// var cors = require('cors')
-// var bcrypt = require('bcrypt')
-// var fs = require('fs')
-// var app = express()
-// const session = require('express-session')
-// const _ = require('lodash')
-// const errorHandler = require('errorhandler')
-// const passport = require('passport')
-// const path = require('path')
-// const cookieParser = require('cookie-parser')
-// const db = require('./lib/db')
-// const auth = require('./lib/auth')
-// const pdfCreator = require('./lib/pdfCreator')
-// const excelCreator = require('./lib/excelCreator')
-
-
-
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -31,7 +11,7 @@ import passport from 'passport'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 
-
+import { db } from './lib/db'
 //const db = require('./lib/db')
 
 const app = express()
@@ -46,7 +26,7 @@ app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 //auth.init(app)
 
-app.get(['/', '/signup', '/login', '/profile/:id'], (req, res) => {
+app.get(['/', '/login'], (req, res) => {
     res.sendFile(path.join(publicDir, '/index.html'))
 })
 
@@ -66,7 +46,7 @@ app.post('/api/login', (req, res, next) => {
 
 
 // POST: create a new meal
-app.post('/api/meals', function(req, res) {
+app.post('/api/posts', function(req, res) {
     delete req.body['_id']
     db.insertOne(meals_db_name, req.body).then(response => {
         res.status(201).json(response);
@@ -76,7 +56,7 @@ app.post('/api/meals', function(req, res) {
 })
 
 // PUT: edit a new meal
-app.put('/api/meals', function(req, res) {
+app.put('/api/posts', function(req, res) {
     db.updateOneById(meals_db_name, req.body).then(response => {
         res.status(201).json({msg: 'successfully edited report'});
     }).catch(error => {
@@ -85,7 +65,7 @@ app.put('/api/meals', function(req, res) {
     })
 })
 
-app.get('/api/meals/delete/:id', function(req, res) {
+app.get('/api/posts/delete/:id', function(req, res) {
     const mealId = req.params.id
     db.deleteOne(meals_db_name, mealId).then(response => {
         res.status(201).json({msg: 'successfully deleted meal report'});
