@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import DisasterPost from '../../compositions/DisasterPost/DisasterPost'
-
+import LoginComponent from '../../compositions/Login/LoginComponent'
 import './MainContainer.css'
 import { posts } from '../../mockData/Posts'
 
@@ -11,7 +11,7 @@ class MainContainer extends Component {
         return (
             <div className='MainContainer'>
 
-
+                <LoginComponent />
                 <DisasterPost posts={ posts } />
             </div>
         );

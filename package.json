@@ -7,6 +7,7 @@
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "assert": "^1.4.1",
+    "auth": "0.0.9",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
@@ -20,6 +21,7 @@
     "moment": "^2.22.2",
     "mongodb": "^3.1.10",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -31,5 +33,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

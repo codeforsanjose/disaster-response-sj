@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { ObjectID, MongoClient } from 'mongodb'
 
-import { MongoDBData } from '../config/projectInfoData.js'
-
+import { MongoDBData } from '../../config/projectInfoData.js'
+import { posts_db_name } from '../Utilities/API_utilities'
 class DataBase {
     constructor () {
         this.db = {}
@@ -12,18 +12,16 @@ class DataBase {
             date: 1,
             type: 1,
         }
-        this.posts_db_name = ''
+        this.posts_db_name = posts_db_name
         if (process.env.NODE_ENV === 'production') {
             this.url = MongoDBData['mongoData']['productionURL']
-            this.posts_db_name = 'disasters'
         } else {
             this.url = MongoDBData['mongoData']['productionURL']
-            this.posts_db_name = 'test_disasters'
         }
         MongoClient.connect(this.url, (err, dbParam) => {
             assert.equal(null, err)
             console.log('Successfully connected to MongoDB server. ')
-            this.db = dbParam
+            this.db = dbParam.db('DisasterResponse')
             
             return;
         })
@@ -145,5 +143,4 @@ class DataBase {
     }
 }
 
-//module.exports = new DataBase()
 export const db = new DataBase()

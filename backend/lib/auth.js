@@ -1,13 +1,13 @@
-const _ = require('lodash')
-const bcrypt = require('bcrypt')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
+import _ from 'lodash'
+import bcrypt from 'bcrypt'
+import passport from 'passport'
+import Strategy from 'passport-local'
+
 //const FacebookStrategy = require('passport-facebook').Strategy
 //const constants = require('../config/projectInfoData.json')
 //const secret = require('../config/secret.json')
 
-const db = require('./db')
-
+import { db } from './db' 
 // Initialize passport and various login strategies
 function init(app) {
     
@@ -22,7 +22,7 @@ function init(app) {
     
     // Setup 'local' passport strategy. Allows user to login with username/password.
     // https://github.com/jaredhanson/passport-local
-    passport.use(new LocalStrategy({
+    passport.use(new Strategy({
         usernameField: 'email',
         passwordField: 'passphrase'
     },
@@ -100,10 +100,7 @@ function init(app) {
 
 function login(credentials) {
     return new Promise((resolve, reject) => {
-        db.findOne('user', { email: credentials.email }).then(doc => {
-            if (credentials.facebookLogin) {
-                return resolve(doc)
-            }
+        db.findOne('users', { email: credentials.email }).then(doc => {
             if (doc) {
                 return bcrypt.compare(credentials.passphrase, doc.passphrase, (err, res) => {
                     if (res) {
@@ -125,7 +122,7 @@ function isAdmin(req) {
     return _.get(req, 'user.isAdmin')
 }
 
-module.exports = {
+export {
     init,
     isAdmin,
     login,
