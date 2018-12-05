@@ -11,7 +11,7 @@ class MainContainer extends Component {
         return (
             <div className='MainContainer'>
 
-                <LoginComponent />
+
                 <DisasterPost posts={ posts } />
             </div>
         );

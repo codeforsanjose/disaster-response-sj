@@ -29,7 +29,6 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 init(app)
 
 app.get(['/', '/login'], (req, res) => {
-    
     res.sendFile(path.join(publicDir, '/index.html'))
 })
 

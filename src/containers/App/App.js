@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import MainContainer from '../MainContainer/MainContainer'
+import Navigation from '../../compositions/Navigation/Navigation'
 
 import './App.css'
 
@@ -12,7 +13,7 @@ class App extends Component {
                     <img src={logo} className='App-logo' alt='logo' />
                     <h1 className='App-title'>Disaster Response</h1>
                 </header>
-                <MainContainer />
+                <Navigation />
                 
             </div>
         )
