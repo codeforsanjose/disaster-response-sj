@@ -40,46 +40,22 @@ class DataBase {
     }
 
     insertOne(collection, obj) {
-        this.db.collection(collection).insertOne(obj, (err, result) => {
-            if (err) {
-                console.log('insertOne err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).insertOne(obj)
     }
 
     updateOneById(collection, obj) {
         const query = { '_id': ObjectID(obj._id) }
         obj._id = ObjectID(obj._id)
-        this.db.collection(collection).updateOne(query, obj, (err, result) => {
-            if (err) {
-                console.log('updateOneById err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).updateOne(query, obj)
     }
 
     deleteOne(collection, id) {
         const query = { '_id': ObjectID(id) }
-        this.db.collection(collection).deleteOne(query, (err, result) => {
-            if (err) {
-                console.log('deleted err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).deleteOne(query)
     }
 
     updateOne(collection, query, obj) {
-        this.db.collection(collection).updateOne(query, obj, (err, result) => {
-            if (err) {
-                console.log('updateOne err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).updateOne(query, obj)
     }
 
     findAll(collection, query) {
