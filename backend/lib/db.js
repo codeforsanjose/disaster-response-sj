@@ -29,13 +29,11 @@ class DataBase {
     }
 
     getAll(collection, sortParam = {}) {
-        return new Promise((resolve, reject) => {
-            this.db.collection(collection).find({}).sort(sortParam).toArray((err, result) => {
-                if (err) {
-                    return reject(err)
-                }
-                return resolve(result)
-            })
+        this.db.collection(collection).find({}).sort(sortParam).toArray((err, result) => {
+            if (err) {
+                return err
+            }
+            return result
         })
     }
 

@@ -99,22 +99,20 @@ function init(app) {
 }
 
 function login(credentials) {
-    return new Promise((resolve, reject) => {
-        db.findOne('users', { email: credentials.email }).then(doc => {
-            if (doc) {
-                return bcrypt.compare(credentials.passphrase, doc.passphrase, (err, res) => {
-                    if (res) {
-                        // Passwords match
-                        return resolve(doc)
-                    }
-                    // Passwords don't match
-                    return reject()
-                })
-            }
-        }).catch(err => {
-            console.log('error in login', err)
-            return reject(err)
-        })
+    db.findOne('users', { email: credentials.email }).then(doc => {
+        if (doc) {
+            return bcrypt.compare(credentials.passphrase, doc.passphrase, (err, res) => {
+                if (res) {
+                    // Passwords match
+                    return doc
+                }
+                // Passwords don't match
+                return 'Passwords do not match'
+            })
+        }
+    }).catch(err => {
+        console.log('error in login', err)
+        return err
     })
 }
 

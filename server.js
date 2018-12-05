@@ -62,8 +62,6 @@ app.post('/api/user', (req, res) => {
         // Store hash in database
         newUser.passphrase = hash
         db.insertOne('user', newUser).then(result => {
-            var userRecord = req.body
-
             return res.json(result)
         }).catch(error => {
             console.log(error)
@@ -92,8 +90,8 @@ app.put('/api/posts', function(req, res) {
 })
 
 app.get('/api/posts/delete/:id', function(req, res) {
-    const mealId = req.params.id
-    db.deleteOne(posts_db_name, mealId).then(response => {
+    const postId = req.params.id
+    db.deleteOne(posts_db_name, postId).then(response => {
         res.status(201).json({msg: 'successfully deleted disaster report'});
     }).catch(error => {
         console.log('error is', error)
