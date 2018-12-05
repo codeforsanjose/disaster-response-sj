@@ -28,97 +28,41 @@ class DataBase {
     }
 
     getAll(collection, sortParam = {}) {
-        this.db.collection(collection).find({}).sort(sortParam).toArray((err, result) => {
-            if (err) {
-                return err
-            }
-            return result
-        })
+        return this.db.collection(collection).find({}).sort(sortParam).toArray()
     }
 
     getByEmail(collection, email) {
-        this.db.collection(collection).find({ email: email.email }).toArray((err, result) => {
-            if (err) {
-                console.log('getByEmail err', err)
-                return err
-            }
-            if (result.length == 0) {
-                return reject('Not found by email')
-            }
-            return result[0]
-        })
+        return this.db.collection(collection).find({ email: email.email }).toArray()
     }
 
     getById(collection, id) {
-        this.db.collection(collection).find({ _id: new ObjectID(id) }).toArray((err, result) => {
-            if (err) {
-                console.log('getById err', err)
-                return reject(err)
-            }
-            return resolve(result[0])
-        })
+        return this.db.collection(collection).find({ _id: new ObjectID(id) }).toArray()
     }
 
     insertOne(collection, obj) {
-        this.db.collection(collection).insertOne(obj, (err, result) => {
-            if (err) {
-                console.log('insertOne err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).insertOne(obj)
     }
 
     updateOneById(collection, obj) {
         const query = { '_id': ObjectID(obj._id) }
         obj._id = ObjectID(obj._id)
-        this.db.collection(collection).updateOne(query, obj, (err, result) => {
-            if (err) {
-                console.log('updateOneById err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).updateOne(query, obj)
     }
 
     deleteOne(collection, id) {
         const query = { '_id': ObjectID(id) }
-        this.db.collection(collection).deleteOne(query, (err, result) => {
-            if (err) {
-                console.log('deleted err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).deleteOne(query)
     }
 
     updateOne(collection, query, obj) {
-        this.db.collection(collection).updateOne(query, obj, (err, result) => {
-            if (err) {
-                console.log('updateOne err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).updateOne(query, obj)
     }
 
     findAll(collection, query) {
-        this.db.collection(collection).find(query, this.fieldsWanted).sort({date: -1}).toArray((err, result) => {
-            if (err) {
-                console.log('err', err)
-                return reject(err)
-            }
-            return resolve(result)
-        })
+        return this.db.collection(collection).find(query, this.fieldsWanted).sort({date: -1}).toArray()
     }
     findOne(collection, query) {
-        this.db.collection(collection).find(query).toArray((err, result) => {
-            if (err) {
-                console.log('err', err)
-                return reject(err)
-            }
-            return resolve(result[0])
-        })
+        return this.db.collection(collection).find(query).toArray()
     }
 }
 
