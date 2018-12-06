@@ -4,7 +4,6 @@ const DefaultHeaders = {
 }
 
 const makeRequest = (uploadData, method, path, headers = DefaultHeaders) => {
-    console.log('make request path', path)
     if (method === 'GET') {
         return fetch(path, {
             method: method,
@@ -21,8 +20,33 @@ const makeRequest = (uploadData, method, path, headers = DefaultHeaders) => {
         })
     }
 }
+// const myUser = {
+//     email: 'richardson.joseph1990@gmail.com',
+//     phone: '5305746483',
+//     name: 'Joseph Richardson',
+//     passphrase: 'test'
+// }
+// const registerUser = (newUser) => {
+//     const uploadData = {
+//         ...newUser
+//     }
+//     let data = uploadData
 
+//     makeRequest(data, 'POST', '/api/user').then(response => {
+//         if (response.status == 422) {
+//             return response
+//         }
+//         else {
+//             return response
+//         }
+//     }).catch(error => {
+//         return error
+//     })
+// }
 
+// const registerTestUser = () => {
+//     registerUser(myUser)
+// }
 const login = (credentials) => {
     return makeRequest(credentials, 'POST', '/api/login').then(response => {
         return response.json()

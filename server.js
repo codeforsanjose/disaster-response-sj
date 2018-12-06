@@ -37,13 +37,13 @@ app.post('/api/login', (req, res, next) => {
     console.log('made it', req.body)
     // See: https://github.com/jaredhanson/passport-local
     passport.authenticate('local', (err, user, info) => {
+        console.log('passport auth error', err, 'user', user)
         if (err || !user) {
             console.log('error with login:', err, user)
             return res.status(422).json(err)
         }
-        req.login(user, () => {
-            return res.json(user)
-        })
+        return res.json(user)
+        
     })(req, res, next)
 
 })
@@ -53,21 +53,34 @@ app.post('/api/user', (req, res) => {
     // even if we have already done so on the front end. This is to prevent malicious users
     // from adding unexpected fields by modifying the front end JS in the browser.
 
+    
     var newUser =  _.pick(req.body, [
         'name', 'email', 'phone', 'passphrase'])
-    newUser.isAdmin = false
-    newUser.approvedBy = ''
-    bcrypt.hash(newUser.passphrase, 10, (err, hash) => {
-        // Store hash in database
-        newUser.passphrase = hash
-        db.insertOne('user', newUser).then(result => {
-            return res.json(result)
-        }).catch(error => {
-            console.log(error)
-            return res.status(422).json(error)
-        })
+    createNewUser(newUser).then(result => {
+        return res.json(result)
+    }).catch(error => {
+        console.log(error)
+        return res.status(422).json(error)
     })
 })
+
+
+
+const createNewUser = (newUser) => {
+    return new Promise( (resolve, reject) => {
+        bcrypt.hash(newUser.passphrase, 10, (err, hash) => {
+            newUser.passphrase = hash
+            db.insertOne('users', newUser).then(userResult => {
+                return resolve(userResult)
+            })
+            .catch(error => {
+                return reject(error)
+            })
+        })
+    
+    })
+    
+}
 
 app.post('/api/posts', function(req, res) {
     delete req.body['_id']

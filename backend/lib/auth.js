@@ -28,6 +28,7 @@ function init(app) {
     },
         function (email, passphrase, done) {
             login({ email, passphrase }).then(user => {
+                console.log('login user', user)
                 if (user) {
                     return done(null, user)
                 }
@@ -99,20 +100,27 @@ function init(app) {
 }
 
 function login(credentials) {
-    db.findOne('users', { email: credentials.email }).then(doc => {
-        if (doc) {
-            return bcrypt.compare(credentials.passphrase, doc.passphrase, (err, res) => {
-                if (res) {
-                    // Passwords match
-                    return doc
-                }
-                // Passwords don't match
-                return 'Passwords do not match'
-            })
-        }
-    }).catch(err => {
-        console.log('error in login', err)
-        return err
+    return new Promise( (resolve, reject) => {
+        db.findOne('users', { email: credentials.email }).then(doc => {
+            if (doc) {
+                return bcrypt.compare(credentials.passphrase, doc[0].passphrase, (err, res) => {
+                    if (res) {
+                        console.log('welllll res', res, 'doc', doc)
+                        // Passwords match
+                        return resolve(doc)
+
+                    }
+                    else {
+                        return reject('Passwords do not match')
+                    }
+                    // Passwords don't match
+                    
+                })
+            }
+        }).catch(err => {
+            console.log('error in login ---->', err)
+            return err
+        })
     })
 }
 

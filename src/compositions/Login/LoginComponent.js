@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 //import LogoComponent from '../../components/Logo/LogoComponent'
 
 import { login } from '../../api/api'
-
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Route,
+    Link
+} from 'react-router-dom'
 import './LoginComponent.css'
 
 
@@ -26,7 +31,7 @@ class LoginComponent extends Component {
 
     handleLoggingUser = () => {
         login(this.state).then(user => {
-            if (user._id) {
+            if (user) {
                 this.setState({
                     user,
                     goToProfile: true
@@ -46,6 +51,18 @@ class LoginComponent extends Component {
     }
 
     render() {
+        if (this.state.goToProfile && this.state.user) {
+            let userData = this.state.user
+            let adminComponentDataAndNavBarFunctions = {
+                pathname: `/admin/`,
+                state: {
+                    userData
+                }
+            }
+            return (
+                <Redirect to={adminComponentDataAndNavBarFunctions} />
+            )
+        }
         return (
             <div>
                 <div>
@@ -58,6 +75,8 @@ class LoginComponent extends Component {
                     <button className="appButton" onClick={e => this.handleSubmit(e)} >login</button>
                 </div>
             </div>
+
+            
         )
     }
 }
