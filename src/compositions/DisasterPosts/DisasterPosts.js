@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import './DisasterPost.css'
+import './DisasterPosts.css'
 
-class DisasterPost extends Component {
+class DisasterPosts extends Component {
     postsMockup = (posts) => {
         return posts.map( (post, index) => {
             const { title,
@@ -18,16 +18,21 @@ class DisasterPost extends Component {
             </aside>
             const updatesMarkup = updates.map(updateText => {
                 return (
-                    <h6>- { updateText }</h6>
+                    <h6 className='update-text'>- { updateText }</h6>
                 )
             })
             return (
                 <div key={ `${title}-${index}` } className='post-details'>
-                    <h4>{ title }</h4>
-                    <h6>{ description }</h6>
-                    <aside className='updates-list'>
-                        { updatesMarkup }
+                    <aside className='map'>
+                        map
                     </aside>
+                    <section className='disaster-details'>
+                        <h4 className='title'>{ title }</h4>
+                        <h6 className='description'>{ description }</h6>
+                        <secion className='updates-list'>
+                            { updatesMarkup }
+                        </secion>
+                    </section>
                     { contactDetailsMarkup }
                 </div>
             )
@@ -37,13 +42,11 @@ class DisasterPost extends Component {
     render() {
         const posts = this.postsMockup(this.props.posts)
         return (
-            <div className='DisasterPost'>
-                <h3>Active Disasters</h3>
-                <hr />
+            <div className='DisasterPosts'>
                 { posts }
             </div>
         );
     }
 }
 
-export default DisasterPost
+export default DisasterPosts
