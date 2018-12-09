@@ -28,7 +28,6 @@ class LoginComponent extends Component {
 
     handleLoggingUser = () => {
         login(this.state).then(user => {
-            console.log('what is user here aftr login', user)
             if (user[0]._id) {
                 this.setState({
                     user,
@@ -73,8 +72,6 @@ class LoginComponent extends Component {
                     <button className="appButton" onClick={e => this.handleSubmit(e)} >login</button>
                 </div>
             </div>
-
-            
         )
     }
 }

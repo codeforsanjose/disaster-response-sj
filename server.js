@@ -53,8 +53,6 @@ app.post('/api/user', (req, res) => {
     // It is good practice to specifically pick the fields we want to insert here *in the backend*,
     // even if we have already done so on the front end. This is to prevent malicious users
     // from adding unexpected fields by modifying the front end JS in the browser.
-
-    
     var newUser =  _.pick(req.body, [
         'name', 'email', 'phone', 'passphrase'])
     createNewUser(newUser).then(result => {
@@ -64,8 +62,6 @@ app.post('/api/user', (req, res) => {
         return res.status(422).json(error)
     })
 })
-
-
 
 const createNewUser = (newUser) => {
     return new Promise( (resolve, reject) => {
@@ -82,36 +78,6 @@ const createNewUser = (newUser) => {
     })
     
 }
-
-
-
-app.post('/api/posts', function(req, res) {
-    db.insertOne(posts_db_name, req.body).then(response => {
-        res.status(201).json(response);
-    }).catch(error => {
-        res.status(406).json({'error': error})
-    })
-})
-
-
-app.put('/api/posts', function(req, res) {
-    db.updateOneById(posts_db_name, req.body).then(response => {
-        res.status(201).json({msg: 'successfully edited report'});
-    }).catch(error => {
-        console.log('error is', error)
-        res.status(406).json({'error': error})
-    })
-})
-
-app.get('/api/posts/delete/:id', function(req, res) {
-    const postId = req.params.id
-    db.deleteOne(posts_db_name, postId).then(response => {
-        res.status(201).json({msg: 'successfully deleted disaster report'});
-    }).catch(error => {
-        console.log('error is', error)
-        res.status(406).json({'error': error})
-    })
-})
 
 app.listen(app.get('port'), function () {
     console.log('[*] disaster response running on port', app.get('port'))

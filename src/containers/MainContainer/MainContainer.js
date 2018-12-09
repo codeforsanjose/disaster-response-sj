@@ -20,6 +20,7 @@ class MainContainer extends Component {
         return getPosts().then(result => {
             this.setState(previousState => {
                 return {
+                    ...previousState,
                     posts: result
                 }
             })
