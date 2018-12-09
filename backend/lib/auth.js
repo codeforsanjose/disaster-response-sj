@@ -28,7 +28,6 @@ function init(app) {
     },
         function (email, passphrase, done) {
             login({ email, passphrase }).then(user => {
-                console.log('login user', user)
                 if (user) {
                     return done(null, user)
                 }
@@ -105,7 +104,6 @@ function login(credentials) {
             if (doc) {
                 return bcrypt.compare(credentials.passphrase, doc[0].passphrase, (err, res) => {
                     if (res) {
-                        console.log('welllll res', res, 'doc', doc)
                         // Passwords match
                         return resolve(doc)
 

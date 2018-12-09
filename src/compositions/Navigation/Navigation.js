@@ -8,10 +8,6 @@ import AdminContainer from '../../containers/AdminContainer/AdminContainer'
 require('./Navigation.css');
 
 class NavigationComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div>

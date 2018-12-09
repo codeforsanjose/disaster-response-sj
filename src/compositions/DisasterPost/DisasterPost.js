@@ -16,9 +16,9 @@ class DisasterPost extends Component {
                 <h4>{ contactPhone }</h4>
                 <h4>{ contactEmail }</h4>
             </aside>
-            const updatesMarkup = updates.map(updateText => {
+            const updatesMarkup = updates.map( (updateText, index) => {
                 return (
-                    <h6>- { updateText }</h6>
+                    <h6 key={`notes-${index}`}>- { updateText }</h6>
                 )
             })
             return (
@@ -28,7 +28,9 @@ class DisasterPost extends Component {
                     <aside className='updates-list'>
                         { updatesMarkup }
                     </aside>
-                    { contactDetailsMarkup }
+                    <section>
+                        { contactDetailsMarkup }
+                    </section>
                 </div>
             )
         })

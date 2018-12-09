@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser'
 import { posts_db_name } from './backend/Utilities/API_utilities'
 import { db } from './backend/lib/db'
 import { init } from './backend/lib/auth'
-
+import { postsRouter } from './backend/routes/postsRoutes'
 
 const app = express()
 const publicDir = __dirname + '/public'
@@ -26,6 +26,8 @@ app.use(cors())
 app.use('/public', express.static('public'))
 app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+app.use(postsRouter)
+
 init(app)
 
 app.get(['/', '/login'], (req, res) => {
@@ -33,8 +35,6 @@ app.get(['/', '/login'], (req, res) => {
 })
 
 app.post('/api/login', (req, res, next) => {
-    console.log('---------------------------')
-    console.log('made it', req.body)
     // See: https://github.com/jaredhanson/passport-local
     passport.authenticate('local', (err, user, info) => {
         console.log('passport auth error', err, 'user', user)
@@ -42,8 +42,9 @@ app.post('/api/login', (req, res, next) => {
             console.log('error with login:', err, user)
             return res.status(422).json(err)
         }
-        return res.json(user)
-        
+        req.login(user, () => {
+            return res.json(user)
+        })
     })(req, res, next)
 
 })
@@ -82,8 +83,9 @@ const createNewUser = (newUser) => {
     
 }
 
+
+
 app.post('/api/posts', function(req, res) {
-    delete req.body['_id']
     db.insertOne(posts_db_name, req.body).then(response => {
         res.status(201).json(response);
     }).catch(error => {

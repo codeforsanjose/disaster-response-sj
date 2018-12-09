@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 
 import { login } from '../../api/api'
 import {
-    BrowserRouter as Router,
     Redirect,
-    Route,
-    Link
 } from 'react-router-dom'
 import './LoginComponent.css'
 
@@ -31,7 +28,8 @@ class LoginComponent extends Component {
 
     handleLoggingUser = () => {
         login(this.state).then(user => {
-            if (user) {
+            console.log('what is user here aftr login', user)
+            if (user[0]._id) {
                 this.setState({
                     user,
                     goToProfile: true
@@ -52,9 +50,9 @@ class LoginComponent extends Component {
 
     render() {
         if (this.state.goToProfile && this.state.user) {
-            let userData = this.state.user
+            let userData = this.state.user[0]
             let adminComponentDataAndNavBarFunctions = {
-                pathname: `/admin/`,
+                pathname: `/admin/${userData._id}`,
                 state: {
                     userData
                 }

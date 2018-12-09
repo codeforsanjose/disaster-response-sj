@@ -55,6 +55,24 @@ const login = (credentials) => {
     })
 }
 
+const createPost = (postDetails) => {
+    return makeRequest(postDetails, 'POST', '/api/posts').then(response => {
+        return response.json()
+    }).catch(error => {
+        return error
+    })
+}
+
+const getPosts = () => {
+    return makeRequest({}, 'GET', '/api/posts').then(response => {
+        return response.json()
+    }).catch(error => {
+        return error
+    })
+}
+
 export {
-    login
+    login,
+    getPosts,
+    createPost
 }
