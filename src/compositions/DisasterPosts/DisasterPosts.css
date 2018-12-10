@@ -15,10 +15,12 @@
 
 .DisasterPosts .post-details .map {
     grid-area: map-area;
+    border-right: 1px solid #4c4c4c;
 }
 
 .DisasterPosts .post-details .disaster-details {
     grid-area: disaster-details-area;
+    border-right: 1px solid #4c4c4c;
 }
 
 .DisasterPosts .post-details .disaster-details .updates-list {
