@@ -40,7 +40,7 @@ function init(app) {
                 })
             }).catch(err => {
                 console.log('error in login ---->', err)
-                return err
+                return done(err)
             })
             
         }
