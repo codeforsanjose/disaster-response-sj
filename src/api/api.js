@@ -20,33 +20,25 @@ const makeRequest = (uploadData, method, path, headers = DefaultHeaders) => {
         })
     }
 }
-// const myUser = {
-//     email: 'richardson.joseph1990@gmail.com',
-//     phone: '5305746483',
-//     name: 'Joseph Richardson',
-//     passphrase: 'test'
-// }
-// const registerUser = (newUser) => {
-//     const uploadData = {
-//         ...newUser
-//     }
-//     let data = uploadData
 
-//     makeRequest(data, 'POST', '/api/user').then(response => {
-//         if (response.status == 422) {
-//             return response
-//         }
-//         else {
-//             return response
-//         }
-//     }).catch(error => {
-//         return error
-//     })
-// }
+const registerUser = (newUser) => {
+    const uploadData = {
+        ...newUser
+    }
+    let data = uploadData
 
-// const registerTestUser = () => {
-//     registerUser(myUser)
-// }
+    makeRequest(data, 'POST', '/api/user').then(response => {
+        if (response.status == 422) {
+            return response
+        }
+        else {
+            return response
+        }
+    }).catch(error => {
+        return error
+    })
+}
+
 const login = (credentials) => {
     return makeRequest(credentials, 'POST', '/api/login').then(response => {
         return response.json()
@@ -74,5 +66,6 @@ const getPosts = () => {
 export {
     login,
     getPosts,
-    createPost
+    createPost,
+    registerUser,
 }

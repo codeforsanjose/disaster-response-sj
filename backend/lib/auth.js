@@ -27,15 +27,22 @@ function init(app) {
         passwordField: 'passphrase'
     },
         function (email, passphrase, done) {
-            login({ email, passphrase }).then(user => {
-                if (user) {
-                    return done(null, user)
-                }
-                return done(null, false)
-            }).catch(error => {
-                console.log('error in local strategy', error)
-                return done(error)
+            db.findOne('users', { email: email }).then(doc => {
+                login({ email, passphrase }).then(user => {
+                    if (user) {
+                        console.log('login response', doc)
+                        return done(null, doc[0])
+                    }
+                    return done(null, false)
+                }).catch(error => {
+                    console.log('error in local strategy', error)
+                    return done(error)
+                })
+            }).catch(err => {
+                console.log('error in login ---->', err)
+                return err
             })
+            
         }
     ))
 
@@ -99,26 +106,13 @@ function init(app) {
 }
 
 function login(credentials) {
-    return new Promise( (resolve, reject) => {
-        db.findOne('users', { email: credentials.email }).then(doc => {
-            if (doc) {
-                return bcrypt.compare(credentials.passphrase, doc[0].passphrase, (err, res) => {
-                    if (res) {
-                        // Passwords match
-                        return resolve(doc)
-
-                    }
-                    else {
-                        return reject('Passwords do not match')
-                    }
-                    // Passwords don't match
-                    
-                })
-            }
-        }).catch(err => {
-            console.log('error in login ---->', err)
-            return err
-        })
+    return db.findOne('users', { email: credentials.email }).then(doc => {
+        if (doc) {
+            return bcrypt.compare(credentials.passphrase, doc[0].passphrase)
+        }
+    }).catch(err => {
+        console.log('error in login ---->', err)
+        return err
     })
 }
 

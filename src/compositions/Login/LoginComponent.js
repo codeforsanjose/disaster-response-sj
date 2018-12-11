@@ -28,7 +28,7 @@ class LoginComponent extends Component {
 
     handleLoggingUser = () => {
         login(this.state).then(user => {
-            if (user[0]._id) {
+            if (user && user._id) {
                 this.setState({
                     user,
                     goToProfile: true
@@ -49,7 +49,7 @@ class LoginComponent extends Component {
 
     render() {
         if (this.state.goToProfile && this.state.user) {
-            let userData = this.state.user[0]
+            let userData = this.state.user
             let adminComponentDataAndNavBarFunctions = {
                 pathname: `/admin/${userData._id}`,
                 state: {

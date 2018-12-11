@@ -37,7 +37,6 @@ app.get(['/', '/login'], (req, res) => {
 app.post('/api/login', (req, res, next) => {
     // See: https://github.com/jaredhanson/passport-local
     passport.authenticate('local', (err, user, info) => {
-        console.log('passport auth error', err, 'user', user)
         if (err || !user) {
             console.log('error with login:', err, user)
             return res.status(422).json(err)
@@ -59,24 +58,15 @@ app.post('/api/user', (req, res) => {
         return res.json(result)
     }).catch(error => {
         console.log(error)
-        return res.status(422).json(error)
+        return res.status(522).json(error)
     })
 })
 
 const createNewUser = (newUser) => {
-    return new Promise( (resolve, reject) => {
-        bcrypt.hash(newUser.passphrase, 10, (err, hash) => {
-            newUser.passphrase = hash
-            db.insertOne('users', newUser).then(userResult => {
-                return resolve(userResult)
-            })
-            .catch(error => {
-                return reject(error)
-            })
-        })
-    
+    return bcrypt.hash(newUser.passphrase, 10, (err, hash) => {
+        newUser.passphrase = hash
+        return db.insertOne('users', newUser)
     })
-    
 }
 
 app.listen(app.get('port'), function () {
