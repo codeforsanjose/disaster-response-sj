@@ -16,9 +16,9 @@ class DisasterPosts extends Component {
                 <h4>{ contactPhone }</h4>
                 <h4>{ contactEmail }</h4>
             </aside>
-            const updatesMarkup = updates.map(updateText => {
+            const updatesMarkup = updates.map( (updateText, index) => {
                 return (
-                    <h6 className='update-text'>- { updateText }</h6>
+                    <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
                 )
             })
             return (
@@ -29,9 +29,9 @@ class DisasterPosts extends Component {
                     <section className='disaster-details'>
                         <h4 className='title'>{ title }</h4>
                         <h6 className='description'>{ description }</h6>
-                        <secion className='updates-list'>
+                        <section className='updates-list'>
                             { updatesMarkup }
-                        </secion>
+                        </section>
                     </section>
                     { contactDetailsMarkup }
                 </div>
