@@ -28,7 +28,7 @@ const registerUser = (newUser) => {
     let data = uploadData
 
     makeRequest(data, 'POST', '/api/user').then(response => {
-        if (response.status == 422) {
+        if (response.status === 422) {
             return response
         }
         else {

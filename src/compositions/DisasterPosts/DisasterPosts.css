@@ -1,0 +1,38 @@
+.DisasterPostsContainer {
+
+}
+
+.DisasterPosts .post-details {
+    border-bottom: solid 1px #4c4c4c;
+    display: grid;
+    grid-template-areas: 
+        'map-area disaster-details-area contact-details-area'
+}
+
+.DisasterPosts .post-details .contact-details {
+    grid-area: contact-details-area;
+}
+
+.DisasterPosts .post-details .map {
+    grid-area: map-area;
+    border-right: 1px solid #4c4c4c;
+}
+
+.DisasterPosts .post-details .disaster-details {
+    grid-area: disaster-details-area;
+    border-right: 1px solid #4c4c4c;
+}
+
+.DisasterPosts .post-details .disaster-details .updates-list {
+    width: 400px;
+}
+
+.DisasterPosts .post-details .disaster-details .title {
+    font-size: 24px;
+    margin: 0;
+}
+
+.DisasterPosts .post-details .disaster-details .description {
+    font-size: 20px;
+    margin: 0;
+}

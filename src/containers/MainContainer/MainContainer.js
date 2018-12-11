@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
+import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getPosts } from '../../api/api'
-import DisasterPost from '../../compositions/DisasterPost/DisasterPost'
 
 import './MainContainer.css'
 
@@ -31,7 +31,9 @@ class MainContainer extends Component {
         const { posts } = this.state
         return (
             <div className='MainContainer'>
-                <DisasterPost posts={ posts } />
+                <h3>Active Disasters</h3>
+                <hr />
+                <DisasterPosts posts={ posts } />
             </div>
         );
     }
