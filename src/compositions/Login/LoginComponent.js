@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 //import LogoComponent from '../../components/Logo/LogoComponent'
 
 import { login } from '../../api/api'
-
+import {
+    Redirect,
+} from 'react-router-dom'
 import './LoginComponent.css'
 
 
@@ -26,7 +28,7 @@ class LoginComponent extends Component {
 
     handleLoggingUser = () => {
         login(this.state).then(user => {
-            if (user._id) {
+            if (user && user._id) {
                 this.setState({
                     user,
                     goToProfile: true
@@ -46,6 +48,18 @@ class LoginComponent extends Component {
     }
 
     render() {
+        if (this.state.goToProfile && this.state.user) {
+            let userData = this.state.user
+            let adminComponentDataAndNavBarFunctions = {
+                pathname: `/admin/${userData._id}`,
+                state: {
+                    userData
+                }
+            }
+            return (
+                <Redirect to={adminComponentDataAndNavBarFunctions} />
+            )
+        }
         return (
             <div>
                 <div>

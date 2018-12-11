@@ -1,17 +1,36 @@
 import React, { Component } from 'react'
 
+import { getPosts } from '../../api/api'
 import DisasterPost from '../../compositions/DisasterPost/DisasterPost'
-import LoginComponent from '../../compositions/Login/LoginComponent'
+
 import './MainContainer.css'
-import { posts } from '../../mockData/Posts'
+
 
 
 class MainContainer extends Component {
+    constructor(props) {
+        super(props)
+        this.props = props
+        this.state = {
+            posts: []
+        }
+    }
+
+    componentDidMount() {
+        return getPosts().then(result => {
+            this.setState(previousState => {
+                return {
+                    ...previousState,
+                    posts: result
+                }
+            })
+        })
+    }
+
     render() {
+        const { posts } = this.state
         return (
             <div className='MainContainer'>
-
-                <LoginComponent />
                 <DisasterPost posts={ posts } />
             </div>
         );
