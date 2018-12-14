@@ -1,0 +1,13 @@
+.MainContainer {
+
+}
+
+.MainContainer .tabNavContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px 30px;
+}
+.MainContainer .tabNavContainer .tabItem {
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}

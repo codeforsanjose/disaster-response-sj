@@ -21,11 +21,15 @@ class MainContainer extends Component {
     }
 
     componentDidMount() {
-        return getPosts().then(result => {
+        return this.getAllActivePosts()
+    }
+
+    getAllActivePosts = () => {
+        getPosts().then(result => {
             this.setState(previousState => {
                 return {
                     ...previousState,
-                    posts: result
+                    posts: result.length > 0 ? result : []
                 }
             })
         })
@@ -44,7 +48,7 @@ class MainContainer extends Component {
         const { posts, tabs, tabIndex } = this.state
         const inAppNavigation = tabs.map( (tab, index) => {
             return (
-                <a key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className='tabItem'>{ tab }</a>
+                <span key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className='tabItem'>{ tab }</span>
             )
         })
         const tabNavContainer = (
