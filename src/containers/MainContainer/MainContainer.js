@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getPosts } from '../../api/api'
+import FEMAChecklist from '../../compositions/FEMAChecklist/FEMAChecklist'
+import InformationalResources from '../../compositions/InfomationalResources/InformationalResources'
 
 import './MainContainer.css'
 
@@ -12,7 +14,9 @@ class MainContainer extends Component {
         super(props)
         this.props = props
         this.state = {
-            posts: []
+            posts: [],
+            tabIndex: 0,
+            tabs: ['Active Disasters', 'Resources', 'FEMA Checklist'],
         }
     }
 
@@ -27,16 +31,51 @@ class MainContainer extends Component {
         })
     }
 
+    handleTabSelect = (index) => {
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                tabIndex: index,
+            }
+        })
+    }
+
     render() {
-        const { posts } = this.state
+        const { posts, tabs, tabIndex } = this.state
+        const inAppNavigation = tabs.map( (tab, index) => {
+            return (
+                <a onClick={ e => this.handleTabSelect(index) } className='tabItem'>{ tab }</a>
+            )
+        })
+        const tabNavContainer = (
+            <div className='tabNavContainer'>
+                { inAppNavigation }
+            </div>
+        )
+        let activeTab = {}
+        switch(tabIndex) {
+            case 0: {
+                activeTab = <DisasterPosts posts={ posts } />
+                break
+            }
+            case 1: {
+                activeTab = <InformationalResources />
+                break
+            }
+            case 2: {
+                activeTab = <FEMAChecklist />
+                break
+            }
+        }
         return (
             <div className='MainContainer'>
-                <h3>Active Disasters</h3>
+                { tabNavContainer }
                 <hr />
-                <DisasterPosts posts={ posts } />
+                { activeTab }
+                
             </div>
-        );
+        )
     }
 }
 
-export default MainContainer;
+export default MainContainer
