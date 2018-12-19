@@ -1,11 +1,9 @@
 import React from 'react';
 import { isAdmin } from '../../../backend/lib/auth';
-import { createPost } from '../../api/api';
+import { createPost, getPosts } from '../../api/api';
 
 require('./AdminContainer.css');
 
-// TODO:
-// 
 class AdminContainer extends React.Component {
 
     state = {
@@ -15,21 +13,33 @@ class AdminContainer extends React.Component {
         contactEmail: '',
         contactPhone: '',
         update: '',
+        selectedID: '',
         createEmergency: false,
+        showEmergencies: false,
         updateEmergency: false,
     }
 
-    createNewEmergency = () => {
+    toggleCreateNewEmergency = () => {
         this.setState({
             createEmergency: true,
             updateEmergency: false,
+            showEmergencies: false,
+        });
+    }
+    
+    toggleShowEmergencies = () => {
+        this.setState({
+            createEmergency: false,
+            updateEmergency: false,
+            showEmergencies: true,
         });
     }
 
-    updateEmergency = () => {
+    toggleUpdateEmergency = () => {
         this.setState({
             createEmergency: false,
             updateEmergency: true,
+            showEmergencies: false,
         });
     }
 
@@ -38,36 +48,55 @@ class AdminContainer extends React.Component {
         const name = target.name;
         this.setState({
             [name]: value,
-        })
+        });
+    }
+
+    handleSelect = (event) => {
+        this.setState({
+            selectedID: event.target.value
+        });
+    }
+
+    handleSelectPost = () => {
+        this.toggleUpdateEmergency();
     }
 
     handleNewSubmit = (event) => {
-        const emergency = {
+        event.preventDefault();
+
+        const req = {
             title: this.state[title],
             description: this.state[description],
             contactName: this.state[contactName],
             contactEmail: this.state[contactEmail],
             contactPhone: this.state[contactPhone],
         }
-        createPost(emergency).catch( (error) => {
+
+        createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
-
-        event.preventDefault();
     }
 
     handleUpdateSubmit = (event) => {
-        createPost(emergency).catch( (error) => {
+        event.preventDefault();
+
+        // TODO : Figure out update API
+
+        const req = {
+            id: this.state[selectedID],
+            update: this.state[update],
+        }
+
+        createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
-        event.preventDefault();
     }
 
     showNewEmergency = () => {
         return (
             <div>
                 <p>Report a new emergency. Make sure all details are correct before publishing.</p>
-                <form onSubmit={this.handleNewSubmit}>
+                <div>
                     <div class="inputGroup">
                         <label for="title">Title</label>
                         <input type="text" name="title" id="title"/>
@@ -88,16 +117,34 @@ class AdminContainer extends React.Component {
                         <label for="contactPhone">Contact Phone</label>
                         <input type="tel" name="contactPhone" id="contactPhone"/>
                     </div>
-                </form>
+                    <button onClick={this.handleNewSubmit}>Submit</button>
+                </div>
             </div>
         );
     }
 
     showEmergencies = () => {
-        // TODO : determine how to display all current emergencies, and allow admin
-        // to choose one to update
+        posts = getPosts();
+
+        // TODO : Ensure that each post has an ID that we can use to get single
+        // post from server, as well as update that post
+        
+        const postList = posts.map((post, index) => {
+            return (
+                <div class="input-group input-radio-group">
+                    <input type="radio" name={`post-${index}`} id={`post-${index}`} value={`${post.id}`} onChange={this.handleSelect}/>
+                    <label for={`post-${index}`}>post.title</label>
+                </div>
+            );
+        })
+
         return (
-            <div></div>
+
+            <div>
+                { postList }
+                <button onClick={this.handleSelectPost}>Go</button>
+            </div>
+
         );
     }
 
@@ -105,31 +152,31 @@ class AdminContainer extends React.Component {
         return (
             <div>
                 <p>Update an existing emergency.</p>
-                <form onSubmit={this.handleUpdateSubmit}>
+                <div>
                     <div class="input-group">
                         <label for="update">Update</label>
                         <input type="text" name="update" id="update"/>
                     </div>
-                </form>
+                    <button onClick={this.handleUpdateSubmit}>Submit</button>
+                </div>
             </div>
         );
     }
 
     render() {
-        const newEmergency = this.showNewEmergency();
-        const updateEmergency = this.updateEmergency();
         if (this.state.userData && isAdmin(this.state.userData)) {
             // Render page if user is logged in, and is an admin
             return (
                 <div>
                     <p>Either create a new emergency, or update an existing emergency</p>
                     <div>
-                        <a onClick={this.createNewEmergency}><div>Create New Emergency</div></a>
-                        <a onClick={this.updateEmergency}><div>Update Emergency</div></a>
+                        <button onClick={this.toggleCreateNewEmergency}>Create New Emergency</button>
+                        <button onClick={this.toggleShowEmergencies}>Update Emergency</button>
                     </div>
                     <div>
-                        {this.state.createEmergency && showNewEmergency}
-                        {this.state.updateEmergency && showEmergencies}
+                        {this.state.createEmergency && this.showNewEmergency}
+                        {this.state.showEmergencies && this.showEmergencies}
+                        {this.state.updateEmergency && this.showUpdateEmergency}
                     </div>
                 </div>
             );
