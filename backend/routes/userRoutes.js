@@ -21,10 +21,14 @@ usersRouter.post('/api/user', (req, res) => {
 })
 
 usersRouter.get('/api/user/:id', (req, res) => {
-    db.getById('users', req.params.id).then(user => {
+    db.getById('users', req.params.id)
+    .then(user => {
         delete user.passphrase
         req.user = user[0]
-        return res.json({ user: user[0] })
+        return res.status(201).json({ user: user[0] })
+    })
+    .catch(error => {
+        res.status(501).json({ error })
     })
     //TODO Check why we need this. An Admin should be able to view anyone's profile
     // if (req.user) {

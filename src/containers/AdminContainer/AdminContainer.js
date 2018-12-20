@@ -28,7 +28,8 @@ class AdminContainer extends React.Component {
     }
 
     componentDidMount() {
-        getUser(this.state.userID).then(response => {
+        getUser(this.state.userID)
+        .then(response => {
             if (response['error']) {
                 console.log('Error in response :: ', response['error'])
                 this.setState({
@@ -37,12 +38,22 @@ class AdminContainer extends React.Component {
                 });
             }
             else {
-                this.setState({
-                    ...this.state,
-                    user: response.user
-                });
+                return response.user
             }
-        }).catch(error => {
+        })
+        .then(user => {
+            getPosts()
+            .then(result => {
+                this.setState(previousState => {
+                    return {
+                        ...previousState,
+                        user: user,
+                        posts: result.length > 0 ? result : []
+                    }
+                })
+            })
+        })
+        .catch(error => {
             console.log('Error :: ', error)
             this.setState({
                 ...this.state,
@@ -76,6 +87,7 @@ class AdminContainer extends React.Component {
     }
 
     handleInputChange = (event) => {
+        event.preventDefault()
         const val = event.target.value;
         const name = event.target.name;
         this.setState({
@@ -103,7 +115,6 @@ class AdminContainer extends React.Component {
             contactEmail: this.state.contactEmail,
             contactPhone: this.state.contactPhone,
         }
-
         createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
@@ -131,23 +142,23 @@ class AdminContainer extends React.Component {
                 <div>
                     <div class="inputGroup">
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="title"/>
+                        <input onChange={this.handleInputChange} type="text" name="title" id="title"/>
                     </div>
                     <div class="inputGroup">
                         <label for="description">Description</label>
-                        <input type="text" name="description" id="description"/>
+                        <input onChange={this.handleInputChange} type="text" name="description" id="description"/>
                     </div>
                     <div class="inputGroup">
                         <label for="contactName">Contact Name</label>
-                        <input type="text" name="contactName" id="contactName"/>
+                        <input onChange={this.handleInputChange} type="text" name="contactName" id="contactName"/>
                     </div>
                     <div class="inputGroup">
                         <label for="contactEmail">Contact Email</label>
-                        <input type="email" name="contactEmail" id="contactEmail"/>
+                        <input onChange={this.handleInputChange} type="email" name="contactEmail" id="contactEmail"/>
                     </div>
                     <div class="inputGroup">
                         <label for="contactPhone">Contact Phone</label>
-                        <input type="tel" name="contactPhone" id="contactPhone"/>
+                        <input onChange={this.handleInputChange} type="tel" name="contactPhone" id="contactPhone"/>
                     </div>
                     <button onClick={this.handleNewSubmit}>Submit</button>
                 </div>
@@ -156,16 +167,16 @@ class AdminContainer extends React.Component {
     }
 
     showEmergencies = () => {
-        const posts = getPosts();
+        const { posts } = this.state
 
         // TODO : Ensure that each post has an ID that we can use to get single
         // post from server, as well as update that post
         
         const postList = posts.map((post, index) => {
             return (
-                <div class="input-group input-radio-group">
-                    <input type="radio" name={`post-${index}`} id={`post-${index}`} value={`${post.id}`} onChange={this.handleSelect}/>
-                    <label for={`post-${index}`}>post.title</label>
+                <div key={`post-edit-${index}`} className="input-group input-radio-group">
+                    
+                    { post.title }
                 </div>
             );
         })
@@ -198,6 +209,9 @@ class AdminContainer extends React.Component {
     render() {
         if (this.state.user) {
             // Render page if user is logged in, and is an admin
+            const newEmergencyMockup = this.state.createEmergency ? this.showNewEmergency() : null
+            const emergencyListMockup = this.state.showEmergencies ? this.showEmergencies() : null
+            const updateEmergencyMockup = this.state.updateEmergency ? this.showUpdateEmergency() : null
             return (
                 <div>
                     <p>Either create a new emergency, or update an existing emergency</p>
@@ -206,9 +220,9 @@ class AdminContainer extends React.Component {
                         <button onClick={this.toggleShowEmergencies}>Update Emergency</button>
                     </div>
                     <div>
-                        {this.state.createEmergency && this.showNewEmergency}
-                        {this.state.showEmergencies && this.showEmergencies}
-                        {this.state.updateEmergency && this.showUpdateEmergency}
+                        { newEmergencyMockup }
+                        { emergencyListMockup }
+                        { updateEmergencyMockup }
                     </div>
                 </div>
             );

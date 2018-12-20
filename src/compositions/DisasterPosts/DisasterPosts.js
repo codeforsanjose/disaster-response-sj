@@ -16,11 +16,11 @@ class DisasterPosts extends Component {
                 <h4>{ contactPhone }</h4>
                 <h4>{ contactEmail }</h4>
             </aside>
-            const updatesMarkup = updates.map( (updateText, index) => {
+            const updatesMarkup = updates ? updates.map( (updateText, index) => {
                 return (
                     <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
                 )
-            })
+            }) : []
             return (
                 <div key={ `${title}-${index}` } className='post-details'>
                     <aside className='map'>

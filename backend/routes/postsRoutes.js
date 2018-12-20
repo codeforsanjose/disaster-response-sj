@@ -7,10 +7,9 @@ const postsRouter = Router()
 
 postsRouter.get('/api/posts', (req, res) => {
     db.getAll(posts_db_name).then(result => {
-        console.log('all posts', result, 'posts_db_name', posts_db_name)
         return res.json(result)
     }).catch(error => {
-        console.log('error getting all libraries', error)
+        console.log('error getting all Posts', error)
         return res.status(500).json(error)
     })
 })
