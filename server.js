@@ -15,6 +15,7 @@ import { posts_db_name } from './backend/Utilities/API_utilities'
 import { db } from './backend/lib/db'
 import { init } from './backend/lib/auth'
 import { postsRouter } from './backend/routes/postsRoutes'
+import { usersRouter } from './backend/routes/userRoutes'
 
 const app = express()
 const publicDir = __dirname + '/public'
@@ -27,6 +28,7 @@ app.use('/public', express.static('public'))
 app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 app.use(postsRouter)
+app.use(usersRouter)
 
 init(app)
 
@@ -47,27 +49,6 @@ app.post('/api/login', (req, res, next) => {
     })(req, res, next)
 
 })
-
-app.post('/api/user', (req, res) => {
-    // It is good practice to specifically pick the fields we want to insert here *in the backend*,
-    // even if we have already done so on the front end. This is to prevent malicious users
-    // from adding unexpected fields by modifying the front end JS in the browser.
-    var newUser =  _.pick(req.body, [
-        'name', 'email', 'phone', 'passphrase'])
-    createNewUser(newUser).then(result => {
-        return res.json(result)
-    }).catch(error => {
-        console.log(error)
-        return res.status(522).json(error)
-    })
-})
-
-const createNewUser = (newUser) => {
-    return bcrypt.hash(newUser.passphrase, 10, (err, hash) => {
-        newUser.passphrase = hash
-        return db.insertOne('users', newUser)
-    })
-}
 
 app.listen(app.get('port'), function () {
     console.log('[*] disaster response running on port', app.get('port'))

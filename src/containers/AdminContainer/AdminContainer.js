@@ -1,6 +1,5 @@
 import React from 'react';
-import { isAdmin } from '../../../backend/lib/auth';
-import { createPost, getPosts } from '../../api/api';
+import { createPost, getPosts, getUser } from '../../api/api';
 
 require('./AdminContainer.css');
 
@@ -17,6 +16,39 @@ class AdminContainer extends React.Component {
         createEmergency: false,
         showEmergencies: false,
         updateEmergency: false,
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const userID = props.match.params.id.split(':')[1]
+        const newState = {
+            ...state,
+            userID: userID,
+        }
+        return newState
+    }
+
+    componentDidMount() {
+        getUser(this.state.userID).then(response => {
+            if (response['error']) {
+                console.log('Error in response :: ', response['error'])
+                this.setState({
+                    ...this.state,
+                    error: response['error']
+                });
+            }
+            else {
+                this.setState({
+                    ...this.state,
+                    user: response.user
+                });
+            }
+        }).catch(error => {
+            console.log('Error :: ', error)
+            this.setState({
+                ...this.state,
+                error: error
+            });
+        });
     }
 
     toggleCreateNewEmergency = () => {
@@ -44,10 +76,10 @@ class AdminContainer extends React.Component {
     }
 
     handleInputChange = (event) => {
-        const target = event.target;
-        const name = target.name;
+        const val = event.target.value;
+        const name = event.target.name;
         this.setState({
-            [name]: value,
+            [name]: val,
         });
     }
 
@@ -65,11 +97,11 @@ class AdminContainer extends React.Component {
         event.preventDefault();
 
         const req = {
-            title: this.state[title],
-            description: this.state[description],
-            contactName: this.state[contactName],
-            contactEmail: this.state[contactEmail],
-            contactPhone: this.state[contactPhone],
+            title: this.state.title,
+            description: this.state.description,
+            contactName: this.state.contactName,
+            contactEmail: this.state.contactEmail,
+            contactPhone: this.state.contactPhone,
         }
 
         createPost(req).catch( (error) => {
@@ -83,8 +115,8 @@ class AdminContainer extends React.Component {
         // TODO : Figure out update API
 
         const req = {
-            id: this.state[selectedID],
-            update: this.state[update],
+            id: this.state.selectedID,
+            update: this.state.update,
         }
 
         createPost(req).catch( (error) => {
@@ -124,7 +156,7 @@ class AdminContainer extends React.Component {
     }
 
     showEmergencies = () => {
-        posts = getPosts();
+        const posts = getPosts();
 
         // TODO : Ensure that each post has an ID that we can use to get single
         // post from server, as well as update that post
@@ -164,7 +196,7 @@ class AdminContainer extends React.Component {
     }
 
     render() {
-        if (this.state.userData && isAdmin(this.state.userData)) {
+        if (this.state.user) {
             // Render page if user is logged in, and is an admin
             return (
                 <div>

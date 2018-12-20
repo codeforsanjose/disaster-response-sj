@@ -51,7 +51,7 @@ class LoginComponent extends Component {
         if (this.state.goToProfile && this.state.user) {
             let userData = this.state.user
             let adminComponentDataAndNavBarFunctions = {
-                pathname: `/admin/${userData._id}`,
+                pathname: `/admin:${userData._id}`,
                 state: {
                     userData
                 }
