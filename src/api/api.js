@@ -21,6 +21,16 @@ const makeRequest = (uploadData, method, path, headers = DefaultHeaders) => {
     }
 }
 
+const getUser = (id) => {
+    return makeRequest(undefined, 'GET', `/api/user/${id}`).then(response => {
+        return response.json()
+    }).catch(error => {
+        window.alert('Error retrieving user')
+        console.log(error)
+        return error
+    })
+}
+
 const registerUser = (newUser) => {
     const uploadData = {
         ...newUser
@@ -68,4 +78,5 @@ export {
     getPosts,
     createPost,
     registerUser,
+    getUser,
 }
