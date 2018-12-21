@@ -40,6 +40,7 @@ app.post('/api/login', (req, res, next) => {
     // See: https://github.com/jaredhanson/passport-local
     passport.authenticate('local', (err, user, info) => {
         if (err || !user) {
+            req.user = user
             console.log('error with login:', err, user)
             return res.status(422).json(err)
         }

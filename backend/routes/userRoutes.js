@@ -21,6 +21,7 @@ usersRouter.post('/api/user', (req, res) => {
 })
 
 usersRouter.get('/api/user/:id', (req, res) => {
+    console.log('req is', req.user)
     db.getById('users', req.params.id)
     .then(user => {
         delete user.passphrase

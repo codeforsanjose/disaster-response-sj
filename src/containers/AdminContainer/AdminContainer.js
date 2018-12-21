@@ -30,16 +30,7 @@ class AdminContainer extends React.Component {
     componentDidMount() {
         getUser(this.state.userID)
         .then(response => {
-            if (response['error']) {
-                console.log('Error in response :: ', response['error'])
-                this.setState({
-                    ...this.state,
-                    error: response['error']
-                });
-            }
-            else {
-                return response.user
-            }
+            return response.user
         })
         .then(user => {
             getPosts()
