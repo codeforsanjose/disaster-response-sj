@@ -20,6 +20,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "mongodb": "^3.1.10",
+    "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
@@ -28,14 +29,24 @@
     "react-feather": "^1.1.5",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
-    "react-test-renderer": "^16.6.0"
+    "react-scripts": "^2.1.2",
+    "react-test-renderer": "^16.6.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && nodemon --exec babel-node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
