@@ -18,7 +18,7 @@ class DataBase {
         } else {
             this.url = MongoDBData['mongoData']['productionURL']
         }
-        MongoClient.connect(this.url, (err, dbParam) => {
+        MongoClient.connect(this.url, { useNewUrlParser: true }, (err, dbParam) => {
             assert.equal(null, err)
             console.log('Successfully connected to MongoDB server. ')
             this.db = dbParam.db('DisasterResponse')
