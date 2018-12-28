@@ -11,6 +11,7 @@ class LoginComponent extends Component {
     state = {
         email: '',
         passphrase: '',
+        error: '',
     }
 
     handleField = (event, fieldName) => {
@@ -34,15 +35,19 @@ class LoginComponent extends Component {
                 })
             }
             else {
-                window.alert('Error logging in please try again')
                 this.setState({
                     email: this.state.email,
-                    passphrase: ''
+                    passphrase: '',
+                    error: 'Error logging in please try again',
                 })
             }
         }).catch( (error) => {
             console.log('Error in login', error)
-            window.alert('Error logging in please try again')
+            this.setState({
+                email: this.state.email,
+                passphrase: '',
+                error: 'Error logging in please try again',
+            })
         })
     }
 
@@ -59,6 +64,9 @@ class LoginComponent extends Component {
                 <Redirect to={adminComponentDataAndNavBarFunctions} />
             )
         }
+        const error = this.state.error !== ''
+            ? <div className='error'>{ this.state.error }</div>
+            : null
         return (
             <div className='LoginComponent'>
                 <section className='email'>
@@ -80,7 +88,9 @@ class LoginComponent extends Component {
                         onChange={e => this.handleField(e, 'passphrase')}
                     />
                 </section>
+                
                 <button className='login' onClick={e => this.handleSubmit(e)} >login</button>
+                { error }
             </div>
         )
     }

@@ -2,11 +2,13 @@ import React from 'react'
 import moment from 'moment'
 import { createPost, getPosts, getUser } from '../../api/api'
 import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
+import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
+import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
+import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
 
 require('./AdminContainer.css')
 
 class AdminContainer extends React.Component {
-
     state = {
         title: '',
         description: '',
@@ -17,9 +19,8 @@ class AdminContainer extends React.Component {
         contactPhone: '',
         update: '',
         selectedID: '',
-        createEmergency: false,
-        showEmergencies: false,
-        updateEmergency: false,
+        tabIndex: 0,
+        tabs: ['Create Post', 'Update Existing Post'],
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -57,30 +58,6 @@ class AdminContainer extends React.Component {
         });
     }
 
-    toggleCreateNewEmergency = () => {
-        this.setState({
-            createEmergency: true,
-            updateEmergency: false,
-            showEmergencies: false,
-        });
-    }
-    
-    toggleShowEmergencies = () => {
-        this.setState({
-            createEmergency: false,
-            updateEmergency: false,
-            showEmergencies: true,
-        });
-    }
-
-    toggleUpdateEmergency = () => {
-        this.setState({
-            createEmergency: false,
-            updateEmergency: true,
-            showEmergencies: false,
-        });
-    }
-
     handleInputChange = (event) => {
         event.preventDefault()
         const val = event.target.value;
@@ -97,6 +74,7 @@ class AdminContainer extends React.Component {
         const updateItems = this.state.updateItem !== '' 
             ? [...this.state.updates, updatedItem]
             : this.state.updates
+
         this.setState({
             ...this.state,
             updateItem: '',
@@ -157,80 +135,29 @@ class AdminContainer extends React.Component {
             console.log('Error creating post', error);
         });
     }
-
-    getAddressMarkup = (addressDetails = {}) => {
-        return (
-            <section class='address-details'>
-                <h3>Address of Disaster</h3>
-                <label htmlFor='addressLine1'>Address Line 1:</label>
-                <input onChange={this.handleInputChange} type='text' name='addressLine1' id='addressLine1'/>
-                <label htmlFor='addressLine2'>Address Line 2:</label>
-                <input onChange={this.handleInputChange} type='text' name='addressLine2' id='addressLine2'/>
-                <label htmlFor='zipcode'>Zipcode:</label>
-                <input onChange={this.handleInputChange} type='text' name='zipcode' id='zipcode'/>
-                <label htmlFor='logitude'>Logitude:</label>
-                <input onChange={this.handleInputChange} type='number' name='logitude' id='logitude'/>
-                <label htmlFor='latitude'>Latitude:</label>
-                <input onChange={this.handleInputChange} type='number' name='latitude' id='latitude'/>
-            </section>
-        )
-    }
-    contactDetailsMarkup = (contactDetails = {}) => {
-        return (
-            <section className='contact-details'>
-                <h3>Spotter Contact</h3>
-                <label htmlFor='contactName'>Name</label>
-                <input onChange={this.handleInputChange} type='text' name='contactName' id='contactName'/>
-                <label htmlFor='contactEmail'>Email</label>
-                <input onChange={this.handleInputChange} type='email' name='contactEmail' id='contactEmail'/>
-                <label htmlFor='contactPhone'>Phone</label>
-                <input onChange={this.handleInputChange} type='tel' name='contactPhone' id='contactPhone'/>
-            </section>
-        )
-    }
     
-    postInformationDetails = (informDetails = {}) => {
-        const updatesMarkup = this.state.updates.length > 0
-            ? this.state.updates.map(item => {
-                return (
-                    <span className='update-item'>{ item }</span>
-                )
-            })
-            : null
-        return (
-            <section className='inform-details'>
-                <label htmlFor='title'>Title</label>
-                <input onChange={this.handleInputChange} type='text' name='title' id='title'/>
-                <label htmlFor='description'>Description</label>
-                <textarea onChange={this.handleInputChange} type='text' name='description' id='description'></textarea>
-                <label htmlFor='updates'>Notes</label>
-                <input onChange={this.handleUpdatesField} type='text' name='updates' id='updates'/>
-                <button className='add-update-item' onClick={ this.handleAddUpdateItem }>+</button>
-                { updatesMarkup }
-            </section>
-        )
-    }
     showNewEmergency = () => {
-        const addressMarkup = this.getAddressMarkup()
-        const contactMarkup = this.contactDetailsMarkup()
-        const infoMarkup = this.postInformationDetails()
+        const addressMarkup = getAddressMarkup({}, this.handleInputChange)
+
+        const contactData = {
+            contactEmail: this.state.contactEmail,
+            contactName: this.state.contactName,
+            contactPhone: this.state.contactPhone,
+        }
+        const contactMarkup = contactDetailsMarkup(contactData, this.handleInputChange)
+        const infoMarkup = postInformationDetails(this.state, this.handleUpdatesField, this.handleAddUpdateItem)
         return (
             <div className='create-post-container'>
-                <p>Report a new emergency. Make sure all details are correct before publishing.</p>
                 { infoMarkup }
                 { addressMarkup }
                 { contactMarkup }
-                <button onClick={this.handleNewSubmit}>Submit</button>
+                <hr />
+                <button className='submit-post' onClick={this.handleNewSubmit}>Submit</button>
             </div>
         );
     }
 
-    showEmergencies = () => {
-        const { posts } = this.state
-
-        // TODO : Ensure that each post has an ID that we can use to get single
-        // post from server, as well as update that post
-        
+    showEmergencies = (posts) => {
         const postList = posts.map((post, index) => {
             return (
                 <div key={`post-edit-${index}`} className='input-group input-radio-group'>
@@ -241,12 +168,10 @@ class AdminContainer extends React.Component {
         })
 
         return (
-
             <div>
-                <DisasterPosts posts={ posts } />
-                <button onClick={this.handleSelectPost}>Go</button>
+                <DisasterPosts edit={ true } posts={ posts } />
+                <button onClick={ this.handleSelectPost }>Go</button>
             </div>
-
         );
     }
 
@@ -265,23 +190,50 @@ class AdminContainer extends React.Component {
         );
     }
 
+    handleTabSelect = (index) => {
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                tabIndex: index,
+            }
+        })
+    }
+
+    getActiveTab = (tabIndex, posts) => {
+        switch(tabIndex) {
+            case 0: {
+                return this.showNewEmergency()
+            }
+            case 1: {
+                return this.showEmergencies(posts)
+            }
+            default: {
+                return this.showNewEmergency()
+            }
+        }
+    }
+
     render() {
         if (this.state.user) {
             // Render page if user is logged in, and is an admin
-            const newEmergencyMockup = this.state.createEmergency ? this.showNewEmergency() : null
-            const emergencyListMockup = this.state.showEmergencies ? this.showEmergencies() : null
-            const updateEmergencyMockup = this.state.updateEmergency ? this.showUpdateEmergency() : null
+            const { posts, tabs, tabIndex } = this.state
+            const adminNavigation = tabs.map( (tab, index) => {
+                const active = index === tabIndex ? 'active': ''
+                return (
+                    <span key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className={`tab-item ${active}`}>{ tab }</span>
+                )
+            })
+            const tabNavContainer = (
+                <div className='admin-tabs'>
+                    { adminNavigation }
+                </div>
+            )
+            let activeTab = this.getActiveTab(tabIndex, posts)
+            
             return (
                 <div className='AdminContainer'>
-                    <div className='admin-tabs'>
-                        <a className='tab-item' onClick={this.toggleCreateNewEmergency}>Create New Emergency</a>
-                        <a className='tab-item' onClick={this.toggleShowEmergencies}>Update Emergency</a>
-                    </div>
-                    <div>
-                        { newEmergencyMockup }
-                        { emergencyListMockup }
-                        { updateEmergencyMockup }
-                    </div>
+                    { tabNavContainer }
+                    { activeTab }
                 </div>
             );
         } else {

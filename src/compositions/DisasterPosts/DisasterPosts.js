@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { XCircle, Map } from 'react-feather'
+
+import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
+import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
+import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+
 import './DisasterPosts.css'
 
 class DisasterPosts extends Component {
@@ -26,29 +31,27 @@ class DisasterPosts extends Component {
                     contactEmail,
                     contactPhone } = post
 
-            const contactDetailsMarkup = <aside className='contact-details'>
-                <h4>{ contactName }</h4>
-                <h4>{ contactPhone }</h4>
-                <h4>{ contactEmail }</h4>
+            const markup = contactDetailsMarkup(post)
+            const contactDetails = <aside className='contact-details'>
+                { markup }
             </aside>
             const updatesMarkup = updates ? updates.map( (updateText, index) => {
                 return (
                     <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
                 )
             }) : []
+            const addressDetails = getAddressMarkup(post)
+            const postInfoMarkup = postInformationDetails(post)
             return (
                 <div key={ `${title}-${index}` } className='post-details' onClick={ (e) => this.openPostModal(post) }>
                     <aside className='map'>
                         <Map size={ 100 } />
+                        { addressDetails }
                     </aside>
                     <section className='disaster-details'>
-                        <h4 className='title'>{ title }</h4>
-                        <h6 className='description'>{ description }</h6>
-                        <section className='updates-list'>
-                            { updatesMarkup }
-                        </section>
+                        { postInfoMarkup }
                     </section>
-                    { contactDetailsMarkup }
+                    { contactDetails }
                 </div>
             )
         })
@@ -66,6 +69,45 @@ class DisasterPosts extends Component {
     }
 
     getModalDetails = () => {
+        const { title,
+            description,
+            updates,
+            contactName,
+            contactEmail,
+            contactPhone } = this.state.selectedPost
+        const post = this.state.selectedPost
+
+        const markup = contactDetailsMarkup(post)
+        const contactDetails = <aside className='contact-details'>
+            { markup }
+        </aside>
+        const updatesMarkup = updates ? updates.map( (updateText, index) => {
+            return (
+                <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
+            )
+        }) : []
+        const addressDetails = getAddressMarkup(post)
+        const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
+        return (
+            <div className='modal-details'>
+                { closeButton }
+                <aside className='map'>
+                    <Map size={ 100 } />
+                    { addressDetails }
+                </aside>
+                <section className='disaster-details'>
+                    <h4 className='title'>{ title }</h4>
+                    <h6 className='description'>{ description }</h6>
+                    <section className='updates-list'>
+                        { updatesMarkup }
+                    </section>
+                </section>
+                { contactDetails }
+            </div>
+        )
+    }
+
+    getEditModalDetails = () => {
         const { title,
             description,
             updates,

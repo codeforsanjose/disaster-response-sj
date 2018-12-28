@@ -4,7 +4,7 @@
 
 .AdminContainer .admin-tabs {
     display: grid;
-    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
 }
 
@@ -28,10 +28,26 @@
     width: 60%;
     margin: auto;
 }
+
+.AdminContainer .create-post-container .submit-post {
+    width: fit-content;
+    height: fit-content;
+    font-size: 36px;
+}
+
 .AdminContainer .create-post-container .inform-details {
     text-align: left;
     display: grid;
+    gap: 30px;
     width: fit-content;
+}
+
+.AdminContainer .create-post-container .inform-details .post-updates {
+
+}
+
+.AdminContainer .create-post-container .inform-details .post-updates .add-update-item {
+   display: inline-block;
 }
 .AdminContainer .create-post-container .contact-details {
     text-align: left;
