@@ -47,8 +47,9 @@ class MainContainer extends Component {
     render() {
         const { posts, tabs, tabIndex } = this.state
         const inAppNavigation = tabs.map( (tab, index) => {
+            const active = index === tabIndex ? 'active': ''
             return (
-                <span key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className='tabItem'>{ tab }</span>
+                <span key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className={`tabItem ${active}`}>{ tab }</span>
             )
         })
         const tabNavContainer = (

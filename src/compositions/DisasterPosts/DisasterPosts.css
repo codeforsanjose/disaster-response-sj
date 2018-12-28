@@ -1,10 +1,14 @@
-.DisasterPostsContainer {
-
+.DisasterPosts {
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 30px 0;
+    padding: 60px;
 }
 
 .DisasterPosts .post-details {
-    border-bottom: solid 1px #4c4c4c;
+    border: solid 1px #bcbcbc;
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
     grid-template-areas: 
         'map-area disaster-details-area contact-details-area'
 }
@@ -15,16 +19,14 @@
 
 .DisasterPosts .post-details .map {
     grid-area: map-area;
-    border-right: 1px solid #4c4c4c;
+    border-right: 1px solid #bcbcbc;
 }
 
 .DisasterPosts .post-details .disaster-details {
     grid-area: disaster-details-area;
-    border-right: 1px solid #4c4c4c;
-}
-
-.DisasterPosts .post-details .disaster-details .updates-list {
-    width: 400px;
+    border-right: 1px solid #bcbcbc;
+    text-align: left;
+    padding: 10px;
 }
 
 .DisasterPosts .post-details .disaster-details .title {
@@ -34,5 +36,44 @@
 
 .DisasterPosts .post-details .disaster-details .description {
     font-size: 20px;
-    margin: 0;
+    width: 60%;
+}
+
+.DisasterPosts .post-details .disaster-details .updates-list {
+    width: 50%;
+}
+
+.DisasterPosts .modal-details {
+    display: block;
+    position: relative;
+    margin: auto;
+    z-index: 6;
+    width: 60%;
+    height: fit-content;
+    background-color: white;
+    text-align: center;
+}
+
+.DisasterPosts .modal-details .map {
+    display: block;
+    margin: auto;
+    width: fit-content;
+    background-color: rgb(30, 0, 30, 0.6);
+}
+
+.DisasterPosts .modal-details .close-button {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 16px;
+}
+
+.DisasterPosts .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(30, 30, 30, 0.6);
+    z-index: 5;
 }
