@@ -74,9 +74,7 @@ class MainContainer extends Component {
         return (
             <div className='MainContainer'>
                 { tabNavContainer }
-                <hr />
                 { activeTab }
-                
             </div>
         )
     }

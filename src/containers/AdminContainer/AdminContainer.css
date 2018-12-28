@@ -1,0 +1,48 @@
+.AdminContainer {
+
+}
+
+.AdminContainer .admin-tabs {
+    display: grid;
+    grid-auto-columns: 1fr;
+    gap: 40px;
+}
+
+.AdminContainer .admin-tabs .tab-item {
+    cursor: pointer;
+    font-size: 24px;
+
+}
+
+.AdminContainer .admin-tabs .active {
+    text-decoration: underline;
+}
+
+.AdminContainer .admin-tabs .tab-item:hover {
+    color: rgb(0, 100, 200);
+}
+
+.AdminContainer .create-post-container {
+    display: grid;
+    grid-auto-rows: 1fr;
+    width: 60%;
+    margin: auto;
+}
+.AdminContainer .create-post-container .inform-details {
+    text-align: left;
+    display: grid;
+    width: fit-content;
+}
+.AdminContainer .create-post-container .contact-details {
+    text-align: left;
+    display: grid;
+    width: fit-content;
+}
+
+
+.AdminContainer .create-post-container .address-details {
+    text-align: left;
+    display: grid;
+    width: fit-content;
+}
+

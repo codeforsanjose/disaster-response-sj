@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import LogoComponent from '../../components/Logo/LogoComponent'
 
 import { login } from '../../api/api'
 import {
@@ -61,16 +60,27 @@ class LoginComponent extends Component {
             )
         }
         return (
-            <div>
-                <div>
-                    <input type="text" name="email" value={this.state.email} onChange={e => this.handleField(e, 'email')} />
-                </div>
-                <div>
-                    <input type="password" name="passphrase" value={this.state.passphrase} onChange={e => this.handleField(e, 'passphrase')} />
-                </div>
-                <div>
-                    <button className="appButton" onClick={e => this.handleSubmit(e)} >login</button>
-                </div>
+            <div className='LoginComponent'>
+                <section className='email'>
+                    <label htmlFor='email'>Email:</label>
+                    <input
+                        type='email'
+                        id='email'
+                        name='email'
+                        value={this.state.email}
+                        onChange={e => this.handleField(e, 'email')}
+                    />
+                </section>
+                <section className='passphrase'>
+                    <label htmlFor='passphrase'>Passphrase:</label>
+                    <input
+                        type='password'
+                        name='passphrase'
+                        value={this.state.passphrase}
+                        onChange={e => this.handleField(e, 'passphrase')}
+                    />
+                </section>
+                <button className='login' onClick={e => this.handleSubmit(e)} >login</button>
             </div>
         )
     }

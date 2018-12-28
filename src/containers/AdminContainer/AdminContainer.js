@@ -1,13 +1,17 @@
-import React from 'react';
-import { createPost, getPosts, getUser } from '../../api/api';
+import React from 'react'
+import moment from 'moment'
+import { createPost, getPosts, getUser } from '../../api/api'
+import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 
-require('./AdminContainer.css');
+require('./AdminContainer.css')
 
 class AdminContainer extends React.Component {
 
     state = {
         title: '',
         description: '',
+        updates: [],
+        updateItem: '',
         contactName: '',
         contactEmail: '',
         contactPhone: '',
@@ -86,10 +90,32 @@ class AdminContainer extends React.Component {
         });
     }
 
+    handleAddUpdateItem = (event) => {
+        event.preventDefault()
+        const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
+        const updatedItem = `${timestamp} - ${this.state.updateItem}`
+        const updateItems = this.state.updateItem !== '' 
+            ? [...this.state.updates, updatedItem]
+            : this.state.updates
+        this.setState({
+            ...this.state,
+            updateItem: '',
+            updates: updateItems,
+        });
+    }
+
+    handleUpdatesField = (event) => {
+        event.preventDefault()
+        const val = event.target.value;
+        this.setState({
+            updateItem: val,
+        })
+    }
+
     handleSelect = (event) => {
         this.setState({
             selectedID: event.target.value
-        });
+        })
     }
 
     handleSelectPost = () => {
@@ -105,6 +131,12 @@ class AdminContainer extends React.Component {
             contactName: this.state.contactName,
             contactEmail: this.state.contactEmail,
             contactPhone: this.state.contactPhone,
+            updates: this.state.updates,
+            logitude: this.state.logitude,
+            latitude: this.state.latitude,
+            addressLine1: this.state.addressLine1,
+            addressLine2: this.state.addressLine2,
+            zipcode: this.state.zipcode,
         }
         createPost(req).catch( (error) => {
             console.log('Error creating post', error);
@@ -126,33 +158,69 @@ class AdminContainer extends React.Component {
         });
     }
 
-    showNewEmergency = () => {
+    getAddressMarkup = (addressDetails = {}) => {
         return (
-            <div>
+            <section class='address-details'>
+                <h3>Address of Disaster</h3>
+                <label htmlFor='addressLine1'>Address Line 1:</label>
+                <input onChange={this.handleInputChange} type='text' name='addressLine1' id='addressLine1'/>
+                <label htmlFor='addressLine2'>Address Line 2:</label>
+                <input onChange={this.handleInputChange} type='text' name='addressLine2' id='addressLine2'/>
+                <label htmlFor='zipcode'>Zipcode:</label>
+                <input onChange={this.handleInputChange} type='text' name='zipcode' id='zipcode'/>
+                <label htmlFor='logitude'>Logitude:</label>
+                <input onChange={this.handleInputChange} type='number' name='logitude' id='logitude'/>
+                <label htmlFor='latitude'>Latitude:</label>
+                <input onChange={this.handleInputChange} type='number' name='latitude' id='latitude'/>
+            </section>
+        )
+    }
+    contactDetailsMarkup = (contactDetails = {}) => {
+        return (
+            <section className='contact-details'>
+                <h3>Spotter Contact</h3>
+                <label htmlFor='contactName'>Name</label>
+                <input onChange={this.handleInputChange} type='text' name='contactName' id='contactName'/>
+                <label htmlFor='contactEmail'>Email</label>
+                <input onChange={this.handleInputChange} type='email' name='contactEmail' id='contactEmail'/>
+                <label htmlFor='contactPhone'>Phone</label>
+                <input onChange={this.handleInputChange} type='tel' name='contactPhone' id='contactPhone'/>
+            </section>
+        )
+    }
+    
+    postInformationDetails = (informDetails = {}) => {
+        const updatesMarkup = this.state.updates.length > 0
+            ? this.state.updates.map(item => {
+                return (
+                    <span className='update-item'>{ item }</span>
+                )
+            })
+            : null
+        return (
+            <section className='inform-details'>
+                <label htmlFor='title'>Title</label>
+                <input onChange={this.handleInputChange} type='text' name='title' id='title'/>
+                <label htmlFor='description'>Description</label>
+                <textarea onChange={this.handleInputChange} type='text' name='description' id='description'></textarea>
+                <label htmlFor='updates'>Notes</label>
+                <input onChange={this.handleUpdatesField} type='text' name='updates' id='updates'/>
+                <button className='add-update-item' onClick={ this.handleAddUpdateItem }>+</button>
+                { updatesMarkup }
+            </section>
+        )
+    }
+    showNewEmergency = () => {
+        const addressMarkup = this.getAddressMarkup()
+        const contactMarkup = this.contactDetailsMarkup()
+        const infoMarkup = this.postInformationDetails()
+        return (
+            <div className='create-post-container'>
                 <p>Report a new emergency. Make sure all details are correct before publishing.</p>
-                <div>
-                    <div class="inputGroup">
-                        <label for="title">Title</label>
-                        <input onChange={this.handleInputChange} type="text" name="title" id="title"/>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="description">Description</label>
-                        <input onChange={this.handleInputChange} type="text" name="description" id="description"/>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="contactName">Contact Name</label>
-                        <input onChange={this.handleInputChange} type="text" name="contactName" id="contactName"/>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="contactEmail">Contact Email</label>
-                        <input onChange={this.handleInputChange} type="email" name="contactEmail" id="contactEmail"/>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="contactPhone">Contact Phone</label>
-                        <input onChange={this.handleInputChange} type="tel" name="contactPhone" id="contactPhone"/>
-                    </div>
-                    <button onClick={this.handleNewSubmit}>Submit</button>
-                </div>
+                { infoMarkup }
+                { addressMarkup }
+                { contactMarkup }
+                <button onClick={this.handleNewSubmit}>Submit</button>
             </div>
         );
     }
@@ -165,7 +233,7 @@ class AdminContainer extends React.Component {
         
         const postList = posts.map((post, index) => {
             return (
-                <div key={`post-edit-${index}`} className="input-group input-radio-group">
+                <div key={`post-edit-${index}`} className='input-group input-radio-group'>
                     
                     { post.title }
                 </div>
@@ -175,7 +243,7 @@ class AdminContainer extends React.Component {
         return (
 
             <div>
-                { postList }
+                <DisasterPosts posts={ posts } />
                 <button onClick={this.handleSelectPost}>Go</button>
             </div>
 
@@ -187,9 +255,9 @@ class AdminContainer extends React.Component {
             <div>
                 <p>Update an existing emergency.</p>
                 <div>
-                    <div class="input-group">
-                        <label for="update">Update</label>
-                        <input type="text" name="update" id="update"/>
+                    <div class='input-group'>
+                        <label htmlFor='update'>Update</label>
+                        <input type='text' name='update' id='update'/>
                     </div>
                     <button onClick={this.handleUpdateSubmit}>Submit</button>
                 </div>
@@ -204,11 +272,10 @@ class AdminContainer extends React.Component {
             const emergencyListMockup = this.state.showEmergencies ? this.showEmergencies() : null
             const updateEmergencyMockup = this.state.updateEmergency ? this.showUpdateEmergency() : null
             return (
-                <div>
-                    <p>Either create a new emergency, or update an existing emergency</p>
-                    <div>
-                        <button onClick={this.toggleCreateNewEmergency}>Create New Emergency</button>
-                        <button onClick={this.toggleShowEmergencies}>Update Emergency</button>
+                <div className='AdminContainer'>
+                    <div className='admin-tabs'>
+                        <a className='tab-item' onClick={this.toggleCreateNewEmergency}>Create New Emergency</a>
+                        <a className='tab-item' onClick={this.toggleShowEmergencies}>Update Emergency</a>
                     </div>
                     <div>
                         { newEmergencyMockup }
