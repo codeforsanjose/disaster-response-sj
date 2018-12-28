@@ -43,7 +43,22 @@ class MainContainer extends Component {
             }
         })
     }
+    getActiveTab = (tabIndex, posts) => {
+        switch(tabIndex) {
+            case 0: {
+                return <DisasterPosts posts={ posts } />
+            }
+            case 1: {
+                return <InformationalResources />
+            }
+            case 2: {
+                return <FEMAChecklist />
+            }
+            default: {
 
+            }
+        }
+    }
     render() {
         const { posts, tabs, tabIndex } = this.state
         const inAppNavigation = tabs.map( (tab, index) => {
@@ -57,27 +72,12 @@ class MainContainer extends Component {
                 { inAppNavigation }
             </div>
         )
-        let activeTab = {}
-        switch(tabIndex) {
-            case 0: {
-                activeTab = <DisasterPosts posts={ posts } />
-                break
-            }
-            case 1: {
-                activeTab = <InformationalResources />
-                break
-            }
-            case 2: {
-                activeTab = <FEMAChecklist />
-                break
-            }
-        }
+        let activeTab = this.getActiveTab(tabIndex, posts)
+        
         return (
             <div className='MainContainer'>
                 { tabNavContainer }
-                <hr />
                 { activeTab }
-                
             </div>
         )
     }
