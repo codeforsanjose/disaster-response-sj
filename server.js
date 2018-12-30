@@ -21,7 +21,7 @@ const app = express()
 const publicDir = __dirname + '/public'
 
 app.use(bodyParser({limit: '4MB'}))
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 app.set('port', process.env.PORT || 8080)
 app.use(cors())
 app.use('/public', express.static('public'))

@@ -71,6 +71,10 @@ class MainContainer extends Component {
                 activeTab = <FEMAChecklist />
                 break
             }
+            default: {
+                activeTab = <DisasterPosts posts={ posts } />
+                break
+            }
         }
         return (
             <div className='MainContainer'>

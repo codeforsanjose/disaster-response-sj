@@ -34,7 +34,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
-    "start": "npm run startFrontend & npm run startBackend",
+    "start": "react-scripts start",
     "startFrontend": "react-scripts start",
     "startBackend": "nodemon --exec babel-node server.js",
     "build": "react-scripts build",

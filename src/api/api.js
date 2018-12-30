@@ -2,17 +2,24 @@ const DefaultHeaders = {
     'Accept': 'application/json, text/plain, */*',
     'Content-Type': 'application/json',
 }
+const baseURL = process.env.NODE_ENV === 'production'
+    ? 'http://disasterresponse-dev.us-west-1.elasticbeanstalk.com'
+    : '';
+
 
 const makeRequest = (uploadData, method, path, headers = DefaultHeaders) => {
+    console.log('what is base url', baseURL)
+    const fullURL = `${baseURL}${path}`
+    console.log('what is fullURL', fullURL)
     if (method === 'GET') {
-        return fetch(path, {
+        return fetch(fullURL, {
             method: method,
             headers: headers,
             credentials: 'include'
         })
     }
     else {
-        return fetch(path, {
+        return fetch(fullURL, {
             method: method,
             headers: headers,
             credentials: 'include',
