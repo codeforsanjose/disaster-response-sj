@@ -32,7 +32,6 @@ const getUser = (id) => {
     return makeRequest(undefined, 'GET', `/api/user/${id}`).then(response => {
         return response.json()
     }).catch(error => {
-        window.alert('Error retrieving user')
         console.log(error)
         return error
     })
