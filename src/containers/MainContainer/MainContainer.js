@@ -55,8 +55,8 @@ class MainContainer extends Component {
                 return <FEMAChecklist />
             }
             default: {
-                activeTab = <DisasterPosts posts={ posts } />
-                break
+                return <DisasterPosts posts={ posts } />
+                
             }
         }
     }
