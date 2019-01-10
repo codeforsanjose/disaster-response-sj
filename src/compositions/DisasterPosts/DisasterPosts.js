@@ -4,7 +4,7 @@ import { XCircle, Map } from 'react-feather'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
-
+import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './DisasterPosts.css'
 
 class DisasterPosts extends Component {
@@ -46,6 +46,7 @@ class DisasterPosts extends Component {
                 <div key={ `${title}-${index}` } className='post-details' onClick={ (e) => this.openPostModal(post) }>
                     <aside className='map'>
                         <Map size={ 100 } />
+                        
                         { addressDetails }
                     </aside>
                     <section className='disaster-details'>
@@ -93,6 +94,7 @@ class DisasterPosts extends Component {
                 { closeButton }
                 <aside className='map'>
                     <Map size={ 100 } />
+                    <MapDisplay />
                     { addressDetails }
                 </aside>
                 <section className='disaster-details'>
