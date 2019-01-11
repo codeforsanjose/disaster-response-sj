@@ -3,9 +3,11 @@ import React from 'react'
 const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHandler = null) => {
     const {
         updates,
+        updateItem,
         title,
         description,
     } = informDetails
+    
     const updatesMarkup = updates && updates.length > 0
         ? updates.map(item => {
             return (
@@ -18,8 +20,8 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
     const updatesAddButtonMarkup = buttonHandler ? <button className='add-update-item' onClick={ buttonHandler }>+</button> : null
     const addNotesMarkup = buttonHandler ? (
         <section className='post-updates'>
-            <label htmlFor='updates'>Notes</label>
-            <input onChange={handler} type='text' name='updates' id='updates'/>
+            <label htmlFor='updateItem'>Notes</label>
+            <input onChange={handler} value = { updateItem } type='text' name='updateItem' id='updateItem'/>
             { updatesAddButtonMarkup }
         </section>
         )

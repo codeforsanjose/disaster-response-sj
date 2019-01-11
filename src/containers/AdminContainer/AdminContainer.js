@@ -17,6 +17,8 @@ class AdminContainer extends React.Component {
         contactName: '',
         contactEmail: '',
         contactPhone: '',
+        longitude: '',
+        latitude:'',
         update: '',
         selectedID: '',
         tabIndex: 0,
@@ -82,14 +84,6 @@ class AdminContainer extends React.Component {
         });
     }
 
-    handleUpdatesField = (event) => {
-        event.preventDefault()
-        const val = event.target.value;
-        this.setState({
-            updateItem: val,
-        })
-    }
-
     handleSelect = (event) => {
         this.setState({
             selectedID: event.target.value
@@ -110,7 +104,7 @@ class AdminContainer extends React.Component {
             contactEmail: this.state.contactEmail,
             contactPhone: this.state.contactPhone,
             updates: this.state.updates,
-            logitude: this.state.logitude,
+            longitude: this.state.longitude,
             latitude: this.state.latitude,
             addressLine1: this.state.addressLine1,
             addressLine2: this.state.addressLine2,
@@ -144,8 +138,8 @@ class AdminContainer extends React.Component {
             contactName: this.state.contactName,
             contactPhone: this.state.contactPhone,
         }
-        const contactMarkup = contactDetailsMarkup(contactData, this.handleInputChange)
-        const infoMarkup = postInformationDetails(this.state, this.handleUpdatesField, this.handleAddUpdateItem)
+        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange)
+        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem)
         return (
             <div className='create-post-container'>
                 { infoMarkup }
@@ -161,7 +155,6 @@ class AdminContainer extends React.Component {
         const postList = posts.map((post, index) => {
             return (
                 <div key={`post-edit-${index}`} className='input-group input-radio-group'>
-                    
                     { post.title }
                 </div>
             );
