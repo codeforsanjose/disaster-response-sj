@@ -29,7 +29,7 @@ app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 app.use(postsRouter)
 app.use(usersRouter)
-
+app.use(cors({ origin: /\.amazonaws\.com$/ }))
 init(app)
 
 app.get(['/', '/login'], (req, res) => {
