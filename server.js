@@ -18,18 +18,18 @@ import { postsRouter } from './backend/routes/postsRoutes'
 import { usersRouter } from './backend/routes/userRoutes'
 
 const app = express()
-const publicDir = __dirname + '/public'
+const publicDir = __dirname + '/build'
 
 app.use(bodyParser({limit: '4MB'}))
 app.use(bodyParser.json())
 app.set('port', process.env.PORT || 8080)
 app.use(cors())
-app.use('/public', express.static('public'))
+app.use('/build', express.static('public'))
 app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 app.use(postsRouter)
 app.use(usersRouter)
-app.use(cors({ origin: /\.elasticbeanstalk\.com$/ }))
+app.use(cors({ origin: /elasticbeanstalk\.com$/ }))
 init(app)
 
 app.get(['/', '/login'], (req, res) => {
