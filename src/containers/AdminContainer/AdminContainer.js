@@ -110,6 +110,7 @@ class AdminContainer extends React.Component {
             addressLine2: this.state.addressLine2,
             zipcode: this.state.zipcode,
         }
+
         createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
@@ -138,8 +139,8 @@ class AdminContainer extends React.Component {
             contactName: this.state.contactName,
             contactPhone: this.state.contactPhone,
         }
-        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange)
-        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem)
+        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange, true)
+        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem, true)
         return (
             <div className='create-post-container'>
                 { infoMarkup }

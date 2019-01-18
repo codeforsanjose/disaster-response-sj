@@ -4,6 +4,7 @@ import { XCircle, Map } from 'react-feather'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+
 import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './DisasterPosts.css'
 
@@ -77,8 +78,10 @@ class DisasterPosts extends Component {
             contactEmail,
             contactPhone } = this.state.selectedPost
         const post = this.state.selectedPost
+        const isEditMode = this.props.edit
+        console.log('isEditMOde', isEditMode, this.props.edit)
 
-        const markup = contactDetailsMarkup(post)
+        const markup = contactDetailsMarkup(post, isEditMode)
         const contactDetails = <aside className='contact-details'>
             { markup }
         </aside>
@@ -87,13 +90,12 @@ class DisasterPosts extends Component {
                 <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
             )
         }) : []
-        const addressDetails = getAddressMarkup(post)
+        const addressDetails = getAddressMarkup(post, isEditMode)
         const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
         return (
             <div className='modal-details'>
                 { closeButton }
                 <aside className='map'>
-                    <Map size={ 100 } />
                     <MapDisplay />
                     { addressDetails }
                 </aside>

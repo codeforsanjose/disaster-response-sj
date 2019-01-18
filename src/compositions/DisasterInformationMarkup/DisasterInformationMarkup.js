@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHandler = null) => {
+import './DisasterInformationMarkup.css'
+
+const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHandler = null, edit = false) => {
     const {
         updates,
         updateItem,
         title,
         description,
     } = informDetails
-    
+
     const updatesMarkup = updates && updates.length > 0
         ? updates.map(item => {
             return (
@@ -16,7 +18,6 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
         })
         : null
 
-    
     const updatesAddButtonMarkup = buttonHandler ? <button className='add-update-item' onClick={ buttonHandler }>+</button> : null
     const addNotesMarkup = buttonHandler ? (
         <section className='post-updates'>
@@ -26,8 +27,53 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
         </section>
         )
         : null
-    return (
+    const editPostDetailsMarkup = (
         <section className='inform-details'>
+            <section className='title'>
+                <label htmlFor='title'>title:</label>
+                <input onChange={handler} value={ title } type='text' name='title' id='title'/>
+            </section>
+            <section className='description'>
+                <label htmlFor='description'>Description:</label>
+                <textarea onChange={handler} value={ description } type='text' name='description' id='description'></textarea>
+            </section>
+            <section className='post-updates'>
+                <label htmlFor='updateItem'>Notes</label>
+                <input onChange={handler} value = { updateItem } type='text' name='updateItem' id='updateItem'/>
+                { updatesAddButtonMarkup }
+            </section>
+            
+        </section>
+    )
+
+    const postDetailsMarkup = (
+        <section className='inform-details'>
+            <section className='title'>
+                <span>{ title }</span>
+            </section>
+            <section className='description'>
+                <span>{ description }</span>
+            </section>
+            <section className='post-updates'>
+                { updatesMarkup }
+            </section>
+        </section>
+    )
+    const markup = edit ? editPostDetailsMarkup : postDetailsMarkup
+    return (
+        <section className='PostInformationDetails'>
+            { markup }
+        </section>
+    )
+}
+
+export {
+    postInformationDetails
+}
+
+
+/*
+<section className='inform-details'>
             <label htmlFor='title'>Title</label>
             <input onChange={handler} value={ title } type='text' name='title' id='title'/>
             <label htmlFor='description'>Description</label>
@@ -36,9 +82,4 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
             
             { updatesMarkup }
         </section>
-    )
-}
-
-export {
-    postInformationDetails
-}
+*/

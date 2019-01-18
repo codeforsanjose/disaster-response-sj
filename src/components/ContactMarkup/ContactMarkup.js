@@ -1,23 +1,50 @@
 import React from 'react'
 
-const contactDetailsMarkup = (contactDetails = {}, handler = () => {}) => {
+import './ContactMarkup.css'
+
+const contactDetailsMarkup = (contactDetails = {}, handler = () => {}, editMode = false) => {
     const {
         contactName,
         contactEmail,
         contactPhone
     } = contactDetails
-    return (
+
+    const editContactMarkup = (
         <section className='contact-details'>
-            <h3>Spotter Contact</h3>
-            <label htmlFor='contactName'>Name</label>
-            <input onChange={handler} type='text' value={ contactName } name='contactName' id='contactName'/>
-            <label htmlFor='contactEmail'>Email</label>
-            <input onChange={handler} type='email' value={ contactEmail } name='contactEmail' id='contactEmail'/>
-            <label htmlFor='contactPhone'>Phone</label>
-            <input onChange={handler} type='tel' value={ contactPhone } name='contactPhone' id='contactPhone'/>
+            <section>
+                <label htmlFor='contactName'>Name</label>
+                <input onChange={handler} type='text' value={ contactName } name='contactName' id='contactName'/>
+            </section>
+            <section>
+                <label htmlFor='contactEmail'>Email</label>
+                <input onChange={handler} type='email' value={ contactEmail } name='contactEmail' id='contactEmail'/>
+            </section>
+            <section>
+                <label htmlFor='contactPhone'>Phone</label>
+                <input onChange={handler} type='tel' value={ contactPhone } name='contactPhone' id='contactPhone'/>
+            </section>
         </section>
     )
+    const contactMarkup = (
+        <section className='contact-details'>
+            <section>
+                <label htmlFor='contactName'>Name</label>
+                <span>{ contactName }</span>
+            </section>
+            <section>
+                <label htmlFor='contactEmail'>Email</label>
+                <span >{ contactEmail }</span>
+            </section>
+            <section>
+                <label htmlFor='contactPhone'>Phone</label>
+                <span>{ contactPhone }</span>
+            </section>
+        </section>
+    )
+    return editMode ? editContactMarkup : contactMarkup
 }
+
+
 
 export {
     contactDetailsMarkup
