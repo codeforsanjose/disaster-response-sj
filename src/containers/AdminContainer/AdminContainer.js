@@ -125,10 +125,10 @@ class AdminContainer extends React.Component {
             id: this.state.selectedID,
             update: this.state.update,
         }
-
-        createPost(req).catch( (error) => {
-            console.log('Error creating post', error);
-        });
+        console.log('we did it bois', this.state)
+        // createPost(req).catch( (error) => {
+        //     console.log('Error creating post', error);
+        // });
     }
     
     showNewEmergency = () => {
@@ -161,9 +161,15 @@ class AdminContainer extends React.Component {
             );
         })
 
+        const handlers = {
+            handleInputChange: this.handleInputChange,
+            handleAddUpdateItem: this.handleAddUpdateItem,
+            handleUpdateSubmit: this.handleUpdateSubmit,
+
+        }
         return (
             <div>
-                <DisasterPosts edit={ true } posts={ posts } />
+                <DisasterPosts edit={ true } handlers={ handlers } posts={ posts } />
                 <button onClick={ this.handleSelectPost }>Go</button>
             </div>
         );

@@ -80,17 +80,14 @@ class DisasterPosts extends Component {
         const post = this.state.selectedPost
         const isEditMode = this.props.edit
         console.log('isEditMOde', isEditMode, this.props.edit)
+        const inputHanders = isEditMode ? this.props.handlers : null;
 
-        const markup = contactDetailsMarkup(post, isEditMode)
+        const markup = contactDetailsMarkup(post, inputHanders['handleInputChange'], isEditMode)
         const contactDetails = <aside className='contact-details'>
             { markup }
         </aside>
-        const updatesMarkup = updates ? updates.map( (updateText, index) => {
-            return (
-                <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
-            )
-        }) : []
-        const addressDetails = getAddressMarkup(post, isEditMode)
+        const addressDetails = getAddressMarkup(post, inputHanders['handleInputChange'], isEditMode)
+        const postDetailsMarkup = postInformationDetails(post, inputHanders['handleInputChange'], inputHanders['handleUpdateSubmit'], true)
         const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
         return (
             <div className='modal-details'>
@@ -100,11 +97,7 @@ class DisasterPosts extends Component {
                     { addressDetails }
                 </aside>
                 <section className='disaster-details'>
-                    <h4 className='title'>{ title }</h4>
-                    <h6 className='description'>{ description }</h6>
-                    <section className='updates-list'>
-                        { updatesMarkup }
-                    </section>
+                    { postDetailsMarkup }
                 </section>
                 { contactDetails }
             </div>
