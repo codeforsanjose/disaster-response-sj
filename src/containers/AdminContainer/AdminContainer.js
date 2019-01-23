@@ -126,7 +126,7 @@ class AdminContainer extends React.Component {
             id: this.state.selectedID,
             update: this.state.update,
         }
-        console.log('we did it bois', this.state)
+
         // createPost(req).catch( (error) => {
         //     console.log('Error creating post', error);
         // });

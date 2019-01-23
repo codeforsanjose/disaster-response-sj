@@ -24,7 +24,6 @@ class DisasterPosts extends Component {
         })
     }
     postsMockup = (posts) => {
-        console.log('postsMockup called')
         return posts.map( (post, index) => {
             const {
                 title,
