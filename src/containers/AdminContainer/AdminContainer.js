@@ -69,7 +69,7 @@ class AdminContainer extends React.Component {
         });
     }
 
-    handleAddUpdateItem = (event) => {
+    handleAddUpdateItem = (event, item) => {
         event.preventDefault()
         const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
         const updatedItem = `${timestamp} - ${this.state.updateItem}`
@@ -104,6 +104,7 @@ class AdminContainer extends React.Component {
             contactEmail: this.state.contactEmail,
             contactPhone: this.state.contactPhone,
             updates: this.state.updates,
+            updateItem: this.state.updateItem,
             longitude: this.state.longitude,
             latitude: this.state.latitude,
             addressLine1: this.state.addressLine1,
@@ -116,7 +117,7 @@ class AdminContainer extends React.Component {
         });
     }
 
-    handleUpdateSubmit = (event) => {
+    handleUpdateSubmit = (event, post) => {
         event.preventDefault();
 
         // TODO : Figure out update API
@@ -132,15 +133,16 @@ class AdminContainer extends React.Component {
     }
     
     showNewEmergency = () => {
-        const addressMarkup = getAddressMarkup({}, this.handleInputChange)
+        const addressMarkup = getAddressMarkup({}, this.handleInputChange, true)
 
         const contactData = {
             contactEmail: this.state.contactEmail,
             contactName: this.state.contactName,
             contactPhone: this.state.contactPhone,
         }
-        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange, true)
-        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem, true)
+
+        const contactMarkup = contactDetailsMarkup(this.state, this.handleInputChange, true)
+        const infoMarkup = postInformationDetails(this.state, this.handleInputChange, this.handleAddUpdateItem, true)
         return (
             <div className='create-post-container'>
                 { infoMarkup }
@@ -153,14 +155,6 @@ class AdminContainer extends React.Component {
     }
 
     showEmergencies = (posts) => {
-        const postList = posts.map((post, index) => {
-            return (
-                <div key={`post-edit-${index}`} className='input-group input-radio-group'>
-                    { post.title }
-                </div>
-            );
-        })
-
         const handlers = {
             handleInputChange: this.handleInputChange,
             handleAddUpdateItem: this.handleAddUpdateItem,
@@ -170,7 +164,6 @@ class AdminContainer extends React.Component {
         return (
             <div>
                 <DisasterPosts edit={ true } handlers={ handlers } posts={ posts } />
-                <button onClick={ this.handleSelectPost }>Go</button>
             </div>
         );
     }

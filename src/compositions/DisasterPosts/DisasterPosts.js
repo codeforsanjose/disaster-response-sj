@@ -24,13 +24,12 @@ class DisasterPosts extends Component {
         })
     }
     postsMockup = (posts) => {
+        console.log('postsMockup called')
         return posts.map( (post, index) => {
-            const { title,
-                    description,
-                    updates,
-                    contactName,
-                    contactEmail,
-                    contactPhone } = post
+            const {
+                title,
+                updates,
+            } = post
 
             const markup = contactDetailsMarkup(post)
             const contactDetails = <aside className='contact-details'>
@@ -71,6 +70,7 @@ class DisasterPosts extends Component {
     }
 
     getModalDetails = () => {
+        console.log('getModalDetails called')
         const { title,
             description,
             updates,
@@ -79,7 +79,6 @@ class DisasterPosts extends Component {
             contactPhone } = this.state.selectedPost
         const post = this.state.selectedPost
         const isEditMode = this.props.edit
-        console.log('isEditMOde', isEditMode, this.props.edit)
         const inputHanders = isEditMode ? this.props.handlers : null;
 
         const markup = contactDetailsMarkup(post, inputHanders['handleInputChange'], isEditMode)
@@ -87,7 +86,7 @@ class DisasterPosts extends Component {
             { markup }
         </aside>
         const addressDetails = getAddressMarkup(post, inputHanders['handleInputChange'], isEditMode)
-        const postDetailsMarkup = postInformationDetails(post, inputHanders['handleInputChange'], inputHanders['handleUpdateSubmit'], true)
+        const postDetailsMarkup = postInformationDetails(post, inputHanders['handleInputChange'], inputHanders['handleAddUpdateItem'], true)
         const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
         return (
             <div className='modal-details'>
@@ -100,6 +99,9 @@ class DisasterPosts extends Component {
                     { postDetailsMarkup }
                 </section>
                 { contactDetails }
+                <section>
+                    <button onClick={(e) => inputHanders['handleUpdateSubmit'](e, post)}>Save</button>
+                </section>
             </div>
         )
     }
@@ -112,6 +114,7 @@ class DisasterPosts extends Component {
             contactEmail,
             contactPhone } = this.state.selectedPost
 
+            console.log('getEditModalDetails called')
         const contactDetailsMarkup = <aside className='contact-details'>
             <h4>{ contactName }</h4>
             <h4>{ contactPhone }</h4>

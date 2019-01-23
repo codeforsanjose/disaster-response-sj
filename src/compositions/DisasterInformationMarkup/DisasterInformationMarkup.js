@@ -39,8 +39,9 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
             </section>
             <section className='post-updates'>
                 <label htmlFor='updateItem'>Notes</label>
-                <input onChange={handler} value = { updateItem } type='text' name='updateItem' id='updateItem'/>
                 { updatesAddButtonMarkup }
+                <input onChange={handler} value = { updateItem } type='text' name='updateItem' id='updateItem'/>
+                { updatesMarkup }
             </section>
             
         </section>
@@ -70,16 +71,3 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
 export {
     postInformationDetails
 }
-
-
-/*
-<section className='inform-details'>
-            <label htmlFor='title'>Title</label>
-            <input onChange={handler} value={ title } type='text' name='title' id='title'/>
-            <label htmlFor='description'>Description</label>
-            <textarea onChange={handler} value={ description } type='text' name='description' id='description'></textarea>
-            { addNotesMarkup }
-            
-            { updatesMarkup }
-        </section>
-*/
