@@ -4,6 +4,7 @@ import { XCircle, Map } from 'react-feather'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+
 import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './DisasterPosts.css'
 
@@ -24,12 +25,10 @@ class DisasterPosts extends Component {
     }
     postsMockup = (posts) => {
         return posts.map( (post, index) => {
-            const { title,
-                    description,
-                    updates,
-                    contactName,
-                    contactEmail,
-                    contactPhone } = post
+            const {
+                title,
+                updates,
+            } = post
 
             const markup = contactDetailsMarkup(post)
             const contactDetails = <aside className='contact-details'>
@@ -70,6 +69,7 @@ class DisasterPosts extends Component {
     }
 
     getModalDetails = () => {
+        console.log('getModalDetails called')
         const { title,
             description,
             updates,
@@ -77,34 +77,30 @@ class DisasterPosts extends Component {
             contactEmail,
             contactPhone } = this.state.selectedPost
         const post = this.state.selectedPost
+        const isEditMode = this.props.edit
+        const inputHanders = isEditMode ? this.props.handlers : null;
 
-        const markup = contactDetailsMarkup(post)
+        const markup = contactDetailsMarkup(post, inputHanders['handleInputChange'], isEditMode)
         const contactDetails = <aside className='contact-details'>
             { markup }
         </aside>
-        const updatesMarkup = updates ? updates.map( (updateText, index) => {
-            return (
-                <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
-            )
-        }) : []
-        const addressDetails = getAddressMarkup(post)
+        const addressDetails = getAddressMarkup(post, inputHanders['handleInputChange'], isEditMode)
+        const postDetailsMarkup = postInformationDetails(post, inputHanders['handleInputChange'], inputHanders['handleAddUpdateItem'], true)
         const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
         return (
             <div className='modal-details'>
                 { closeButton }
                 <aside className='map'>
-                    <Map size={ 100 } />
                     <MapDisplay />
                     { addressDetails }
                 </aside>
                 <section className='disaster-details'>
-                    <h4 className='title'>{ title }</h4>
-                    <h6 className='description'>{ description }</h6>
-                    <section className='updates-list'>
-                        { updatesMarkup }
-                    </section>
+                    { postDetailsMarkup }
                 </section>
                 { contactDetails }
+                <section>
+                    <button onClick={(e) => inputHanders['handleUpdateSubmit'](e, post)}>Save</button>
+                </section>
             </div>
         )
     }
@@ -117,6 +113,7 @@ class DisasterPosts extends Component {
             contactEmail,
             contactPhone } = this.state.selectedPost
 
+            console.log('getEditModalDetails called')
         const contactDetailsMarkup = <aside className='contact-details'>
             <h4>{ contactName }</h4>
             <h4>{ contactPhone }</h4>

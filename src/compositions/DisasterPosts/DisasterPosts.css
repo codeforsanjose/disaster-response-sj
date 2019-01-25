@@ -29,16 +29,6 @@
     padding: 10px;
 }
 
-.DisasterPosts .post-details .disaster-details .title {
-    font-size: 24px;
-    margin: 0;
-}
-
-.DisasterPosts .post-details .disaster-details .description {
-    font-size: 20px;
-    width: 60%;
-}
-
 .DisasterPosts .post-details .disaster-details .updates-list {
     width: 50%;
 }
@@ -57,7 +47,7 @@
 .DisasterPosts .modal-details .map {
     display: block;
     margin: auto;
-    width: fit-content;
+    width: 100%;
     background-color: rgb(30, 0, 30, 0.6);
 }
 
