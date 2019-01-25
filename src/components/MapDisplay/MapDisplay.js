@@ -8,7 +8,6 @@ import './MapDisplay.css'
 class MapDisplay extends Component {
     
     componentDidMount () {
-        //https://leafletjs.com/examples/custom-icons/
         const sanJoseLongitude = -121.8863
         const sanJoseLatitude = 37.3382
         const map = new window.L.Map('map');
@@ -22,7 +21,6 @@ class MapDisplay extends Component {
             shadowAnchor: [4, 62],  // the same for the shadow
             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
-        console.log('greenIcon', greenIcon)
 	    var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         window.L.marker([sanJoseLatitude, sanJoseLongitude], {icon: greenIcon}).addTo(map)
