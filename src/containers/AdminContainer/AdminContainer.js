@@ -69,7 +69,7 @@ class AdminContainer extends React.Component {
         });
     }
 
-    handleAddUpdateItem = (event, item) => {
+    handleAddUpdateItem = (event) => {
         event.preventDefault()
         const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
         const updatedItem = `${timestamp} - ${this.state.updateItem}`
@@ -104,20 +104,18 @@ class AdminContainer extends React.Component {
             contactEmail: this.state.contactEmail,
             contactPhone: this.state.contactPhone,
             updates: this.state.updates,
-            updateItem: this.state.updateItem,
             longitude: this.state.longitude,
             latitude: this.state.latitude,
             addressLine1: this.state.addressLine1,
             addressLine2: this.state.addressLine2,
             zipcode: this.state.zipcode,
         }
-
         createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
     }
 
-    handleUpdateSubmit = (event, post) => {
+    handleUpdateSubmit = (event) => {
         event.preventDefault();
 
         // TODO : Figure out update API
@@ -127,22 +125,21 @@ class AdminContainer extends React.Component {
             update: this.state.update,
         }
 
-        // createPost(req).catch( (error) => {
-        //     console.log('Error creating post', error);
-        // });
+        createPost(req).catch( (error) => {
+            console.log('Error creating post', error);
+        });
     }
     
     showNewEmergency = () => {
-        const addressMarkup = getAddressMarkup({}, this.handleInputChange, true)
+        const addressMarkup = getAddressMarkup({}, this.handleInputChange)
 
         const contactData = {
             contactEmail: this.state.contactEmail,
             contactName: this.state.contactName,
             contactPhone: this.state.contactPhone,
         }
-
-        const contactMarkup = contactDetailsMarkup(this.state, this.handleInputChange, true)
-        const infoMarkup = postInformationDetails(this.state, this.handleInputChange, this.handleAddUpdateItem, true)
+        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange)
+        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem)
         return (
             <div className='create-post-container'>
                 { infoMarkup }
@@ -155,15 +152,18 @@ class AdminContainer extends React.Component {
     }
 
     showEmergencies = (posts) => {
-        const handlers = {
-            handleInputChange: this.handleInputChange,
-            handleAddUpdateItem: this.handleAddUpdateItem,
-            handleUpdateSubmit: this.handleUpdateSubmit,
+        const postList = posts.map((post, index) => {
+            return (
+                <div key={`post-edit-${index}`} className='input-group input-radio-group'>
+                    { post.title }
+                </div>
+            );
+        })
 
-        }
         return (
             <div>
-                <DisasterPosts edit={ true } handlers={ handlers } posts={ posts } />
+                <DisasterPosts edit={ true } posts={ posts } />
+                <button onClick={ this.handleSelectPost }>Go</button>
             </div>
         );
     }

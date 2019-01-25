@@ -23,7 +23,7 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
                 <input onChange={handler} value={ zipcode } type='text' name='zipcode' id='zipcode'/>
             </section>
             <section>
-                <label htmlFor='longitude'>longitude:</label>
+                <label htmlFor='longitude'>Longitude:</label>
                 <input onChange={handler} value={ longitude } type='number' name='longitude' id='longitude'/>
             </section>
             <section>
@@ -48,7 +48,7 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
                 <span>{ zipcode }</span>
             </section>
             <section>
-                <label htmlFor='longitude'>longitude:</label>
+                <label htmlFor='longitude'>Longitude:</label>
                 <span>{ longitude }</span>
             </section>
             <section>
