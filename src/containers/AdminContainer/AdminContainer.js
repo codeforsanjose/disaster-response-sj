@@ -108,11 +108,8 @@ function AdminContainer(props) {
     }
 
     const handleSelect = (event, post) => {
+        event.preventDefault()
         postContext.Provider.updateSelectedPost(post)
-    }
-
-    const handleSelectPost = () => {
-        this.toggleUpdateEmergency();
     }
 
     const handleNewSubmit = (event) => {

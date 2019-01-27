@@ -27,18 +27,13 @@ class DisasterPosts extends Component {
         return posts.map( (post, index) => {
             const {
                 title,
-                updates,
             } = post
 
             const markup = contactDetailsMarkup(post)
             const contactDetails = <aside className='contact-details'>
                 { markup }
             </aside>
-            const updatesMarkup = updates ? updates.map( (updateText, index) => {
-                return (
-                    <h6 key={`notes-${index}`} className='update-text'>- { updateText }</h6>
-                )
-            }) : []
+            
             const addressDetails = getAddressMarkup(post)
             const postInfoMarkup = postInformationDetails(post)
             return (
@@ -69,14 +64,7 @@ class DisasterPosts extends Component {
     }
 
     getModalDetails = () => {
-        const { title,
-            description,
-            updates,
-            contactName,
-            contactEmail,
-            contactPhone } = this.state.selectedPost
         const post = this.state.selectedPost
-        const isEditMode = this.props.edit
 
         const markup = contactDetailsMarkup(post)
         const contactDetails = <aside className='contact-details'>

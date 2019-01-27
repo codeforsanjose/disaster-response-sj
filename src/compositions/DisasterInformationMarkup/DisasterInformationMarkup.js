@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import './DisasterInformationMarkup.css'
 
@@ -11,22 +11,15 @@ const postInformationDetails = (informDetails = {}, handler = () => {}, buttonHa
     } = informDetails
 
     const updatesMarkup = updates && updates.length > 0
-        ? updates.map(item => {
+        ? updates.map( (item, index) => {
             return (
-                <span className='update-item'>{ item }</span>
+                <span key={`update-item-${index}`} className='update-item'>{ item }</span>
             )
         })
         : null
 
     const updatesAddButtonMarkup = buttonHandler ? <button className='add-update-item' onClick={ buttonHandler }>+</button> : null
-    const addNotesMarkup = buttonHandler ? (
-        <section className='post-updates'>
-            <label htmlFor='updateItem'>Notes</label>
-            <input onChange={handler} value = { updateItem } type='text' name='updateItem' id='updateItem'/>
-            { updatesAddButtonMarkup }
-        </section>
-        )
-        : null
+    
     const editPostDetailsMarkup = (
         <section className='inform-details'>
             <section className='title'>
