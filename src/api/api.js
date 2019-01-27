@@ -65,7 +65,6 @@ const createPost = (postDetails) => {
 }
 
 const editPost = (postDetails) => {
-    console.log('what we editing', postDetails)
     return makeRequest(postDetails, 'PUT', '/api/posts').then(response => {
         return response.json()
     }).catch(error => {
