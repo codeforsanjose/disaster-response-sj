@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import moment from 'moment'
-import { createPost, getPosts, getUser } from '../../api/api'
+
+import PostContext from '../../context/PostContext'
+import { createPost, editPost, getPosts, getUser } from '../../api/api'
 import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
@@ -8,183 +10,185 @@ import { postInformationDetails } from '../../compositions/DisasterInformationMa
 
 require('./AdminContainer.css')
 
-class AdminContainer extends React.Component {
-    state = {
-        title: '',
-        description: '',
-        updates: [],
-        updateItem: '',
-        contactName: '',
-        contactEmail: '',
-        contactPhone: '',
-        longitude: '',
-        latitude:'',
-        update: '',
+function AdminContainer(props) {
+    const postContext = useContext(PostContext)
+    const state = {
+        user: {},
+        postDetails: {
+            title: '',
+            description: '',
+            updates: [],
+            updateItem: '',
+            contactName: '',
+            contactEmail: '',
+            contactPhone: '',
+            longitude: '',
+            latitude:'',
+        },
         selectedID: '',
         tabIndex: 0,
         tabs: ['Create Post', 'Update Existing Post'],
     }
-
-    static getDerivedStateFromProps(props, state) {
-        const userID = props.match.params.id.split(':')[1]
-        const newState = {
-            ...state,
-            userID: userID,
-        }
-        return newState
-    }
-
-    componentDidMount() {
-        getUser(this.state.userID)
-        .then(response => {
-            return response.user
-        })
-        .then(user => {
-            getPosts()
-            .then(result => {
-                this.setState(previousState => {
-                    return {
-                        ...previousState,
-                        user: user,
-                        posts: result.length > 0 ? result : []
-                    }
+    const [adminState, setAdminState] = useState(state)
+    useEffect(() => {
+        if (!adminState.user._id && !adminState.error) {
+            const userID = props.match.params.id.split(':')[1]
+            getUser(userID)
+            .then(response => {
+                return response.user
+            })
+            .then(user => {
+                getPosts()
+                .then(result => {
+                    setAdminState(previousState => {
+                        return {
+                            ...previousState,
+                            user: user,
+                            posts: result.length > 0 ? result : []
+                        }
+                    })
                 })
             })
-        })
-        .catch(error => {
-            console.log('Error :: ', error)
-            this.setState({
-                ...this.state,
-                error: error
+            .catch(error => {
+                console.log('Error :: ', error)
+                setAdminState({
+                    ...adminState,
+                    error: error
+                });
             });
-        });
-    }
+        }
+    })
 
-    handleInputChange = (event) => {
+
+
+
+    const postForEdit = postContext.Provider.post.post
+    const isEditMode = postForEdit._id ? true : false
+    if (adminState.tabIndex !== 0 && postForEdit._id) {
+        setAdminState({
+            ...adminState,
+            postDetails: {
+                ...adminState.postDetails,
+                ...postForEdit
+            },
+            tabIndex: 0,
+        })
+    }
+    
+
+    const handleInputChange = (event) => {
         event.preventDefault()
         const val = event.target.value;
         const name = event.target.name;
-        this.setState({
-            [name]: val,
+        setAdminState({
+            ...adminState,
+            postDetails: {
+                ...adminState.postDetails,
+                [name]: val,
+            },
         });
     }
 
-    handleAddUpdateItem = (event) => {
+    const handleAddUpdateItem = (event) => {
         event.preventDefault()
         const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
-        const updatedItem = `${timestamp} - ${this.state.updateItem}`
-        const updateItems = this.state.updateItem !== '' 
-            ? [...this.state.updates, updatedItem]
-            : this.state.updates
+        const updatedItem = `${timestamp} - ${adminState.postDetails.updateItem}`
+        const updateItems = adminState.postDetails.updateItem !== '' 
+            ? [...adminState.postDetails.updates, updatedItem]
+            : adminState.postDetails.updates
 
-        this.setState({
-            ...this.state,
-            updateItem: '',
-            updates: updateItems,
+        setAdminState({
+            ...adminState,
+            postDetails: {
+                ...adminState.postDetails,
+                updateItem: '',
+                updates: updateItems,
+            }
         });
     }
 
-    handleSelect = (event) => {
-        this.setState({
-            selectedID: event.target.value
-        })
+    const handleSelect = (event, post) => {
+        postContext.Provider.updateSelectedPost(post)
     }
 
-    handleSelectPost = () => {
+    const handleSelectPost = () => {
         this.toggleUpdateEmergency();
     }
 
-    handleNewSubmit = (event) => {
+    const handleNewSubmit = (event) => {
         event.preventDefault();
 
         const req = {
-            title: this.state.title,
-            description: this.state.description,
-            contactName: this.state.contactName,
-            contactEmail: this.state.contactEmail,
-            contactPhone: this.state.contactPhone,
-            updates: this.state.updates,
-            longitude: this.state.longitude,
-            latitude: this.state.latitude,
-            addressLine1: this.state.addressLine1,
-            addressLine2: this.state.addressLine2,
-            zipcode: this.state.zipcode,
+            title: adminState.postDetails.title,
+            description: adminState.postDetails.description,
+            contactName: adminState.postDetails.contactName,
+            contactEmail: adminState.postDetails.contactEmail,
+            contactPhone: adminState.postDetails.contactPhone,
+            updates: adminState.postDetails.updates,
+            longitude: adminState.postDetails.longitude,
+            latitude: adminState.postDetails.latitude,
+            addressLine1: adminState.postDetails.addressLine1,
+            addressLine2: adminState.postDetails.addressLine2,
+            zipcode: adminState.postDetails.zipcode,
         }
+
         createPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
     }
 
-    handleUpdateSubmit = (event) => {
+    const handleUpdateSubmit = (event) => {
         event.preventDefault();
 
         // TODO : Figure out update API
 
         const req = {
-            id: this.state.selectedID,
-            update: this.state.update,
+            _id: adminState.postDetails._id,
+            title: adminState.postDetails.title,
+            description: adminState.postDetails.description,
+            contactName: adminState.postDetails.contactName,
+            contactEmail: adminState.postDetails.contactEmail,
+            contactPhone: adminState.postDetails.contactPhone,
+            updates: adminState.postDetails.updates,
+            longitude: adminState.postDetails.longitude,
+            latitude: adminState.postDetails.latitude,
+            addressLine1: adminState.postDetails.addressLine1,
+            addressLine2: adminState.postDetails.addressLine2,
+            zipcode: adminState.postDetails.zipcode,
         }
 
-        createPost(req).catch( (error) => {
+        editPost(req).catch( (error) => {
             console.log('Error creating post', error);
         });
     }
     
-    showNewEmergency = () => {
-        const addressMarkup = getAddressMarkup({}, this.handleInputChange)
-
-        const contactData = {
-            contactEmail: this.state.contactEmail,
-            contactName: this.state.contactName,
-            contactPhone: this.state.contactPhone,
-        }
-        const contactMarkup = contactDetailsMarkup({}, this.handleInputChange)
-        const infoMarkup = postInformationDetails({}, this.handleInputChange, this.handleAddUpdateItem)
+    const manageEmergency = (postDetails = {}) => {
+        const addressMarkup = getAddressMarkup(postDetails, handleInputChange, true)
+        const contactMarkup = contactDetailsMarkup(postDetails, handleInputChange, true)
+        const infoMarkup = postInformationDetails(postDetails, handleInputChange, handleAddUpdateItem, true)
+        const handler = isEditMode ? handleUpdateSubmit : handleNewSubmit
+        const buttonLabel = isEditMode ? 'Edit' : 'Create'
         return (
             <div className='create-post-container'>
                 { infoMarkup }
                 { addressMarkup }
                 { contactMarkup }
                 <hr />
-                <button className='submit-post' onClick={this.handleNewSubmit}>Submit</button>
+                <button className='submit-post' onClick={handler}>{ buttonLabel }</button>
             </div>
         );
     }
 
-    showEmergencies = (posts) => {
-        const postList = posts.map((post, index) => {
-            return (
-                <div key={`post-edit-${index}`} className='input-group input-radio-group'>
-                    { post.title }
-                </div>
-            );
-        })
-
-        return (
-            <div>
-                <DisasterPosts edit={ true } posts={ posts } />
-                <button onClick={ this.handleSelectPost }>Go</button>
-            </div>
-        );
+    const showEmergencies = (posts) => {
+        return <DisasterPosts handleSelectPost={handleSelect} posts={ posts } />
     }
 
-    showUpdateEmergency = () => {
-        return (
-            <div>
-                <p>Update an existing emergency.</p>
-                <div>
-                    <div class='input-group'>
-                        <label htmlFor='update'>Update</label>
-                        <input type='text' name='update' id='update'/>
-                    </div>
-                    <button onClick={this.handleUpdateSubmit}>Submit</button>
-                </div>
-            </div>
-        );
-    }
 
-    handleTabSelect = (index) => {
-        this.setState(previousState => {
+    const handleTabSelect = (index) => {
+        if (index === 0) {
+            postContext.Provider.updateSelectedPost({post: {}})
+        }
+        setAdminState(previousState => {
             return {
                 ...previousState,
                 tabIndex: index,
@@ -192,52 +196,51 @@ class AdminContainer extends React.Component {
         })
     }
 
-    getActiveTab = (tabIndex, posts) => {
+    const getActiveTab = (tabIndex, posts) => {
         switch(tabIndex) {
             case 0: {
-                return this.showNewEmergency()
+                return manageEmergency(adminState.postDetails)
             }
             case 1: {
-                return this.showEmergencies(posts)
+                return showEmergencies(posts)
             }
             default: {
-                return this.showNewEmergency()
+                return manageEmergency()
             }
         }
     }
 
-    render() {
-        if (this.state.user) {
-            // Render page if user is logged in, and is an admin
-            const { posts, tabs, tabIndex } = this.state
-            const adminNavigation = tabs.map( (tab, index) => {
-                const active = index === tabIndex ? 'active': ''
-                return (
-                    <span key={`tab-nav-${index}`} onClick={ e => this.handleTabSelect(index) } className={`tab-item ${active}`}>{ tab }</span>
-                )
-            })
-            const tabNavContainer = (
-                <div className='admin-tabs'>
-                    { adminNavigation }
-                </div>
+    if (adminState.user) {
+        // Render page if user is logged in, and is an admin
+        const { posts, tabs, tabIndex } = adminState
+        const adminNavigation = tabs.map( (tab, index) => {
+            const active = index === tabIndex ? 'active': ''
+            return (
+                <span key={`tab-nav-${index}`} onClick={ e => handleTabSelect(index) } className={`tab-item ${active}`}>{ tab }</span>
             )
-            let activeTab = this.getActiveTab(tabIndex, posts)
-            
-            return (
-                <div className='AdminContainer'>
-                    { tabNavContainer }
-                    { activeTab }
-                </div>
-            );
-        } else {
-            // Show error message if user is not an admin
-            return (
-                <div>
-                    <p> 403 Error : Restricted Access </p>
-                </div>
-            );
-        }
+        })
+        const tabNavContainer = (
+            <div className='admin-tabs'>
+                { adminNavigation }
+            </div>
+        )
+        const activeTab = getActiveTab(tabIndex, posts)
+        
+        return (
+            <div className='AdminContainer'>
+                { tabNavContainer }
+                { activeTab }
+            </div>
+        );
+    } else {
+        // Show error message if user is not an admin
+        return (
+            <div>
+                <p> 403 Error : Restricted Access </p>
+            </div>
+        );
     }
+
 }
 
 export default AdminContainer
