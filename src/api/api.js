@@ -1,5 +1,5 @@
 const DefaultHeaders = {
-    'Accept': 'application/json, text/plain, */*',
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
 }
 const baseURL = process.env.NODE_ENV === 'production'
