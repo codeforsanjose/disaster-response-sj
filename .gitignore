@@ -1,6 +1,6 @@
 node_modules/
 .DS_Store
-config/projectInfoData.json
+config/projectInfoData.js
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
