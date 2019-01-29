@@ -71,6 +71,14 @@ const createPost = (postDetails) => {
     })
 }
 
+const editPost = (postDetails) => {
+    return makeRequest(postDetails, 'PUT', '/api/posts').then(response => {
+        return response.json()
+    }).catch(error => {
+        return error
+    })
+}
+
 const getPosts = () => {
     return makeRequest({}, 'GET', '/api/posts').then(response => {
         return response.json()
@@ -85,4 +93,5 @@ export {
     createPost,
     registerUser,
     getUser,
+    editPost,
 }

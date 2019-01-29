@@ -46,7 +46,11 @@ class DataBase {
     updateOneById(collection, obj) {
         const query = { '_id': ObjectID(obj._id) }
         obj._id = ObjectID(obj._id)
-        return this.db.collection(collection).updateOne(query, obj)
+        return this.db.collection(collection).updateOne(query,{
+            $set: obj,
+        }, {
+            upsert: true
+        })
     }
 
     deleteOne(collection, id) {
