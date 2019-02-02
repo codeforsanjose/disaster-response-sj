@@ -23,6 +23,7 @@ class DisasterPosts extends Component {
             }
         })
     }
+    
     postsMockup = (posts) => {
         return posts.map( (post, index) => {
             const {
@@ -70,22 +71,32 @@ class DisasterPosts extends Component {
         const contactDetails = <aside className='contact-details'>
             { markup }
         </aside>
+        
         const handler = this.props.handleSelectPost ? this.props.handleSelectPost : null
         const editButtonMarkup = handler
-        ? <section>
-                <button onClick={(e) => handler(e, post)}>Edit</button>
-        </section>
-        : null
+            ?   <section>
+                    <button onClick={(e) => handler(e, post)}>Edit</button>
+                </section>
+            :   null
         const addressDetails = getAddressMarkup(post)
+        const map = (!(isNaN(post.longitude) && isNaN(post.latitude))) 
+            ?   <aside className='map'>
+                    <MapDisplay 
+                        longitude={post.longitude} 
+                        latitude={post.latitude} 
+                        radius={post.radius} 
+                    />
+                    { addressDetails }
+                </aside> 
+            :   <aside className='map'>
+                    { addressDetails }
+                </aside>
         const postDetailsMarkup = postInformationDetails(post)
         const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
         return (
             <div className='modal-details'>
                 { closeButton }
-                <aside className='map'>
-                    <MapDisplay />
-                    { addressDetails }
-                </aside>
+                { map }
                 <section className='disaster-details'>
                     { postDetailsMarkup }
                 </section>

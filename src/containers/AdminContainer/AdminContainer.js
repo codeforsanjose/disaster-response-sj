@@ -23,13 +23,16 @@ function AdminContainer(props) {
             contactEmail: '',
             contactPhone: '',
             longitude: '',
-            latitude:'',
+            latitude: '',
+            radius: '',
         },
         selectedID: '',
         tabIndex: 0,
         tabs: ['Create Post', 'Update Existing Post'],
     }
+
     const [adminState, setAdminState] = useState(state)
+    
     useEffect(() => {
         if (!adminState.user._id && !adminState.error) {
             const userID = props.match.params.id.split(':')[1]
@@ -58,9 +61,6 @@ function AdminContainer(props) {
             });
         }
     })
-
-
-
 
     const postForEdit = postContext.Provider.post.post
     const isEditMode = postForEdit._id ? true : false
@@ -124,6 +124,7 @@ function AdminContainer(props) {
             updates: adminState.postDetails.updates,
             longitude: adminState.postDetails.longitude,
             latitude: adminState.postDetails.latitude,
+            radius: adminState.postDetails.radius,
             addressLine1: adminState.postDetails.addressLine1,
             addressLine2: adminState.postDetails.addressLine2,
             zipcode: adminState.postDetails.zipcode,
@@ -149,6 +150,7 @@ function AdminContainer(props) {
             updates: adminState.postDetails.updates,
             longitude: adminState.postDetails.longitude,
             latitude: adminState.postDetails.latitude,
+            radius: adminState.postDetails.radius,
             addressLine1: adminState.postDetails.addressLine1,
             addressLine2: adminState.postDetails.addressLine2,
             zipcode: adminState.postDetails.zipcode,
