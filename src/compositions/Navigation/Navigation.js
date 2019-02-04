@@ -9,7 +9,7 @@ import PostContext from '../../context/PostContext'
 require('./Navigation.css');
 
 function NavigationComponent (props) {
-    const [ post, setPost] = useState({post: ''})
+    const [ post, setPost ] = useState({post: ''})
     const postContext = useContext(PostContext)
 
     postContext.Provider = {

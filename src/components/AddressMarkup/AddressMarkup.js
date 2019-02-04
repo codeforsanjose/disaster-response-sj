@@ -7,6 +7,7 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
         zipcode,
         longitude,
         latitude,
+        radius,
     } = addressDetails
     const editAddressMarkup = (
         <section className='address-details'>
@@ -29,6 +30,10 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
             <section>
                 <label htmlFor='latitude'>Latitude:</label>
                 <input onChange={handler} value={ latitude } type='number' name='latitude' id='latitude'/>
+            </section>
+            <section>
+                <label htmlFor='radius'>Radius:</label>
+                <input onChange={handler} value={ radius } type='number' name='radius' id='radius'/>
             </section>
         </section>
     )
@@ -54,6 +59,10 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
             <section>
                 <label htmlFor='latitude'>Latitude:</label>
                 <span>{ latitude }</span>
+            </section>
+            <section>
+                <label htmlFor='radius'>Radius:</label>
+                <span>{ radius }</span>
             </section>
         </section>
     )
