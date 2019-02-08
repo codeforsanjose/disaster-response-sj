@@ -1,6 +1,5 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
 import bcrypt from 'bcrypt'
 import fs from 'fs'
 
@@ -23,7 +22,12 @@ const publicDir = __dirname + '/public'
 app.use(bodyParser({limit: '4MB'}))
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080)
-app.use(cors())
+app.use((req, res, next) =>{
+  res.setHeader('Access-Control-Allow-Origin', '*, disaster-response.s3-website-us-west-1.amazonaws.com');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  next();
+});
 app.use('/public', express.static('public'))
 app.use(cookieParser())
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
