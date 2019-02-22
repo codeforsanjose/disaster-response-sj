@@ -1,7 +1,12 @@
-# Local Development
+# Local Frontend Development
 1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj/tree/inital-web-app`
 2. Install dependecies `npm i`
 3. Run application `npm start`
+
+# Local Backend development
+1. Get DB credentials file from project lead through Slack channel https://codeforsanjose.slack.com/messages/C77546YF6
+2. Move projectInfoData.js into config directory
+3. `nodemon --exec babel-node server.js`
 
 
 # disaster-response-sj
