@@ -1,30 +1,40 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import LoginComponent from '../Login/LoginComponent'
 import MainContainer from '../../containers/MainContainer/MainContainer'
 import AdminContainer from '../../containers/AdminContainer/AdminContainer'
+import PostContext from '../../context/PostContext'
 
 require('./Navigation.css');
 
-class NavigationComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <BrowserRouter>
-                <div>
-                    <Switch>
-                        <Route exact path='/' component={MainContainer}/>
-                        <Route path='/login' component={LoginComponent}/>
-                        <Route path='/admin:id' component={AdminContainer}/>
-                    </Switch>
+function NavigationComponent (props) {
+    const [ post, setPost ] = useState({post: ''})
+    const postContext = useContext(PostContext)
 
-                </div>
-                </BrowserRouter>
+    postContext.Provider = {
+        post: post,
+        updateSelectedPost: (post) => {
+            setPost({post})
+        }
+    }
+
+    return (
+        <div>
+            <BrowserRouter>
+            <div>
+                <Switch>
+                    <Route exact path='/' component={MainContainer}/>
+                    <Route path='/login' component={LoginComponent}/>
+                    <Route path='/admin:id' post={post} component={AdminContainer}/>
+                </Switch>
 
             </div>
-        );
-    }
+            </BrowserRouter>
+
+        </div>
+    );
+
 }
 
 export default NavigationComponent
