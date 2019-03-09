@@ -112,6 +112,38 @@ function AdminContainer(props) {
         postContext.Provider.updateSelectedPost(post)
     }
 
+    const validatePostDetails = () => {
+        return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
+            if (postField === 'email' && adminState.postDetails[postField].length === 0) {
+                return {
+                    ...accumulator,
+                    [postField]: 'Invalid email, please re-enter valid email',
+                }
+            } else if (postField === 'longitude' && (-124 > adminState.postDetails[postField] || adminState.postDetails[postField] > -118) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between -118.0 > ${postField} > -124`,
+                }
+            } else if (postField === 'latitude' && (41 < adminState.postDetails[postField] || adminState.postDetails[postField] < 34) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between -118.0 > ${postField} > -124`,
+                }
+            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > 10) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < 10`,
+                }
+            } else if (adminState.postDetails[postField].length === 0) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField}`,
+                }
+            } else {
+                return accumulator
+            }
+        }, {})
+    }
     const handleNewSubmit = (event) => {
         event.preventDefault();
 
@@ -129,10 +161,18 @@ function AdminContainer(props) {
             addressLine2: adminState.postDetails.addressLine2,
             zipcode: adminState.postDetails.zipcode,
         }
-
-        createPost(req).catch( (error) => {
-            console.log('Error creating post', error);
-        });
+        const errors = validatePostDetails(req)
+        if (Object.keys(errors).length === 0) {
+            createPost(req).catch( (error) => {
+                console.log('Error creating post', error);
+            })
+        } else {
+            setAdminState({
+                ...adminState,
+                errors: errors,
+            })
+        }
+        
     }
 
     const handleUpdateSubmit = (event) => {
