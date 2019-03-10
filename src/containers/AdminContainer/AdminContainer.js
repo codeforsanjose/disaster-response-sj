@@ -7,6 +7,7 @@ import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+import { validateEmail } from '../../Utilities/validationUtilities'
 
 require('./AdminContainer.css')
 
@@ -114,7 +115,7 @@ function AdminContainer(props) {
 
     const validatePostDetails = () => {
         return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
-            if (postField === 'email' && adminState.postDetails[postField].length === 0) {
+            if (postField === 'email' && adminState.postDetails[postField].length === 0 && validateEmail(adminState.postDetails[postField])) {
                 return {
                     ...accumulator,
                     [postField]: 'Invalid email, please re-enter valid email',
@@ -134,7 +135,7 @@ function AdminContainer(props) {
                     ...accumulator,
                     [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < 10`,
                 }
-            } else if (adminState.postDetails[postField].length === 0) {
+            } else if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
                 return {
                     ...accumulator,
                     [postField]: `Invalid ${postField}, please re-enter valid ${postField}`,
@@ -162,6 +163,7 @@ function AdminContainer(props) {
             zipcode: adminState.postDetails.zipcode,
         }
         const errors = validatePostDetails(req)
+
         if (Object.keys(errors).length === 0) {
             createPost(req).catch( (error) => {
                 console.log('Error creating post', error);
