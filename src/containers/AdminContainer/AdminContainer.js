@@ -115,25 +115,32 @@ function AdminContainer(props) {
 
     const validatePostDetails = () => {
         return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
+            const sanJoseRegionalPoints = {
+                maxLong: -118,
+                minLong: -124,
+                maxLat: 41,
+                minLat: 34,
+                maxRadius: 10,
+            }
             if (postField === 'email' && adminState.postDetails[postField].length === 0 && validateEmail(adminState.postDetails[postField])) {
                 return {
                     ...accumulator,
                     [postField]: 'Invalid email, please re-enter valid email',
                 }
-            } else if (postField === 'longitude' && (-124 > adminState.postDetails[postField] || adminState.postDetails[postField] > -118) ) {
+            } else if (postField === 'longitude' && (sanJoseRegionalPoints.minLong > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxLong) ) {
                 return {
                     ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between -118.0 > ${postField} > -124`,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLong} > ${postField} > ${sanJoseRegionalPoints.minLong}`,
                 }
-            } else if (postField === 'latitude' && (41 < adminState.postDetails[postField] || adminState.postDetails[postField] < 34) ) {
+            } else if (postField === 'latitude' && (sanJoseRegionalPoints.maxLat < adminState.postDetails[postField] || adminState.postDetails[postField] < sanJoseRegionalPoints.minLat) ) {
                 return {
                     ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between -118.0 > ${postField} > -124`,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLat} > ${postField} > ${sanJoseRegionalPoints.minLat}`,
                 }
-            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > 10) ) {
+            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxRadius) ) {
                 return {
                     ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < 10`,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < ${sanJoseRegionalPoints.maxRadius}`,
                 }
             } else if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
                 return {
