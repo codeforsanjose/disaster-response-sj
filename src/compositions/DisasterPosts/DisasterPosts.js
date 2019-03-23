@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { XCircle, Map } from 'react-feather'
 
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+import DisasterPostDetails from '../DisasterPosDetails/DisasterPostDetails'
+import DisasterModalPostDetails from '../DisasterModalPostDetails/DisasterModalPostDetails'
 
-import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './DisasterPosts.css'
 
 class DisasterPosts extends Component {
@@ -26,30 +23,7 @@ class DisasterPosts extends Component {
     
     postsMockup = (posts) => {
         return posts.map( (post, index) => {
-            const {
-                title,
-            } = post
-
-            const markup = contactDetailsMarkup(post)
-            const contactDetails = <aside className='contact-details'>
-                { markup }
-            </aside>
-            
-            const addressDetails = getAddressMarkup(post)
-            const postInfoMarkup = postInformationDetails(post)
-            return (
-                <div key={ `${title}-${index}` } className='post-details' onClick={ (e) => this.openPostModal(post) }>
-                    <aside className='map'>
-                        <Map size={ 100 } />
-                        
-                        { addressDetails }
-                    </aside>
-                    <section className='disaster-details'>
-                        { postInfoMarkup }
-                    </section>
-                    { contactDetails }
-                </div>
-            )
+            return <DisasterPostDetails post={post} keyIndex={index} openPostModal={this.openPostModal} />;
         })
     }
 
@@ -65,45 +39,10 @@ class DisasterPosts extends Component {
     }
 
     getModalDetails = () => {
-        const post = this.state.selectedPost
-
-        const markup = contactDetailsMarkup(post)
-        const contactDetails = <aside className='contact-details'>
-            { markup }
-        </aside>
-        
-        const handler = this.props.handleSelectPost ? this.props.handleSelectPost : null
-        const editButtonMarkup = handler
-            ?   <section>
-                    <button onClick={(e) => handler(e, post)}>Edit</button>
-                </section>
-            :   null
-        const addressDetails = getAddressMarkup(post)
-        const map = (!(isNaN(post.longitude) && isNaN(post.latitude))) 
-            ?   <aside className='map'>
-                    <MapDisplay 
-                        longitude={post.longitude} 
-                        latitude={post.latitude} 
-                        radius={post.radius} 
-                    />
-                    { addressDetails }
-                </aside> 
-            :   <aside className='map'>
-                    { addressDetails }
-                </aside>
-        const postDetailsMarkup = postInformationDetails(post)
-        const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
-        return (
-            <div className='modal-details'>
-                { closeButton }
-                { map }
-                <section className='disaster-details'>
-                    { postDetailsMarkup }
-                </section>
-                { contactDetails }
-                { editButtonMarkup }
-            </div>
-        )
+        return <DisasterModalPostDetails
+                selectedPost={this.state.selectedPost}
+                handleSelectPost={this.props.handleSelectPost}
+                dismissModal={this.props.dismissModal} />
     }
 
     render() {
