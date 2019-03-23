@@ -1,17 +1,76 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import DisasterPostDetails from '../DisasterPosDetails/DisasterPostDetails'
 import DisasterModalPostDetails from '../DisasterModalPostDetails/DisasterModalPostDetails'
 
 import './DisasterPosts.css'
 
-class DisasterPosts extends Component {
-    state = {
+// class DisasterPosts extends Component {
+//     state = {
+//         showModal: false,
+//         selectedPost: null,
+//     }
+
+//     openPostModal = (post) => {
+//         this.setState(previousState => {
+//             return {
+//                 ...previousState,
+//                 showModal: true,
+//                 selectedPost: post,
+//             }
+//         })
+//     }
+    
+//     postsMockup = (posts) => {
+//         return posts.map( (post, index) => {
+//             return <DisasterPostDetails post={post} keyIndex={index} openPostModal={this.openPostModal} />;
+//         })
+//     }
+
+//     dismissModal = (e) => {
+//         e.preventDefault()
+//         this.setState(prevState => {
+//             return {
+//                 ...prevState,
+//                 showModal: false,
+//                 selectedPost: null,
+//             }
+//         })
+//     }
+
+//     getModalDetails = () => {
+//         return <DisasterModalPostDetails
+//                 selectedPost={this.state.selectedPost}
+//                 handleSelectPost={this.props.handleSelectPost}
+//                 dismissModal={this.props.dismissModal} />
+//     }
+
+//     render() {
+//         const modalDetails = this.state.showModal ? this.getModalDetails() : null
+//         const backdrop = this.state.showModal ? <div className='backdrop' onClick={ this.dismissModal }></div> : null
+//         const posts = this.postsMockup(this.props.posts)
+//         return (
+//             <div className='DisasterPosts'>
+//                 { backdrop }
+//                 { modalDetails }
+//                 <section className='posts-list-container'>
+//                     { posts }
+//                 </section>
+//             </div>
+//         );
+//     }
+// }
+
+// export default DisasterPosts
+
+function DisasterPosts(props) {
+    const defaultState = {
         showModal: false,
         selectedPost: null,
     }
+    const [state, setState] = useState(defaultState)
 
-    openPostModal = (post) => {
+    const openPostModal = (post) => {
         this.setState(previousState => {
             return {
                 ...previousState,
@@ -21,15 +80,15 @@ class DisasterPosts extends Component {
         })
     }
     
-    postsMockup = (posts) => {
+    const postsMockup = (posts, openPostModal) => {
         return posts.map( (post, index) => {
-            return <DisasterPostDetails post={post} keyIndex={index} openPostModal={this.openPostModal} />;
+            return <DisasterPostDetails key={`post-${index}`} post={post} openPostModal={openPostModal} />;
         })
     }
 
-    dismissModal = (e) => {
+    const dismissModal = (e) => {
         e.preventDefault()
-        this.setState(prevState => {
+        setState(prevState => {
             return {
                 ...prevState,
                 showModal: false,
@@ -38,27 +97,27 @@ class DisasterPosts extends Component {
         })
     }
 
-    getModalDetails = () => {
+    const getModalDetails = () => {
         return <DisasterModalPostDetails
-                selectedPost={this.state.selectedPost}
-                handleSelectPost={this.props.handleSelectPost}
-                dismissModal={this.props.dismissModal} />
+                selectedPost={state.selectedPost}
+                handleSelectPost={props.handleSelectPost}
+                dismissModal={props.dismissModal} />
     }
 
-    render() {
-        const modalDetails = this.state.showModal ? this.getModalDetails() : null
-        const backdrop = this.state.showModal ? <div className='backdrop' onClick={ this.dismissModal }></div> : null
-        const posts = this.postsMockup(this.props.posts)
-        return (
-            <div className='DisasterPosts'>
-                { backdrop }
-                { modalDetails }
-                <section className='posts-list-container'>
-                    { posts }
-                </section>
-            </div>
-        );
-    }
+
+    const modalDetails = state.showModal ? getModalDetails() : null
+    const backdrop = state.showModal ? <div className='backdrop' onClick={ dismissModal }></div> : null
+    const posts = postsMockup(props.posts, openPostModal)
+    return (
+        <div className='DisasterPosts'>
+            { backdrop }
+            { modalDetails }
+            <section className='posts-list-container'>
+                { posts }
+            </section>
+        </div>
+    );
+    
 }
 
 export default DisasterPosts

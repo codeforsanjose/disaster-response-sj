@@ -12,7 +12,6 @@ export default function DisasterPostDetails(props) {
     const {
         title,
     } = post
-    const index = props.keyIndex;
     const markup = contactDetailsMarkup(post)
     const contactDetails = <aside className='contact-details'>
         { markup }
@@ -21,7 +20,7 @@ export default function DisasterPostDetails(props) {
     const addressDetails = getAddressMarkup(post)
     const postInfoMarkup = postInformationDetails(post)
     return (
-        <div key={ `${title}-${index}` } className='post-details' onClick={ (e) => props.openPostModal(post) }>
+        <div className='post-details' onClick={ (e) => props.openPostModal(post) }>
             <aside className='map'>
                 <Map size={ 100 } />
                 
