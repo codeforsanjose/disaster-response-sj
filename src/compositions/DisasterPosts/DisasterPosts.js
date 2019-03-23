@@ -53,7 +53,9 @@ class DisasterPosts extends Component {
             <div className='DisasterPosts'>
                 { backdrop }
                 { modalDetails }
-                { posts }
+                <section className='posts-list-container'>
+                    { posts }
+                </section>
             </div>
         );
     }

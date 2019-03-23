@@ -5,6 +5,11 @@
     padding: 60px;
 }
 
+.DisasterPosts .posts-list-container {
+    height: 800px;
+    overflow-y: scroll;
+}
+
 .DisasterPosts .post-details {
     border: solid 1px #bcbcbc;
     display: grid;
