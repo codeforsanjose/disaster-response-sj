@@ -9,6 +9,7 @@ const getAddressMarkup = (addressDetails = {}, handler = () => {}, editMode = fa
         latitude,
         radius,
     } = addressDetails
+    
     const editAddressMarkup = (
         <section className='address-details'>
             <section>
