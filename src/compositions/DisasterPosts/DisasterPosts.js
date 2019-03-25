@@ -1,21 +1,19 @@
-import React, { Component } from 'react'
-import { XCircle, Map } from 'react-feather'
+import React, { useState } from 'react'
 
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+import DisasterPostDetails from '../DisasterPosDetails/DisasterPostDetails'
+import DisasterModalPostDetails from '../DisasterModalPostDetails/DisasterModalPostDetails'
 
-import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './DisasterPosts.css'
 
-class DisasterPosts extends Component {
-    state = {
+function DisasterPosts(props) {
+    const defaultState = {
         showModal: false,
         selectedPost: null,
     }
+    const [state, setState] = useState(defaultState)
 
-    openPostModal = (post) => {
-        this.setState(previousState => {
+    const openPostModal = (post) => {
+        setState(previousState => {
             return {
                 ...previousState,
                 showModal: true,
@@ -24,38 +22,15 @@ class DisasterPosts extends Component {
         })
     }
     
-    postsMockup = (posts) => {
+    const postsMockup = (posts, openPostModal) => {
         return posts.map( (post, index) => {
-            const {
-                title,
-            } = post
-
-            const markup = contactDetailsMarkup(post)
-            const contactDetails = <aside className='contact-details'>
-                { markup }
-            </aside>
-            
-            const addressDetails = getAddressMarkup(post)
-            const postInfoMarkup = postInformationDetails(post)
-            return (
-                <div key={ `${title}-${index}` } className='post-details' onClick={ (e) => this.openPostModal(post) }>
-                    <aside className='map'>
-                        <Map size={ 100 } />
-                        
-                        { addressDetails }
-                    </aside>
-                    <section className='disaster-details'>
-                        { postInfoMarkup }
-                    </section>
-                    { contactDetails }
-                </div>
-            )
+            return <DisasterPostDetails key={`post-${index}`} post={post} openPostModal={openPostModal} />;
         })
     }
 
-    dismissModal = (e) => {
+    const dismissModal = (e) => {
         e.preventDefault()
-        this.setState(prevState => {
+        setState(prevState => {
             return {
                 ...prevState,
                 showModal: false,
@@ -64,60 +39,27 @@ class DisasterPosts extends Component {
         })
     }
 
-    getModalDetails = () => {
-        const post = this.state.selectedPost
-
-        const markup = contactDetailsMarkup(post)
-        const contactDetails = <aside className='contact-details'>
-            { markup }
-        </aside>
-        
-        const handler = this.props.handleSelectPost ? this.props.handleSelectPost : null
-        const editButtonMarkup = handler
-            ?   <section>
-                    <button onClick={(e) => handler(e, post)}>Edit</button>
-                </section>
-            :   null
-        const addressDetails = getAddressMarkup(post)
-        const map = (!(isNaN(post.longitude) && isNaN(post.latitude))) 
-            ?   <aside className='map'>
-                    <MapDisplay 
-                        longitude={post.longitude} 
-                        latitude={post.latitude} 
-                        radius={post.radius} 
-                    />
-                    { addressDetails }
-                </aside> 
-            :   <aside className='map'>
-                    { addressDetails }
-                </aside>
-        const postDetailsMarkup = postInformationDetails(post)
-        const closeButton = <XCircle size={ 60 } className='close-button' onClick={ this.dismissModal } />
-        return (
-            <div className='modal-details'>
-                { closeButton }
-                { map }
-                <section className='disaster-details'>
-                    { postDetailsMarkup }
-                </section>
-                { contactDetails }
-                { editButtonMarkup }
-            </div>
-        )
+    const getModalDetails = () => {
+        return <DisasterModalPostDetails
+                selectedPost={state.selectedPost}
+                handleSelectPost={props.handleSelectPost}
+                dismissModal={props.dismissModal} />
     }
 
-    render() {
-        const modalDetails = this.state.showModal ? this.getModalDetails() : null
-        const backdrop = this.state.showModal ? <div className='backdrop' onClick={ this.dismissModal }></div> : null
-        const posts = this.postsMockup(this.props.posts)
-        return (
-            <div className='DisasterPosts'>
-                { backdrop }
-                { modalDetails }
+
+    const modalDetails = state.showModal ? getModalDetails() : null
+    const backdrop = state.showModal ? <div className='backdrop' onClick={ dismissModal }></div> : null
+    const posts = postsMockup(props.posts, openPostModal)
+    return (
+        <div className='DisasterPosts'>
+            { backdrop }
+            { modalDetails }
+            <section className='posts-list-container'>
                 { posts }
-            </div>
-        );
-    }
+            </section>
+        </div>
+    );
+    
 }
 
 export default DisasterPosts

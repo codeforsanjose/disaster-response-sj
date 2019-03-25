@@ -18,6 +18,7 @@ import { usersRouter } from './backend/routes/userRoutes'
 
 const app = express()
 const publicDir = __dirname + '/public'
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 app.use(bodyParser({limit: '4MB'}))
 app.use(bodyParser.json());
@@ -54,6 +55,15 @@ app.post('/api/login', (req, res, next) => {
     })(req, res, next)
 
 })
+
+app.post('/sms', (req, res) => {
+  const twiml = new MessagingResponse();
+
+  twiml.message('SMS works!');
+
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
+});
 
 app.listen(app.get('port'), function () {
     console.log('[*] disaster response running on port', app.get('port'))

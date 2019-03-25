@@ -7,6 +7,7 @@ import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+import { validateEmail } from '../../Utilities/validationUtilities'
 
 require('./AdminContainer.css')
 
@@ -112,6 +113,45 @@ function AdminContainer(props) {
         postContext.Provider.updateSelectedPost(post)
     }
 
+    const validatePostDetails = () => {
+        return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
+            const sanJoseRegionalPoints = {
+                maxLong: -118,
+                minLong: -124,
+                maxLat: 41,
+                minLat: 34,
+                maxRadius: 10,
+            }
+            if (postField === 'email' && adminState.postDetails[postField].length === 0 && validateEmail(adminState.postDetails[postField])) {
+                return {
+                    ...accumulator,
+                    [postField]: 'Invalid email, please re-enter valid email',
+                }
+            } else if (postField === 'longitude' && (sanJoseRegionalPoints.minLong > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxLong) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLong} > ${postField} > ${sanJoseRegionalPoints.minLong}`,
+                }
+            } else if (postField === 'latitude' && (sanJoseRegionalPoints.maxLat < adminState.postDetails[postField] || adminState.postDetails[postField] < sanJoseRegionalPoints.minLat) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLat} > ${postField} > ${sanJoseRegionalPoints.minLat}`,
+                }
+            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxRadius) ) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < ${sanJoseRegionalPoints.maxRadius}`,
+                }
+            } else if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
+                return {
+                    ...accumulator,
+                    [postField]: `Invalid ${postField}, please re-enter valid ${postField}`,
+                }
+            } else {
+                return accumulator
+            }
+        }, {})
+    }
     const handleNewSubmit = (event) => {
         event.preventDefault();
 
@@ -129,10 +169,19 @@ function AdminContainer(props) {
             addressLine2: adminState.postDetails.addressLine2,
             zipcode: adminState.postDetails.zipcode,
         }
+        const errors = validatePostDetails(req)
 
-        createPost(req).catch( (error) => {
-            console.log('Error creating post', error);
-        });
+        if (Object.keys(errors).length === 0) {
+            createPost(req).catch( (error) => {
+                console.log('Error creating post', error);
+            })
+        } else {
+            setAdminState({
+                ...adminState,
+                errors: errors,
+            })
+        }
+        
     }
 
     const handleUpdateSubmit = (event) => {
