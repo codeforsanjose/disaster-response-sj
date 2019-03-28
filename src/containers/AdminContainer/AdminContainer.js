@@ -120,8 +120,8 @@ function AdminContainer(props) {
 
             if ( current_validation_error ) {
               accumulator[postField] = current_validation_error;
-              return accumulator;
             }
+            return accumulator;
         }, {})
     }
     const handleNewSubmit = (event) => {
