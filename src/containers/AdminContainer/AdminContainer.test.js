@@ -103,6 +103,8 @@ it('validates latitude correctly', () => {
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
   adminState.postDetails.latitude = 20.123;
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
+  adminState.postDetails.latitude = 'abc';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
 });
 
 it('validates longitude correctly', () => {
@@ -111,6 +113,8 @@ it('validates longitude correctly', () => {
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lon_error);
   adminState.postDetails.longitude = 10;
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lon_error);
+  adminState.postDetails.longitude = 'beans';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lon_error);
 });
 
 it('validates radius correctly', () => {
@@ -118,5 +122,7 @@ it('validates radius correctly', () => {
   adminState.postDetails.radius = 0;
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(rad_error);
   adminState.postDetails.radius = 15;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(rad_error);
+  adminState.postDetails.radius = 'terry pratchet';
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(rad_error);
 });
