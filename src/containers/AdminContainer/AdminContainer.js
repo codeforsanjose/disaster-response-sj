@@ -115,6 +115,7 @@ function AdminContainer(props) {
 
     const validatePostDetails = () => {
         return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
+            // check postfield validity and returns corresponding error message if invalid
             let current_validation_error = isInvalid.withDefault( postField, adminState.postDetails[postField] );
 
             if ( current_validation_error ) {

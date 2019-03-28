@@ -8,6 +8,7 @@ const validateEmail = (email, errorMessage) => {
 
 const isInvalid = {
   sanJoseRegionalPoints: {
+    // constants for use in some validator functions
     maxLong: -118,
     minLong: -124,
     maxLat: 41,
@@ -40,6 +41,13 @@ const isInvalid = {
     }
   },
   withDefault: function(validation, input) {
+    /*
+    Tries to call one of the defined validation function but if the validation isn't defined
+    use the default field validation function instead
+    Args: validation (str) - name of the validation to attempt
+          input (str) - the data to validate
+    Return: results of the corresponding validation function (str)
+    */
     try {
       return this[validation](input)
     }
