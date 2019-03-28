@@ -7,7 +7,7 @@ import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
 import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
 import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
-import { validateEmail } from '../../Utilities/validationUtilities'
+import { validateEmail, isInvalid } from '../../Utilities/validationUtilities'
 
 require('./AdminContainer.css')
 
@@ -33,7 +33,7 @@ function AdminContainer(props) {
     }
 
     const [adminState, setAdminState] = useState(state)
-    
+
     useEffect(() => {
         if (!adminState.user._id && !adminState.error) {
             const userID = props.match.params.id.split(':')[1]
@@ -75,7 +75,7 @@ function AdminContainer(props) {
             tabIndex: 0,
         })
     }
-    
+
 
     const handleInputChange = (event) => {
         event.preventDefault()
@@ -94,7 +94,7 @@ function AdminContainer(props) {
         event.preventDefault()
         const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
         const updatedItem = `${timestamp} - ${adminState.postDetails.updateItem}`
-        const updateItems = adminState.postDetails.updateItem !== '' 
+        const updateItems = adminState.postDetails.updateItem !== ''
             ? [...adminState.postDetails.updates, updatedItem]
             : adminState.postDetails.updates
 
@@ -115,40 +115,11 @@ function AdminContainer(props) {
 
     const validatePostDetails = () => {
         return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
-            const sanJoseRegionalPoints = {
-                maxLong: -118,
-                minLong: -124,
-                maxLat: 41,
-                minLat: 34,
-                maxRadius: 10,
-            }
-            if (postField === 'email' && adminState.postDetails[postField].length === 0 && validateEmail(adminState.postDetails[postField])) {
-                return {
-                    ...accumulator,
-                    [postField]: 'Invalid email, please re-enter valid email',
-                }
-            } else if (postField === 'longitude' && (sanJoseRegionalPoints.minLong > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxLong) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLong} > ${postField} > ${sanJoseRegionalPoints.minLong}`,
-                }
-            } else if (postField === 'latitude' && (sanJoseRegionalPoints.maxLat < adminState.postDetails[postField] || adminState.postDetails[postField] < sanJoseRegionalPoints.minLat) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLat} > ${postField} > ${sanJoseRegionalPoints.minLat}`,
-                }
-            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxRadius) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < ${sanJoseRegionalPoints.maxRadius}`,
-                }
-            } else if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField}`,
-                }
-            } else {
-                return accumulator
+            let current_validation_error = isInvalid.withDefault( postField, adminState.postDetails[postField] );
+
+            if ( current_validation_error ) {
+              accumulator[postField] = current_validation_error;
+              return accumulator;
             }
         }, {})
     }
@@ -181,7 +152,7 @@ function AdminContainer(props) {
                 errors: errors,
             })
         }
-        
+
     }
 
     const handleUpdateSubmit = (event) => {
@@ -209,7 +180,7 @@ function AdminContainer(props) {
             console.log('Error creating post', error);
         });
     }
-    
+
     const manageEmergency = (postDetails = {}) => {
         const addressMarkup = getAddressMarkup(postDetails, handleInputChange, true)
         const contactMarkup = contactDetailsMarkup(postDetails, handleInputChange, true)
@@ -273,7 +244,7 @@ function AdminContainer(props) {
             </div>
         )
         const activeTab = getActiveTab(tabIndex, posts)
-        
+
         return (
             <div className='AdminContainer'>
                 { tabNavContainer }
