@@ -21,17 +21,17 @@ const isInvalid = {
     }
   },
   longitude: function (long) {
-    if ( this.sanJoseRegionalPoints.minLong > long || long > this.sanJoseRegionalPoints.maxLong ) {
+    if ( !long || this.sanJoseRegionalPoints.minLong > long || long > this.sanJoseRegionalPoints.maxLong ) {
       return 'Invalid longitude, please re-enter valid longitude between ' + this.sanJoseRegionalPoints.minLong + ' & ' + this.sanJoseRegionalPoints.maxLong
     }
   },
   latitude: function (lat) {
-    if ( this.sanJoseRegionalPoints.minLat > lat || lat > this.sanJoseRegionalPoints.maxLat ) {
+    if ( !lat || this.sanJoseRegionalPoints.minLat > lat || lat > this.sanJoseRegionalPoints.maxLat ) {
       return 'Invalid latitude, please re-enter valid longitude between ' + this.sanJoseRegionalPoints.minLat + ' & ' + this.sanJoseRegionalPoints.maxLat
     }
   },
   radius: function (radius) {
-    if ( 0 > radius || radius > this.sanJoseRegionalPoints.maxRadius ) {
+    if ( !radius || 0 > radius || radius > this.sanJoseRegionalPoints.maxRadius ) {
       return 'Invalid radius, please re-enter valid radius between 0 & ' + this.sanJoseRegionalPoints.maxRadius
     }
   },

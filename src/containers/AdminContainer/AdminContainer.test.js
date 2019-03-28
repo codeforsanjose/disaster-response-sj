@@ -16,7 +16,7 @@ it('validates empty strings', () => {
       email: '',
       longitude: '',
       latitude: '',
-      radius: 20,
+      radius: '',
       other: '',
       updates: '',
       updateItem: ''
