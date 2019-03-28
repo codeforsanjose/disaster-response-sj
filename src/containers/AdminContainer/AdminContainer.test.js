@@ -65,9 +65,10 @@ it('is able to import validation related modules', () => {
   expect(AdminContainer).toBeTruthy();
 });
 
-it('validates empty strings and undefineds fields', () => {
+it('validates all fields for empty strings and undefined except updates and updateitem', () => {
   setAdminState('invalid');
-  expect( validatePostDetails(adminState.postDetails) ).toBeTruthy();
+  let length_without_update_fields = Object.keys(adminState.postDetails).length - 2;
+  expect( Object.keys(validatePostDetails(adminState.postDetails)) ).toHaveLength(length_without_update_fields);
 
   for (let detail in adminState.postDetails) {
     detail = undefined;
@@ -76,6 +77,11 @@ it('validates empty strings and undefineds fields', () => {
 });
 
 it('produces no errors if all fields are valid', () => {
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject({});
+});
+
+it('coerces string type numbers to actual numbers', () => {
+  adminState.postDetails.longitude = adminState.postDetails.longitude.toString();
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject({});
 });
 
@@ -95,4 +101,22 @@ it('validates latitude correctly', () => {
   let lat_error = {latitude:'Invalid latitude, please re-enter valid longitude between 34 & 41'};
   adminState.postDetails.latitude = 45;
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
+  adminState.postDetails.latitude = 20.123;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
+});
+
+it('validates longitude correctly', () => {
+  let lon_error = {longitude:'Invalid longitude, please re-enter valid longitude between -124 & -118'};
+  adminState.postDetails.longitude = -13312;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lon_error);
+  adminState.postDetails.longitude = 10;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lon_error);
+});
+
+it('validates radius correctly', () => {
+  let rad_error = {radius:'Invalid radius, please re-enter valid radius between 0 & 10'};
+  adminState.postDetails.radius = 0;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(rad_error);
+  adminState.postDetails.radius = 15;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(rad_error);
 });
