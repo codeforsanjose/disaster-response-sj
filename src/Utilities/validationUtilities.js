@@ -21,22 +21,22 @@ const isInvalid = {
   },
   longitude: function (long) {
     if ( this.sanJoseRegionalPoints.minLong > long || long > this.sanJoseRegionalPoints.maxLong ) {
-      return 'Invalid longitude, please re-enter valid longitude between ' + sanJoseRegionalPoints.maxLong + ' & ' + sanJoseRegionalPoints.minLong
+      return 'Invalid longitude, please re-enter valid longitude between ' + this.sanJoseRegionalPoints.minLong + ' & ' + this.sanJoseRegionalPoints.maxLong
     }
   },
   latitude: function (lat) {
-    if () {
-
+    if ( this.sanJoseRegionalPoints.minLat > lat || lat > this.sanJoseRegionalPoints.maxLat ) {
+      return 'Invalid latitude, please re-enter valid longitude between ' + this.sanJoseRegionalPoints.minLat + ' & ' + this.sanJoseRegionalPoints.maxLat
     }
   },
   radius: function (radius) {
-    if () {
-
+    if ( 0 > radius || radius > this.sanJoseRegionalPoints.maxRadius ) {
+      return 'Invalid radius, please re-enter valid radius between 0 & ' + this.sanJoseRegionalPoints.maxRadius
     }
   },
   field: (fieldName, fieldInput) => {
-    if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
-      return 'Invalid ' + fieldName + '. Please re-enter a valid ' + fieldName
+    if ( fieldInput.length === 0 && (fieldName !== 'updates' && fieldName !== 'updateItem') ) {
+      return 'Invalid ' + fieldName + ', Please re-enter a valid ' + fieldName
     }
   },
   withDefault: function(validation, input) {
@@ -50,6 +50,6 @@ const isInvalid = {
 }
 
 export {
-    validateEmail
+    validateEmail,
     isInvalid
 }
