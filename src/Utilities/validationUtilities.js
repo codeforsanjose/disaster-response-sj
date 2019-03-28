@@ -16,7 +16,7 @@ const isInvalid = {
     maxRadius: 10
   },
   email: (email) => {
-    if ( email.length === 0 && validateEmail(email) ) {
+    if ( email.length === 0 || validateEmail(email) ) {
       return 'Invalid email, please re-enter valid email'
     }
   },

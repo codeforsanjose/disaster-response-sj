@@ -4,6 +4,37 @@ import moment from 'moment'
 import AdminContainer from './AdminContainer.js';
 import { validateEmail, isInvalid } from '../../Utilities/validationUtilities'
 
+let adminState = {};
+
+const setAdminState = (type) => {
+
+  if (type == 'valid') {
+    adminState = {
+      postDetails: {
+        email: 'johnny@john.com',
+        longitude: -120.123123,
+        latitude: 36.17239871,
+        radius: 5,
+        other: 'Testing',
+        updates: '',
+        updateItem: ''
+      }
+    };
+  } else {
+    adminState = {
+      postDetails: {
+        email: '',
+        longitude: '',
+        latitude: '',
+        radius: '',
+        other: '',
+        updates: '',
+        updateItem: ''
+      }
+    };
+  }
+};
+
 const validatePostDetails = (details) => {
   /*
   Executing function for validations taken from AdminContainer and copied here
@@ -24,6 +55,10 @@ const validatePostDetails = (details) => {
     }, {});
 };
 
+beforeEach( () => {
+  setAdminState('valid');
+});
+
 it('is able to import validation related modules', () => {
   expect(validateEmail).toBeTruthy();
   expect(isInvalid).toBeTruthy();
@@ -31,19 +66,9 @@ it('is able to import validation related modules', () => {
 });
 
 it('validates empty strings and undefineds fields', () => {
-  let adminState = {
-    postDetails: {
-      email: '',
-      longitude: '',
-      latitude: '',
-      radius: '',
-      other: '',
-      updates: '',
-      updateItem: ''
-    }
-  };
-
+  setAdminState('invalid');
   expect( validatePostDetails(adminState.postDetails) ).toBeTruthy();
+
   for (let detail in adminState.postDetails) {
     detail = undefined;
   }
@@ -51,17 +76,23 @@ it('validates empty strings and undefineds fields', () => {
 });
 
 it('produces no errors if all fields are valid', () => {
-  let adminState = {
-    postDetails: {
-      email: 'johnny@john.com',
-      longitude: -120.123123,
-      latitude: 36.17239871,
-      radius: 5,
-      other: 'Testing',
-      updates: '',
-      updateItem: ''
-    }
-  };
-  console.log(validatePostDetails(adminState.postDetails));
   expect( validatePostDetails(adminState.postDetails) ).toMatchObject({});
+});
+
+it('validates email addresses correctly', () => {
+  let email_error = {email:'Invalid email, please re-enter valid email'};
+  adminState.postDetails.email = 'johnnyjohn.com';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(email_error);
+  adminState.postDetails.email = '.';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(email_error);
+  adminState.postDetails.email = 'adfasdfasd';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(email_error);
+  adminState.postDetails.email = '@';
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(email_error);
+});
+
+it('validates latitude correctly', () => {
+  let lat_error = {latitude:'Invalid latitude, please re-enter valid longitude between 34 & 41'};
+  adminState.postDetails.latitude = 45;
+  expect( validatePostDetails(adminState.postDetails) ).toMatchObject(lat_error);
 });
