@@ -19,17 +19,17 @@ const isInvalid = {
       return 'Invalid email, please re-enter valid email'
     }
   },
-  longitude: (long) => {
-    if ( sanJoseRegionalPoints.minLong > long || long > sanJoseRegionalPoints.maxLong ) {
-      return
+  longitude: function (long) {
+    if ( this.sanJoseRegionalPoints.minLong > long || long > this.sanJoseRegionalPoints.maxLong ) {
+      return 'Invalid longitude, please re-enter valid longitude between ' + sanJoseRegionalPoints.maxLong + ' & ' + sanJoseRegionalPoints.minLong
     }
   },
-  latitude: (lat) => {
+  latitude: function (lat) {
     if () {
 
     }
   },
-  radius: (radius) => {
+  radius: function (radius) {
     if () {
 
     }
