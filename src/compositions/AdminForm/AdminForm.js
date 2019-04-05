@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useReducer } from 'react'
+import _ from 'lodash'
 import moment from 'moment'
-
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../DisasterInformationMarkup/DisasterInformationMarkup'
+import PostContext from '../../context/PostContext'
+import FormContext from '../../context/FormContext'
+import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/PostMarkup'
 import { validateEmail } from '../../Utilities/validationUtilities'
-import InputList from '../../components/InputList/InputList'
 
-// import './AdminForm.css'
+import './AdminForm.css'
 
-export default function AdminForm({editMode, submitHandler = () => {}}) {
+/**
+ *  Form used in admin view to update or add new post information
+ *  
+ *  @param {string}     submitName          form button label
+ *  @param {function}   submitHandler       form submit action
+ */
+export default function AdminForm({ submitName, submitHandler = () => {} }) {
     
-    // State + context setup
-    
+    // state hooks + reducers
+
     const state = {
-        form: {
+        fields: {
             title: '',
             description: '',
             updates: [],
@@ -31,8 +36,51 @@ export default function AdminForm({editMode, submitHandler = () => {}}) {
         },
         errors: {},
     }
-    const [formState, setFormState] = useState(state.form)
-    const [errorState, setErrorState] = useState(state.errors)
+
+    const errorReducer = (state, {type, name, message}) => {
+        switch (type)
+        {
+            // Add error name and message to state
+            // {} => {foo: An error occurred with foo}
+            case 'add':     return _.assign(state, { [name] : message })
+
+            // Remove error with name from state
+            // {foo : ... } => {}
+            case 'remove':  return _.omit(state, name)
+
+            // Do nothing if type not specified
+            default:        return state
+        }
+    }
+
+    const [fields, setFields] = useState(state.fields)
+    const [errors, setErrors] = useReducer(errorReducer, state.errors)
+
+    // context handling
+    const formContext = useContext(FormContext)
+
+    formContext.Provider = {
+        errors: errors,
+        inputHandler: (event) => {
+            handleInput(event)
+        },
+        errorHandler: (event) => {
+            handleError(event)
+        },
+        focusHandler: (event) => {
+            setErrors({ type: 'remove', name: event.target.name, message: null })
+        }
+    }
+
+    const postContext = useContext(PostContext)
+    const postForEdit = postContext.Provider.post.post
+
+    if (postForEdit && postForEdit._id)
+    {
+        setFields(postForEdit)
+    }
+
+    // form handlers
 
     const validateField = (fieldName, input) => {
 
@@ -44,30 +92,32 @@ export default function AdminForm({editMode, submitHandler = () => {}}) {
             maxRadius: 10,
         }
 
-        let message = "";
+        let message = ""
 
         // Check for empty entries first
-        if (input.length === 0) 
+        if (input.length === 0 && (fieldName !== 'updateItem' || fieldName !== 'addressLine2')) 
         {
-            message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName }`   
+            message = 'Required'
         }
-
-        // Other errors
-        if (fieldName === 'email' && validateEmail(input)) 
-        {    
-            message = 'Invalid email, please re-enter valid email'   
-        } 
-        else if (fieldName === 'longitude' && (sanJoseRegionalPoints.minLong > input || input > sanJoseRegionalPoints.maxLong))
-        {
-            message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.maxLong } > ${ fieldName } > ${ sanJoseRegionalPoints.minLong }`
-        } 
-        else if (fieldName === 'latitude' && (sanJoseRegionalPoints.maxLat < input || input < sanJoseRegionalPoints.minLat)) 
-        {
-            message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.maxLat } > ${ fieldName } > ${ sanJoseRegionalPoints.minLat }`
-        } 
-        else if (fieldName === 'radius' && (0 > input || input > sanJoseRegionalPoints.maxRadius)) 
-        {
-            message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between 0 < ${ fieldName } < ${ sanJoseRegionalPoints.maxRadius }`
+        else
+        {   
+            // Other errors
+            if (fieldName === 'contactEmail' && validateEmail(input)) 
+            {    
+                message = 'Invalid email, please re-enter valid email'   
+            } 
+            else if (fieldName === 'longitude' && (sanJoseRegionalPoints.minLong > input || input > sanJoseRegionalPoints.maxLong))
+            {
+                message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.minLong } and ${ sanJoseRegionalPoints.maxLong }`
+            } 
+            else if (fieldName === 'latitude' && (sanJoseRegionalPoints.maxLat < input || input < sanJoseRegionalPoints.minLat)) 
+            {
+                message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.minLat } and ${ sanJoseRegionalPoints.maxLat }`
+            } 
+            else if (fieldName === 'radius' && (0 > input || input > sanJoseRegionalPoints.maxRadius)) 
+            {
+                message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between 0 and ${ sanJoseRegionalPoints.maxRadius }`
+            }
         }
 
         return message
@@ -75,121 +125,90 @@ export default function AdminForm({editMode, submitHandler = () => {}}) {
 
     const handleInput = (event) => {
         event.preventDefault()
-        const val = event.target.value;
-        const name = event.target.name;
 
-        const error = validateField(name, val)
+        const value = event.target.value
+        const name = event.target.name
 
-        if (error != '')
+        setFields({
+            ...fields,
+            [name]: value,
+        })
+    }
+
+    const handleError = (event) => {
+        event.preventDefault()
+
+        const value = event.target.value
+        const name = event.target.name
+        const errorMessage = validateField(name, value)
+
+        if (errorMessage !== '')
         {
-            setFormState({
-                ...formState,
-                [name]: val,
-            });
+            setErrors({ type: 'add', name: name, message: errorMessage })
         }
-        else
+        else if (name in errors)
         {
-            setErrorState({
-                ...errorState,
-                [name]: error,
-            })
+            setErrors({ type: 'remove', name: name, message: null })
         }
     }
 
     const handleAddUpdateItem = (event) => {
         event.preventDefault()
-        const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
-        const updatedItem = `${timestamp} - ${formState.updateItem}`
-        const updateItems = formState.updateItem !== '' 
-            ? [...formState.updates, updatedItem]
-            : formState.updates
 
-        setFormState({
-            ...formState,
-            updateItem: '',
-            updates: updateItems,
-        });
+        if (fields.updateItem !== '')
+        {
+            // Build update item format
+            const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
+
+            const updatedItem = `${timestamp} - ${fields.updateItem}`
+            const updateItems = [...fields.updates, updatedItem]
+
+            setFields({
+                ...fields,
+                updateItem: '',
+                updates: updateItems,
+            })
+        }
     }
 
-    const addressState = [
-        {
-            name: "addressLine1",
-            text: "Address Line 1",
-            type: "text",
-            value: formState.addressLine1,
-        }, {
-            name: "addressLine2",
-            text: "Address Line 2",
-            type: "text",
-            value: formState.addressLine2,
-        }, {
-            name: "zipcode",
-            text: "Zipcode",
-            type: "text",
-            value: formState.zipcode,
-        }, {
-            name: "longitude",
-            text: "Longitude",
-            type: "number",
-            value: formState.longitude,
-        }, {
-            name: "latitude",
-            text: "Latitude",
-            type: "number",
-            value: formState.latitude,
-        }, {
-            name: "radius",
-            text: "Radius",
-            type: "number",
-            value: formState.radius,
-        }
-    ]
-    
-    const contactState = [
-        {
-            name: "contactName",
-            text: "Name",
-            type: "text",
-            value: formState.contactName,
-        }, {
-            name: "contactEmail",
-            text: "Email",
-            type: "email",
-            value: formState.contactEmail,
-        }, {
-            name: "contactPhone",
-            text: "Phone",
-            type: "tel",
-            value: formState.zipcode,
-        },
-    ]
-
-    const addressList = <InputList name = "admin-address"
-                                details = { addressState }
-                                handler = { handleInput }
-                                 errors = { errorState }
-                               editMode = { editMode } /> 
-
-    const contactList = <InputList name = "admin-contact"
-                                details = { contactState }
-                                handler = { handleInput }
-                                 errors = { errorState }
-                               editMode = { editMode } /> 
-
-    const buttonLabel = 'Create'
-    
-    // const addressList = getAddressMarkup(formState, handleInput, true)
-    // const contactList = contactDetailsMarkup(formState, handleInput, true)
-    const infoList = postInformationDetails(formState, handleInput, handleAddUpdateItem, true)
-
     return (
-        <section>
-            { infoList }
-            { addressList }
-            { contactList }
-            <button className = 'submit-post' 
-                        disabled = { errorState.length > 0 } 
-                        onClick = { (event) => submitHandler(formState, event) }>{ buttonLabel }</button>
+        <section id = 'adminForm' className = 'formContent'>
+
+            <h3>Disaster Information</h3>
+
+            <InformationMarkup 
+                details = { fields }
+                updateHandler = { handleAddUpdateItem }
+                editMode = { true }
+            />
+
+            <div className = 'formAddress'>
+
+                <h3>Disaster Location Details</h3>
+
+                <AddressMarkup 
+                    details = { fields }
+                    editMode = { true }
+                />
+
+            </div>
+
+            <div className = 'formContact'>
+
+                <h3>Emergency Contact Information</h3>
+
+                <ContactMarkup 
+                    details = { fields }
+                    editMode = { true }
+                />
+
+            </div>
+            
+            <button className = 'formSubmit' disabled = { errors.length > 0 } onClick = { (event) => submitHandler(fields, event) }>
+                { submitName }
+            </button>
+            
         </section>
-    );
+    )
 }
+

@@ -1,18 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
-import moment from 'moment'
 
 import PostContext from '../../context/PostContext'
 import { createPost, editPost, getPosts, getUser } from '../../api/api'
 import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
 import AdminForm from '../../compositions/AdminForm/AdminForm'
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
-import { validateEmail } from '../../Utilities/validationUtilities'
 
 require('./AdminContainer.css')
 
 function AdminContainer(props) {
+
     const postContext = useContext(PostContext)
     const state = {
         user: {},
@@ -24,7 +20,7 @@ function AdminContainer(props) {
     const [adminState, setAdminState] = useState(state)
     
     useEffect(() => {
-        if (!adminState.user._id && !adminState.error) {
+        if (adminState.user && !adminState.error) {
             const userID = props.match.params.id.split(':')[1]
             getUser(userID)
             .then(response => {
@@ -56,6 +52,7 @@ function AdminContainer(props) {
     const isEditMode = postForEdit._id ? true : false
     
     if (adminState.tabIndex !== 0 && postForEdit._id) {
+
         setAdminState({
             ...adminState,
             postDetails: {
@@ -70,28 +67,31 @@ function AdminContainer(props) {
         postContext.Provider.updateSelectedPost(post)
     }
 
-    const handleNewSubmit = (req, event) => {
+    const handleNewSubmit = (post, event) => {
         event.preventDefault();
 
-        createPost(req).catch( (error) => {
+        createPost(post).catch( (error) => {
             console.log('Error creating post', error);
         });
     }
 
-    const handleUpdateSubmit = (req, event) => {
+    const handleUpdateSubmit = (post, event) => {
         event.preventDefault();
 
-        editPost(req).catch( (error) => {
+        editPost(post).catch( (error) => {
             console.log('Error updating post', error);
         });
     }
     
     const manageEmergency = () => {
         const handler = isEditMode ? handleUpdateSubmit : handleNewSubmit
+        const submitName = isEditMode ? 'Update' : 'Create'
 
         return (
             <div className='create-post-container'>
-                <AdminForm submitHandler = { handler } editMode = { true } />
+                <AdminForm submitName = { submitName } 
+                        submitHandler = { handler } 
+                             editMode = { true } />
             </div>
         );
     }
