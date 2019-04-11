@@ -7,10 +7,10 @@ const planningChecklist = () => {
       Get disaster ready <strong>before</strong> an emergency strikes. Here's how to get started:
     </p>
     <ol>
-      <li>Get a Kit</li>
-      <li>Make a Plan</li>
-      <li>Be Informed</li>
-      <li>Get Involved</li>
+      <li><h2>Get a Kit</h2></li>
+      <li><h2>Make a Plan</h2></li>
+      <li><h2>Be Informed</h2></li>
+      <li><h2>Get Involved</h2></li>
     </ol>
   </section>
 
@@ -21,7 +21,10 @@ const planningChecklist = () => {
       Protip: Aim for at least 3 days worth of supplies for your household. Consider 2 kits--one for the house and one portable if you need to leave.
     </aside>
     <ul>
-      <li>Water</li>
+      <li>
+        <input type="checkbox" class="fancy-checkbox" id="kit-water">
+        <label for="kit-water">Water</label>
+      </li>
       <li>Food</li>
       <li>Radio</li>
       <li>Flashlight</li>
@@ -39,7 +42,7 @@ const planningChecklist = () => {
     </ul>
     <h3>Resources</h3>
     <ul>
-      <li>https://www.ready.gov/build-a-kit</li>
+      <li>Build a Kit - Ready.gov's emergency kit building resources https://www.ready.gov/build-a-kit</li>
       <li>http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg</li>
       <li>https://www.fema.gov/media-library-data/1389294951288-b25113d9aef2b877323d380720827f3b/R3_trifold_eng.pdf</li>
     </ul>
@@ -73,9 +76,13 @@ const planningChecklist = () => {
       Resources
     </h3>
     <ul>
-      <li>https://www.ready.gov/alerts</li>
+      <li>http://www.sanjoseca.gov/index.aspx?NID=5760#</li>
       <li>https://www.sccgov.org/sites/alertscc/Pages/home.aspx</li>
+      <li>https://www.ready.gov/alerts</li>
+      <li>https://www.google.org/crisismap/weather_and_events</li>
+      <li>https://www.data.gov/disasters/apps-tools/</li>
       <li>https://www.nws.noaa.gov/nwr/</li>
+      <li>https://www.fema.gov/disaster-recovery-centers</li>
     </ul>
   </section>
 
