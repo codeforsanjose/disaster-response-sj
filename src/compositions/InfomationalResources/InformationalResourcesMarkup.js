@@ -22,29 +22,77 @@ const planningChecklist = () => {
     </aside>
     <ul>
       <li>
-        <input type="checkbox" class="fancy-checkbox" id="kit-water">
+        <input type="checkbox" id="kit-water">
         <label for="kit-water">Water</label>
       </li>
-      <li>Food</li>
-      <li>Radio</li>
-      <li>Flashlight</li>
-      <li>Batteries</li>
-      <li>First Aid Kit</li>
-      <li>Whistle</li>
-      <li>Filter Mask</li>
-      <li>Wet Wipes</li>
-      <li>Wrench or Pliers</li>
-      <li>Can Opener</li>
-      <li>Plastic Sheeting</li>
-      <li>Duct Tape</li>
-      <li>Garbage Bags</li>
-      <li>Unique Family Needs</li>
+      <li>
+        <input type="checkbox" id="kit-food">
+        <label for="kit-food">Food</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-radio">
+        <label for="kit-radio">Radio</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-flashlight">
+        <label for="kit-flashlight">Flashlight</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-batteries">
+        <label for="kit-batteries">Batteries</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-first-aid">
+        <label for="kit-first-aid">First Aid Kit</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-whistle">
+        <label for="kit-whistle">Whistle</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-filter">
+        <label for="kit-filter">Air Filtering Mask</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-wipes">
+        <label for="kit-wipes">Wet Wipes</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-wrench">
+        <label for="kit-wrench">Wrench or Pliers</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-can-opener">
+        <label for="kit-can-opener">Can Opener</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-plastic-sheet">
+        <label for="kit-plastic-sheet">Plastic Sheeting</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-duct-tape">
+        <label for="kit-duct-tape">Duct Tape</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-garbage">
+        <label for="kit-garbage">Garbage Bags</label>
+      </li>
+      <li>
+        <input type="checkbox" id="kit-other">
+        <label for="kit-other">Other Needed Items Unique to Your Family</label>
+      </li>
     </ul>
     <h3>Resources</h3>
     <ul>
-      <li>Build a Kit - Ready.gov's emergency kit building resources https://www.ready.gov/build-a-kit</li>
-      <li>http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg</li>
-      <li>https://www.fema.gov/media-library-data/1389294951288-b25113d9aef2b877323d380720827f3b/R3_trifold_eng.pdf</li>
+      <li>
+        <a href="https://www.ready.gov/build-a-kit" target="_blank">Build a Kit</a> - Ready.gov's emergency kit building resources
+      </li>
+      <li>
+        <a href="http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg" target="_blank">Visual Checklist for a Disaster Supply Kit</a> - Emergency supply kit checklist with pictures for each item
+      </li>
+      <li>
+        <a href="https://www.fema.gov/media-library-data/1389294951288-b25113d9aef2b877323d380720827f3b/R3_trifold_eng.pdf" target="_blank">FEMA Emergency Preparedness Brochure</a> - Useful essential disaster planning guide on a single page by FEMA
+      </li>
     </ul>
   </section>
 

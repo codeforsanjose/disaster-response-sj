@@ -1,28 +1,41 @@
 .InformationalResources {
-    --green: #22b573;
-    --gray: #777;
-    --normal-speed: 200ms;
 }
 
 .fancy-checklist {
-  margin: 0;
+  --green: #22b573;
+  --gray: #777;
+  --normal-speed: 200ms;
+
+  line-height: 1.2em;
   padding: 0;
   list-style: none;
-  width: 20em;
+  width: 15em;
+}
+
+.fancy-checklist li {
+  margin: 0.5em 0;
 }
 
 .fancy-checklist li input[type="checkbox"] {
-    opacity: 0;
+  /* hide the original checkbox and make it take up no space*/
+  opacity: 0;
+  position: absolute;
 }
 
 .fancy-checklist li label {
     position: relative;
     display: inline-block;
-    
-    /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
-    padding-left: 2.2em;
+    cursor: pointer;
+    /* width of fake checkbox + padding desired between fake checkbox and text */
+    padding-left: 2em;
 }
 
+/* For extra UX, little hover effect for a checklist item */
+.fancy-checklist li label:hover {
+  opacity: 0.7;
+}
+
+/* Styled text label checked state */
 .fancy-checklist li input[type="checkbox"]:checked + label {
   color: gray;
   text-decoration: line-through;
@@ -30,52 +43,50 @@
 
 .fancy-checklist li label::before,
 .fancy-checklist li label::after {
+    /* allow checkbox/mark to overlay each other */
     position: absolute;
+    /* so it displays */
     content: "";
-
     /*Needed for the line-height to take effect*/
     display: inline-block;
 }
 
-/*Outer box of the fake checkbox*/
+/* Outer box unchecked state*/
 .fancy-checklist li label::before{
     height: 1em;
     width: 1em;
     transition: all ease-out 200ms;
-
-    border: 4px solid #000;
+    border: 1px solid #777;
     border-radius: 100%;
-    left: 0em;
-
-    /*adjust to vertically center checkbox*/
+    left: 0;
     top: 0;
 }
 
-/*Checkmark of the fake checkbox*/
+/* Checkmark unchecked state*/
 .fancy-checklist li label::after {
-    content: "";
-    width: 55px;
-    height: 15px;
+    opacity: 0;
+    /* checkmark left side = height, right side = width */
+    width: 4em;
+    height: 1em;
     border-left: 1px solid green;
     border-bottom: 1px solid green;
-    transform: rotate(-45deg);
     transition: all ease-out 200ms;
 /*  Positioning of checkmark  */
     left: 0.2em;
-    top: 0em;
-    opacity: 0;
+    top: 0;
 }
 
-/*Unhide on the checked state*/
+/* Styled checkmark checked state */
 .fancy-checklist li input[type="checkbox"]:checked + label::after {
     height: 0.35em;
     width: 1.5em;
     opacity: 1;
-   border-width: 4px;
+    border-width: 3px;
+    transform: rotate(-45deg);
 }
 
-/*Adding focus styles on the outer-box of the fake checkbox*/
+/* Styled outer box checked state */
 .fancy-checklist li input[type="checkbox"]:checked + label::before {
-/*     outline: rgb(59, 153, 252) auto 5px; */
-    border-color: green;
+  border-color: green;
+  border-width: 3px;
 }
