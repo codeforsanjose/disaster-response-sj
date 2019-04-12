@@ -1,7 +1,9 @@
 # Local Frontend Development
-1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj/tree/inital-web-app`
-2. Install dependecies `npm i`
-3. Run application `npm start`
+1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj.git`
+2. Change to branch develop `git checkout develop`
+3. Install dependecies `npm i`
+4. Install nodemon `npm i nodemon -g`
+5. Run application `npm start`
 
 # Local Backend development
 1. Get DB credentials file from project lead through Slack channel https://codeforsanjose.slack.com/messages/C77546YF6
