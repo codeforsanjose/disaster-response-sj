@@ -1,16 +1,14 @@
 import React from 'react'
 
 import { XCircle } from 'react-feather'
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
+import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/PostMarkup'
 import MapDisplay from '../../components/MapDisplay/MapDisplay'
 
 
 export default function DisasterModalPostDetails(props) {
     const post = props.selectedPost
 
-    const markup = contactDetailsMarkup(post)
+    const markup = <ContactMarkup details = { post } />
     const contactDetails = <aside className='contact-details'>
         { markup }
     </aside>
@@ -21,7 +19,8 @@ export default function DisasterModalPostDetails(props) {
                 <button onClick={(e) => handler(e, post)}>Edit</button>
             </section>
         :   null
-    const addressDetails = getAddressMarkup(post)
+    const addressDetails = <AddressMarkup details = { post } />
+
     const map = (!(isNaN(post.longitude) && isNaN(post.latitude))) 
         ?   <aside className='map'>
                 <MapDisplay 
@@ -34,8 +33,10 @@ export default function DisasterModalPostDetails(props) {
         :   <aside className='map'>
                 { addressDetails }
             </aside>
-    const postDetailsMarkup = postInformationDetails(post)
+    const postDetailsMarkup = <InformationMarkup details = { post } />
+
     const closeButton = <XCircle size={ 60 } className='close-button' onClick={ props.dismissModal } />
+
     return (
         <div className='modal-details'>
             { closeButton }

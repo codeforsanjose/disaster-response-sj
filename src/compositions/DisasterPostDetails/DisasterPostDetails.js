@@ -1,24 +1,20 @@
 import React from 'react'
 import { Map } from 'react-feather'
 
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
-
-
+import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/PostMarkup'
 
 export default function DisasterPostDetails(props) {
     const post = props.post
     const {
         title,
     } = post
-    const markup = contactDetailsMarkup(post)
+    const markup = <ContactMarkup details = { post } />
     const contactDetails = <aside className='contact-details'>
         { markup }
     </aside>
     
-    const addressDetails = getAddressMarkup(post)
-    const postInfoMarkup = postInformationDetails(post)
+    const addressDetails = <AddressMarkup details = { post } />
+    const postInfoMarkup = <InformationMarkup details = { post } />
     return (
         <div className='post-details' onClick={ (e) => props.openPostModal(post) }>
             <aside className='map'>
