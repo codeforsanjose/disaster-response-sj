@@ -20,7 +20,7 @@ function AdminContainer(props) {
     const [adminState, setAdminState] = useState(state)
     
     useEffect(() => {
-        if (adminState.user && !adminState.error) {
+        if (adminState.user && !adminState.user._id) {
             const userID = props.match.params.id.split(':')[1]
             getUser(userID)
             .then(response => {

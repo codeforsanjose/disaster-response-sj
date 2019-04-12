@@ -24,8 +24,8 @@ export function InputField({ name, value, type, label, required = true }) {
                 { error && <span className = "input-error-msg">{ formContext.Provider.errors[name] }</span> }
                 <input 
                     onChange = { formContext.Provider.inputHandler }
-                    onBlur = { required && formContext.Provider.errorHandler }
-                    onFocus = { required && formContext.Provider.focusHandler }
+                    onBlur = { required ? formContext.Provider.errorHandler : () => {} }
+                    onFocus = { required ? formContext.Provider.focusHandler : () => {} }
                     id = { name }
                     name = { name }
                     value = { value }
@@ -59,8 +59,8 @@ export function TextAreaField({ name, value, type, label, required = true }) {
                 { error && <span className = "input-error-msg">{ formContext.Provider.errors[name] }</span> }
                 <textarea 
                     onChange = { formContext.Provider.inputHandler }
-                    onBlur = { required && formContext.Provider.errorHandler }
-                    onFocus = { required && formContext.Provider.focusHandler }
+                    onBlur = { required ? formContext.Provider.errorHandler : () => {} }
+                    onFocus = { required ? formContext.Provider.focusHandler : () => {} }
                     id = { name }
                     name = { name }
                     value = { value }

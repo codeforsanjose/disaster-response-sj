@@ -18,8 +18,11 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
     
     // state hooks + reducers
 
+    const postContext = useContext(PostContext)
+    const postForEdit = postContext.Provider.post.post
+
     const state = {
-        fields: {
+        fields: postForEdit ? postForEdit : {
             title: '',
             description: '',
             updates: [],
@@ -57,6 +60,7 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
     const [errors, setErrors] = useReducer(errorReducer, state.errors)
 
     // context handling
+
     const formContext = useContext(FormContext)
 
     formContext.Provider = {
@@ -70,14 +74,6 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         focusHandler: (event) => {
             setErrors({ type: 'remove', name: event.target.name, message: null })
         }
-    }
-
-    const postContext = useContext(PostContext)
-    const postForEdit = postContext.Provider.post.post
-
-    if (postForEdit && postForEdit._id)
-    {
-        setFields(postForEdit)
     }
 
     // form handlers
@@ -172,42 +168,32 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
     }
 
     return (
-        <section id = 'adminForm' className = 'formContent'>
-
-            <h3>Disaster Information</h3>
-
-            <InformationMarkup 
-                details = { fields }
-                updateHandler = { handleAddUpdateItem }
-                editMode = { true }
-            />
-
-            <div className = 'formAddress'>
-
+        <section id = 'adminForm' className = 'form-content'>
+            <div className = 'form-group'>
+                <h3>Disaster Information</h3>
+                <InformationMarkup 
+                    details = { fields }
+                    updateHandler = { handleAddUpdateItem }
+                    editMode = { true }
+                />
+            </div>
+            <div className = 'form-group'>
                 <h3>Disaster Location Details</h3>
-
                 <AddressMarkup 
                     details = { fields }
                     editMode = { true }
                 />
-
             </div>
-
-            <div className = 'formContact'>
-
+            <div className = 'form-group'>
                 <h3>Emergency Contact Information</h3>
-
                 <ContactMarkup 
                     details = { fields }
                     editMode = { true }
                 />
-
             </div>
-            
-            <button className = 'formSubmit' disabled = { errors.length > 0 } onClick = { (event) => submitHandler(fields, event) }>
+            <button className = 'form-submit-btn' disabled = { errors.length > 0 } onClick = { (event) => submitHandler(fields, event) }>
                 { submitName }
             </button>
-            
         </section>
     )
 }
