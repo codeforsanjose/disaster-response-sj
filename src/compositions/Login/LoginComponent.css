@@ -1,6 +1,38 @@
+.LoginComponent {
 
-.paperStyle {
-    margin: 20px;
-    background-color: #F3F2F0;
-    text-align: center;
+    display: grid;
+    width: 600px;
+    text-align: left;
+    margin: 30px auto;
+    gap: 20px;
+    grid-auto-rows: 1fr;
 }
+
+
+.LoginComponent .email input,
+.LoginComponent .passphrase input {
+    outline: none;
+    appearance: none;
+    border: none;
+    border-bottom: 1px solid #9c9c9c;
+    font-size: 36px;
+    width: 100%;
+}
+
+.LoginComponent .email {
+    grid-row: 1;
+    font-size: 36px;
+}
+
+
+.LoginComponent .passphrase {
+    grid-row: 2;
+    font-size: 36px;
+}
+
+.LoginComponent .login {
+    grid-row: 3;
+    width: fit-content;
+    font-size: 36px;
+}
+

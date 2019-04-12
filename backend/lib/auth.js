@@ -2,6 +2,7 @@ import _ from 'lodash'
 import bcrypt from 'bcrypt'
 import passport from 'passport'
 import Strategy from 'passport-local'
+import { users_db_name } from '../Utilities/API_utilities'
 
 //const FacebookStrategy = require('passport-facebook').Strategy
 //const constants = require('../config/projectInfoData.json')
@@ -27,15 +28,22 @@ function init(app) {
         passwordField: 'passphrase'
     },
         function (email, passphrase, done) {
-            login({ email, passphrase }).then(user => {
-                if (user) {
-                    return done(null, user)
-                }
-                return done(null, false)
-            }).catch(error => {
-                console.log('error in local strategy', error)
-                return done(error)
+            db.findOne(users_db_name, { email: email }).then(doc => {
+                login({ email, passphrase }).then(user => {
+                    if (user) {
+                        console.log('login response', doc)
+                        return done(null, doc[0])
+                    }
+                    return done(null, false)
+                }).catch(error => {
+                    console.log('error in local strategy', error)
+                    return done(error)
+                })
+            }).catch(err => {
+                console.log('error in login ---->', err)
+                return done(err)
             })
+            
         }
     ))
 
@@ -89,7 +97,7 @@ function init(app) {
     })
 
     passport.deserializeUser((_id, done) => {
-        db.getById('user', _id).then(user => {
+        db.getById(users_db_name, _id).then(user => {
             done(null, user)
         }).catch(err => {
             console.log('error in deserializeUser', err)
@@ -99,19 +107,12 @@ function init(app) {
 }
 
 function login(credentials) {
-    db.findOne('users', { email: credentials.email }).then(doc => {
+    return db.findOne(users_db_name, { email: credentials.email }).then(doc => {
         if (doc) {
-            return bcrypt.compare(credentials.passphrase, doc.passphrase, (err, res) => {
-                if (res) {
-                    // Passwords match
-                    return doc
-                }
-                // Passwords don't match
-                return 'Passwords do not match'
-            })
+            return bcrypt.compare(credentials.passphrase, doc[0].passphrase)
         }
     }).catch(err => {
-        console.log('error in login', err)
+        console.log('error in login ---->', err)
         return err
     })
 }
