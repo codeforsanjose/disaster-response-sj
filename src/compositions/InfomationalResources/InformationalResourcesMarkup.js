@@ -118,8 +118,21 @@ const infoResourcesMarkup = () => {
         Resources
       </h3>
       <ul>
-        <li>https://www.ready.gov/make-a-plan</li>
-        <li>https://www.fema.gov/media-library/assets/documents/22187</li>
+        <li>
+          <a href="http://www.sanjoseca.gov/index.aspx?NID=1408" target="_blank">
+            Be Prepared
+          </a> - San Jose Office of Emergency Management's 10 step disaster preparation guide.
+        </li>
+        <li>
+          <a href="https://www.ready.gov/make-a-plan" target="_blank">
+            Make a Plan
+          </a> - Offical federal government Ready.gov guide to emergency planning lists steps and provides templates for emergnecy plans.
+        </li>
+        <li>https://www.fema.gov/media-library/assets/documents/22187
+          <a href="https://www.fema.gov/media-library/assets/documents/22187" target="_blank">
+            Family Emergency Plans
+          </a> - FEMA's Family Emergency Plan templates with different versions and multiple languages available.
+        </li>
       </ul>
     </section>
 
