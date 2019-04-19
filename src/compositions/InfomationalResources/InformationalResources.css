@@ -1,7 +1,12 @@
 .InformationalResources {
+  /* limit content width for readability/usability ~80 charcters per line*/
+  max-width: 37em;
+  margin: auto;
 }
 
-.InformationalResources ul {
+.InformationalResources ul,
+.InformationalResources ol,
+ {
   list-style: none;
   padding: 0;
 }
