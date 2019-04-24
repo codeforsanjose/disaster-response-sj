@@ -94,6 +94,6 @@
 
 /* Styled outer box checked state */
 .fancy-checklist li input[type="checkbox"]:checked + label::before {
-  border-color: var(--green)green;
+  border-color: var(--green);
   border-width: 3px;
 }
