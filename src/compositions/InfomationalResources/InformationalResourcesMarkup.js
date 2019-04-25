@@ -91,15 +91,15 @@ const infoResourcesMarkup = () => {
       <h3>Resources</h3>
       <ul>
         <li>
-          <a href="https://www.ready.gov/build-a-kit" target="_blank">Build a Kit</a>
+          <a href="https://www.ready.gov/build-a-kit" target="_blank" rel="noopener noreferrer">Build a Kit</a>
           <p>Ready.gov's emergency kit building resources gives a good overview of what to include in a disaster supply kit, plus several printable checklists.</p>
         </li>
         <li>
-          <a href="http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg" target="_blank">Visual Checklist for a Disaster Supply Kit</a>
+          <a href="http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg" target="_blank" rel="noopener noreferrer">Visual Checklist for a Disaster Supply Kit</a>
           <p>An easy to use and printable emergency supply kit checklist with pictures for each item. Great for building an emergency kit if you like a more visual approach.</p>
         </li>
         <li>
-          <a href="https://www.fema.gov/media-library-data/1389294951288-b25113d9aef2b877323d380720827f3b/R3_trifold_eng.pdf" target="_blank">FEMA Emergency Preparedness Brochure</a>
+          <a href="https://www.fema.gov/media-library-data/1389294951288-b25113d9aef2b877323d380720827f3b/R3_trifold_eng.pdf" target="_blank" rel="noopener noreferrer">FEMA Emergency Preparedness Brochure</a>
           <p>Useful essential disaster planning guide in short brochure format by FEMA. Contains all key preparedness information.</p>
         </li>
       </ul>
@@ -135,13 +135,13 @@ const infoResourcesMarkup = () => {
       </h3>
       <ul>
         <li>
-          <a href="http://www.sanjoseca.gov/index.aspx?NID=1408" target="_blank">
+          <a href="http://www.sanjoseca.gov/index.aspx?NID=1408" target="_blank" rel="noopener noreferrer">
             San Jose - Be Prepared
           </a>
           <p>San Jose Office of Emergency Management's 10 step disaster preparation guide. Includes several planning resources and tools to learn about local hazards.</p>
         </li>
         <li>
-          <a href="https://www.ready.gov/make-a-plan" target="_blank">
+          <a href="https://www.ready.gov/make-a-plan" target="_blank" rel="noopener noreferrer">
             Ready.gov - Make a Plan
           </a>
           <p>
@@ -149,7 +149,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>https://www.fema.gov/media-library/assets/documents/22187
-          <a href="https://www.fema.gov/media-library/assets/documents/22187" target="_blank">
+          <a href="https://www.fema.gov/media-library/assets/documents/22187" target="_blank" rel="noopener noreferrer">
             FEMA - Family Emergency Plans
           </a>
           <p>
@@ -167,7 +167,7 @@ const infoResourcesMarkup = () => {
       </h3>
       <ul>
         <li>
-          <a href="http://www.sanjoseca.gov/index.aspx?NID=5760#" target="_blank">
+          <a href="http://www.sanjoseca.gov/index.aspx?NID=5760#" target="_blank" rel="noopener noreferrer">
             San Jose - Be Informed
           </a>
           <p>
@@ -175,7 +175,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.sccgov.org/sites/alertscc/Pages/home.aspx" target="_blank">
+          <a href="https://www.sccgov.org/sites/alertscc/Pages/home.aspx" target="_blank" rel="noopener noreferrer">
             AlertSCC
           </a>
           <p>
@@ -183,7 +183,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.ready.gov/alerts" target="_blank">
+          <a href="https://www.ready.gov/alerts" target="_blank" rel="noopener noreferrer">
             Emergency Alerts
           </a>
           <p>
@@ -191,7 +191,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.google.org/crisismap/weather_and_events" target="_blank">
+          <a href="https://www.google.org/crisismap/weather_and_events" target="_blank" rel="noopener noreferrer">
             Google Crisis Map
           </a>
           <p>
@@ -199,7 +199,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.data.gov/disasters/apps-tools/" target="_blank">
+          <a href="https://www.data.gov/disasters/apps-tools/" target="_blank" rel="noopener noreferrer">
             Data.gov - Apps & Tools
           </a>
           <p>
@@ -207,7 +207,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.nws.noaa.gov/nwr/" target="_blank">
+          <a href="https://www.nws.noaa.gov/nwr/" target="_blank" rel="noopener noreferrer">
             NOAA Weather Radio All Hazards
           </a>
           <p>
@@ -215,7 +215,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.fema.gov/disaster-recovery-centers" target="_blank">
+          <a href="https://www.fema.gov/disaster-recovery-centers" target="_blank" rel="noopener noreferrer">
             FEMA - Disaster Recovery Centers
           </a>
           <p>
@@ -233,7 +233,7 @@ const infoResourcesMarkup = () => {
       </h3>
       <ul>
         <li>
-          <a href="http://www.sanjoseca.gov/index.aspx?NID=6001" target="_blank">
+          <a href="http://www.sanjoseca.gov/index.aspx?NID=6001" target="_blank" rel="noopener noreferrer">
             San Jose - Be Involved
           </a>
           <p>
@@ -241,7 +241,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="http://evc-santaclaracounty.org/other-disaster-volunteer-resources/" target="_blank">
+          <a href="http://evc-santaclaracounty.org/other-disaster-volunteer-resources/" target="_blank" rel="noopener noreferrer">
             Santa Clara County Emergency Volunteer Center - Disaster Volunteer Resources
           </a>
           <p>
@@ -249,7 +249,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.redcross.org/local/california/northern-california-coastal/volunteer.html" target="_blank">
+          <a href="https://www.redcross.org/local/california/northern-california-coastal/volunteer.html" target="_blank" rel="noopener noreferrer">
             American Red Cross Northern CA Coastal Region - Volunteer
           </a>
           <p>
@@ -257,7 +257,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.ready.gov/volunteer" target="_blank">
+          <a href="https://www.ready.gov/volunteer" target="_blank" rel="noopener noreferrer">
             Ready.gov - Volunteer
           </a>
           <p>
@@ -265,7 +265,7 @@ const infoResourcesMarkup = () => {
           </p>
         </li>
         <li>
-          <a href="https://www.redcross.org/local/california/northern-california-coastal/volunteer.html" target="_blank">
+          <a href="https://www.redcross.org/local/california/northern-california-coastal/volunteer.html" target="_blank" rel="noopener noreferrer">
             Americorps Pathfinder Search Tool
           </a>
           <p>

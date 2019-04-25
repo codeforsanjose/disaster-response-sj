@@ -51,10 +51,14 @@
   --gray: #777;
   --normal-speed: 200ms;
   line-height: 1.2em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .fancy-checklist li {
   margin: 0.5em;
+  text-align: left;
+  flex: 1 45%;
 }
 
 .fancy-checklist li input[type="checkbox"] {
