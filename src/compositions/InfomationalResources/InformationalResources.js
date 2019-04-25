@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import './InformationalResources.css'
 import './InformationalResources.js'
-
+import { infoResourcesMarkup } from './InformationalResourcesMarkup.js'
 
 
 class InformationalResources extends Component {
@@ -17,7 +17,7 @@ class InformationalResources extends Component {
 
     render() {
 
-      const resourcesContent = infoResourcesMarkup
+      const resourcesContent = infoResourcesMarkup();
 
         return (
             <div className='InformationalResources'>

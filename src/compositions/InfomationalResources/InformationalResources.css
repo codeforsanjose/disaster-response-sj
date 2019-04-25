@@ -4,11 +4,46 @@
   margin: auto;
 }
 
-.InformationalResources ul,
-.InformationalResources ol,
- {
+.InformationalResources section {
+  margin: 2em 0;
+}
+
+.InformationalResources ul, .InformationalResources ol {
+  /* clear default list styling */
   list-style: none;
   padding: 0;
+}
+
+.tiles {
+  display: flex;
+  /* init a counter to use for our styled numbers*/
+  counter-reset: tile-count;
+}
+
+.tiles li {
+  width: 25%;
+  color: #fff;
+  text-transform: uppercase;
+  background: #2C3E50;
+  padding: 1em;
+  margin: 0.5em;
+  transform: skewX(-5deg);
+  /* flex vertical/horizontal centering of contents*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiles li:before {
+  /* increment and display the counter number */
+  content: counter(tile-count);
+  counter-increment: tile-count;
+  font-size: 1.5em;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #598dbb;
+  padding: 5px;
 }
 
 .fancy-checklist {

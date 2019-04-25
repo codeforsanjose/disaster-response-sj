@@ -5,16 +5,17 @@ import './InformationalResources.css'
 const infoResourcesMarkup = () => {
 
   return (
+    <React.Fragment>
     <section>
-      <h1>Preparing for Emergencies</h1>
+      <h1>Preparing for Disasters</h1>
       <p>
         Get disaster ready <strong>before</strong> an emergency strikes. Here's how to get started:
       </p>
-      <ol>
-        <li><h2>Get a Kit</h2></li>
-        <li><h2>Make a Plan</h2></li>
-        <li><h2>Be Informed</h2></li>
-        <li><h2>Get Involved</h2></li>
+      <ol className="tiles">
+        <li>Get a Kit</li>
+        <li>Make a Plan</li>
+        <li>Be Informed</li>
+        <li>Get Involved</li>
       </ol>
     </section>
 
@@ -25,65 +26,65 @@ const infoResourcesMarkup = () => {
         Protip: Aim for at least 3 days worth of supplies for your household. Consider 2 kits--one for the house and one portable if you need to leave.
       </aside>
       <h3>Emergency Kit Checklist</h3>
-      <ul>
+      <ul className="fancy-checklist">
         <li>
-          <input type="checkbox" id="kit-water">
+          <input type="checkbox" id="kit-water" />
           <label for="kit-water">Water</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-food">
+          <input type="checkbox" id="kit-food"/>
           <label for="kit-food">Food</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-radio">
+          <input type="checkbox" id="kit-radio"/>
           <label for="kit-radio">Radio</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-flashlight">
+          <input type="checkbox" id="kit-flashlight"/>
           <label for="kit-flashlight">Flashlight</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-batteries">
+          <input type="checkbox" id="kit-batteries"/>
           <label for="kit-batteries">Batteries</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-first-aid">
+          <input type="checkbox" id="kit-first-aid"/>
           <label for="kit-first-aid">First Aid Kit</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-whistle">
+          <input type="checkbox" id="kit-whistle"/>
           <label for="kit-whistle">Whistle</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-filter">
+          <input type="checkbox" id="kit-filter"/>
           <label for="kit-filter">Air Filtering Mask</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-wipes">
+          <input type="checkbox" id="kit-wipes"/>
           <label for="kit-wipes">Wet Wipes</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-wrench">
+          <input type="checkbox" id="kit-wrench"/>
           <label for="kit-wrench">Wrench or Pliers</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-can-opener">
+          <input type="checkbox" id="kit-can-opener"/>
           <label for="kit-can-opener">Can Opener</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-plastic-sheet">
+          <input type="checkbox" id="kit-plastic-sheet"/>
           <label for="kit-plastic-sheet">Plastic Sheeting</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-duct-tape">
+          <input type="checkbox" id="kit-duct-tape"/>
           <label for="kit-duct-tape">Duct Tape</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-garbage">
+          <input type="checkbox" id="kit-garbage"/>
           <label for="kit-garbage">Garbage Bags</label>
         </li>
         <li>
-          <input type="checkbox" id="kit-other">
+          <input type="checkbox" id="kit-other"/>
           <label for="kit-other">Other Needed Items Unique to Your Family</label>
         </li>
       </ul>
@@ -111,11 +112,23 @@ const infoResourcesMarkup = () => {
         Protip: Your family may be separated when a disaster strikes so everyone needs to know what to do, how to contact each other, and where to meet.
       </aside>
       <h3>Planning Checklist</h3>
-      <ul>
-        <li>Communication Plan</li>
-        <li>Shelter Plan</li>
-        <li>Evacuation Plan</li>
-        <li>Practice Plan</li>
+      <ul className="fancy-checklist">
+        <li>
+          <input type="checkbox" id="plan-comms"/>
+          <label for="plan-comms">Communication Plan</label>
+        </li>
+        <li>
+          <input type="checkbox" id="plan-shelter"/>
+          <label for="plan-shelter">Shelter Plan</label>
+        </li>
+        <li>
+          <input type="checkbox" id="plan-evac"/>
+          <label for="plan-evac">Evacuation Plan</label>
+        </li>
+        <li>
+          <input type="checkbox" id="plan-practice"/>
+          <label for="plan-practice">Practice Plan</label>
+        </li>
       </ul>
       <h3>
         Resources
@@ -261,6 +274,7 @@ const infoResourcesMarkup = () => {
         </li>
       </ul>
     </section>
+    </React.Fragment>
   )
 
 };
