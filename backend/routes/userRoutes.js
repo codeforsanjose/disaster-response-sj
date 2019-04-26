@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { db } from '../lib/db'
 import { users_db_name } from '../Utilities/API_utilities'
-
+import bcrypt from 'bcrypt'
 
 const usersRouter = Router()
 
@@ -10,8 +10,12 @@ usersRouter.post('/api/user', (req, res) => {
     // It is good practice to specifically pick the fields we want to insert here *in the backend*,
     // even if we have already done so on the front end. This is to prevent malicious users
     // from adding unexpected fields by modifying the front end JS in the browser.
-    var newUser =  _.pick(req.body, [
-        'name', 'email', 'phone', 'passphrase'])
+    var newUser =  {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        passphrase: req.body.passphrase,
+    }
     createNewUser(newUser).then(result => {
         return res.json(result)
     }).catch(error => {
@@ -22,7 +26,7 @@ usersRouter.post('/api/user', (req, res) => {
 
 usersRouter.get('/api/user/:id', (req, res) => {
     console.log('req is', req.user)
-    db.getById('users', req.params.id)
+    db.getById(users_db_name, req.params.id)
     .then(user => {
         delete user.passphrase
         req.user = user[0]

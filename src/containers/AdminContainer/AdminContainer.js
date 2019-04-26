@@ -1,32 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
-import moment from 'moment'
 
 import PostContext from '../../context/PostContext'
 import { createPost, editPost, getPosts, getUser } from '../../api/api'
 import DisasterPosts from '../../compositions/DisasterPosts/DisasterPosts'
-import { getAddressMarkup } from '../../components/AddressMarkup/AddressMarkup'
-import { contactDetailsMarkup } from '../../components/ContactMarkup/ContactMarkup'
-import { postInformationDetails } from '../../compositions/DisasterInformationMarkup/DisasterInformationMarkup'
-import { validateEmail } from '../../Utilities/validationUtilities'
+import AdminForm from '../../compositions/AdminForm/AdminForm'
 
 require('./AdminContainer.css')
 
 function AdminContainer(props) {
+
     const postContext = useContext(PostContext)
     const state = {
         user: {},
-        postDetails: {
-            title: '',
-            description: '',
-            updates: [],
-            updateItem: '',
-            contactName: '',
-            contactEmail: '',
-            contactPhone: '',
-            longitude: '',
-            latitude: '',
-            radius: '',
-        },
         selectedID: '',
         tabIndex: 0,
         tabs: ['Create Post', 'Update Existing Post'],
@@ -35,7 +20,7 @@ function AdminContainer(props) {
     const [adminState, setAdminState] = useState(state)
     
     useEffect(() => {
-        if (!adminState.user._id && !adminState.error) {
+        if (adminState.user && !adminState.user._id) {
             const userID = props.match.params.id.split(':')[1]
             getUser(userID)
             .then(response => {
@@ -65,47 +50,16 @@ function AdminContainer(props) {
 
     const postForEdit = postContext.Provider.post.post
     const isEditMode = postForEdit._id ? true : false
+    
     if (adminState.tabIndex !== 0 && postForEdit._id) {
+
         setAdminState({
             ...adminState,
             postDetails: {
-                ...adminState.postDetails,
                 ...postForEdit
             },
             tabIndex: 0,
         })
-    }
-    
-
-    const handleInputChange = (event) => {
-        event.preventDefault()
-        const val = event.target.value;
-        const name = event.target.name;
-        setAdminState({
-            ...adminState,
-            postDetails: {
-                ...adminState.postDetails,
-                [name]: val,
-            },
-        });
-    }
-
-    const handleAddUpdateItem = (event) => {
-        event.preventDefault()
-        const timestamp = moment().format('MMM D, YYYY : HH:mm:ss')
-        const updatedItem = `${timestamp} - ${adminState.postDetails.updateItem}`
-        const updateItems = adminState.postDetails.updateItem !== '' 
-            ? [...adminState.postDetails.updates, updatedItem]
-            : adminState.postDetails.updates
-
-        setAdminState({
-            ...adminState,
-            postDetails: {
-                ...adminState.postDetails,
-                updateItem: '',
-                updates: updateItems,
-            }
-        });
     }
 
     const handleSelect = (event, post) => {
@@ -113,116 +67,31 @@ function AdminContainer(props) {
         postContext.Provider.updateSelectedPost(post)
     }
 
-    const validatePostDetails = () => {
-        return Object.keys(adminState.postDetails).reduce( (accumulator, postField) => {
-            const sanJoseRegionalPoints = {
-                maxLong: -118,
-                minLong: -124,
-                maxLat: 41,
-                minLat: 34,
-                maxRadius: 10,
-            }
-            if (postField === 'email' && adminState.postDetails[postField].length === 0 && validateEmail(adminState.postDetails[postField])) {
-                return {
-                    ...accumulator,
-                    [postField]: 'Invalid email, please re-enter valid email',
-                }
-            } else if (postField === 'longitude' && (sanJoseRegionalPoints.minLong > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxLong) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLong} > ${postField} > ${sanJoseRegionalPoints.minLong}`,
-                }
-            } else if (postField === 'latitude' && (sanJoseRegionalPoints.maxLat < adminState.postDetails[postField] || adminState.postDetails[postField] < sanJoseRegionalPoints.minLat) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between ${sanJoseRegionalPoints.maxLat} > ${postField} > ${sanJoseRegionalPoints.minLat}`,
-                }
-            } else if (postField === 'radius' && (0 > adminState.postDetails[postField] || adminState.postDetails[postField] > sanJoseRegionalPoints.maxRadius) ) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField} between 0 < ${postField} < ${sanJoseRegionalPoints.maxRadius}`,
-                }
-            } else if (adminState.postDetails[postField].length === 0 && (postField !== 'updates' && postField !== 'updateItem')) {
-                return {
-                    ...accumulator,
-                    [postField]: `Invalid ${postField}, please re-enter valid ${postField}`,
-                }
-            } else {
-                return accumulator
-            }
-        }, {})
-    }
-    const handleNewSubmit = (event) => {
+    const handleNewSubmit = (post, event) => {
         event.preventDefault();
 
-        const req = {
-            title: adminState.postDetails.title,
-            description: adminState.postDetails.description,
-            contactName: adminState.postDetails.contactName,
-            contactEmail: adminState.postDetails.contactEmail,
-            contactPhone: adminState.postDetails.contactPhone,
-            updates: adminState.postDetails.updates,
-            longitude: adminState.postDetails.longitude,
-            latitude: adminState.postDetails.latitude,
-            radius: adminState.postDetails.radius,
-            addressLine1: adminState.postDetails.addressLine1,
-            addressLine2: adminState.postDetails.addressLine2,
-            zipcode: adminState.postDetails.zipcode,
-        }
-        const errors = validatePostDetails(req)
-
-        if (Object.keys(errors).length === 0) {
-            createPost(req).catch( (error) => {
-                console.log('Error creating post', error);
-            })
-        } else {
-            setAdminState({
-                ...adminState,
-                errors: errors,
-            })
-        }
-        
-    }
-
-    const handleUpdateSubmit = (event) => {
-        event.preventDefault();
-
-        // TODO : Figure out update API
-
-        const req = {
-            _id: adminState.postDetails._id,
-            title: adminState.postDetails.title,
-            description: adminState.postDetails.description,
-            contactName: adminState.postDetails.contactName,
-            contactEmail: adminState.postDetails.contactEmail,
-            contactPhone: adminState.postDetails.contactPhone,
-            updates: adminState.postDetails.updates,
-            longitude: adminState.postDetails.longitude,
-            latitude: adminState.postDetails.latitude,
-            radius: adminState.postDetails.radius,
-            addressLine1: adminState.postDetails.addressLine1,
-            addressLine2: adminState.postDetails.addressLine2,
-            zipcode: adminState.postDetails.zipcode,
-        }
-
-        editPost(req).catch( (error) => {
+        createPost(post).catch( (error) => {
             console.log('Error creating post', error);
         });
     }
+
+    const handleUpdateSubmit = (post, event) => {
+        event.preventDefault();
+
+        editPost(post).catch( (error) => {
+            console.log('Error updating post', error);
+        });
+    }
     
-    const manageEmergency = (postDetails = {}) => {
-        const addressMarkup = getAddressMarkup(postDetails, handleInputChange, true)
-        const contactMarkup = contactDetailsMarkup(postDetails, handleInputChange, true)
-        const infoMarkup = postInformationDetails(postDetails, handleInputChange, handleAddUpdateItem, true)
+    const manageEmergency = () => {
         const handler = isEditMode ? handleUpdateSubmit : handleNewSubmit
-        const buttonLabel = isEditMode ? 'Edit' : 'Create'
+        const submitName = isEditMode ? 'Update' : 'Create'
+
         return (
             <div className='create-post-container'>
-                { infoMarkup }
-                { addressMarkup }
-                { contactMarkup }
-                <hr />
-                <button className='submit-post' onClick={handler}>{ buttonLabel }</button>
+                <AdminForm submitName = { submitName } 
+                        submitHandler = { handler } 
+                             editMode = { true } />
             </div>
         );
     }
@@ -230,7 +99,6 @@ function AdminContainer(props) {
     const showEmergencies = (posts) => {
         return <DisasterPosts handleSelectPost={handleSelect} posts={ posts } />
     }
-
 
     const handleTabSelect = (index) => {
         if (index === 0) {
@@ -247,7 +115,7 @@ function AdminContainer(props) {
     const getActiveTab = (tabIndex, posts) => {
         switch(tabIndex) {
             case 0: {
-                return manageEmergency(adminState.postDetails)
+                return manageEmergency()
             }
             case 1: {
                 return showEmergencies(posts)
