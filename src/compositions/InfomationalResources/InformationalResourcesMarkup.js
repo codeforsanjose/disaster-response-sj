@@ -7,7 +7,7 @@ const infoResourcesMarkup = () => {
   return (
     <React.Fragment>
     <section>
-      <h1>Preparing for Disasters</h1>
+      <h1>Preparing for Disaster</h1>
       <p>
         Get disaster ready <strong>before</strong> an emergency strikes. Here's how to get started:
       </p>
