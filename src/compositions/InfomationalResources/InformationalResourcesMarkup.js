@@ -31,71 +31,117 @@ const infoResourcesMarkup = () => {
           <input type="checkbox" id="kit-water" />
           <label for="kit-water">
             <h4>Water</h4>
-            <p>At least 1 gallon per person, per day</p>
+            <p>At least 1 gallon per person, per day for drinking and sanitation</p>
           </label>
         </li>
         <li>
           <input type="checkbox" id="kit-food"/>
-          <label for="kit-food">Food</label>
+          <label for="kit-food">
+            <h4>Food</h4>
+            <p>Non-perishable like canned, dry, or powdered goods</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-radio"/>
-          <label for="kit-radio">Radio</label>
+          <label for="kit-radio">
+            <h4>Radio (Battery Powered)</h4>
+            <p>To get alerts and information when networks are down</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-flashlight"/>
-          <label for="kit-flashlight">Flashlight</label>
+          <label for="kit-flashlight">
+            <h4>Flashlight</h4>
+            <p>To see in dark places, at night, or as a signaling device</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-batteries"/>
-          <label for="kit-batteries">Batteries</label>
+          <label for="kit-batteries">
+            <h4>Batteries</h4>
+            <p>For your radio and flashlight</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-first-aid"/>
-          <label for="kit-first-aid">First Aid Kit</label>
+          <label for="kit-first-aid">
+            <h4>First Aid Kit</h4>
+            <p>Emergency services may not be able to help you immediately after a disaster</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-whistle"/>
-          <label for="kit-whistle">Whistle</label>
+          <label for="kit-whistle">
+            <h4>Whistle</h4>
+            <p>To signal for help</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-filter"/>
-          <label for="kit-filter">Air Filtering Mask</label>
+          <label for="kit-filter">
+            <h4>Air Filtering Mask</h4>
+            <p>Dust and smoke are commonly encountered hazards</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-wipes"/>
-          <label for="kit-wipes">Wet Wipes</label>
+          <label for="kit-wipes">
+            <h4>Wet Wipes</h4>
+            <p>For sanitation and hygiene, especially if there's no running water</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-wrench"/>
-          <label for="kit-wrench">Wrench or Pliers</label>
+          <label for="kit-wrench">
+            <h4>Wrench or Pliers</h4>
+            <p>For turning off utilities like gas lines</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-can-opener"/>
-          <label for="kit-can-opener">Can Opener</label>
+          <label for="kit-can-opener">
+            <h4>Can Opener</h4>
+            <p>For opening canned foods</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-plastic-sheet"/>
-          <label for="kit-plastic-sheet">Plastic Sheeting</label>
+          <label for="kit-plastic-sheet">
+            <h4>Plastic Sheeting</h4>
+            <p>Useful for using as emergency shelter</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-duct-tape"/>
-          <label for="kit-duct-tape">Duct Tape</label>
+          <label for="kit-duct-tape">
+            <h4>Duct Tape</h4>
+            <p>For constructing emergency shelter and numerous other uses</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-garbage"/>
-          <label for="kit-garbage">Garbage Bags</label>
+          <label for="kit-garbage">
+            <h4>Garbage Bags</h4>
+            <p>To maintain sanitation</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-other"/>
-          <label for="kit-other">Other Needed Items Unique to Your Family</label>
+          <label for="kit-other">
+            <h4>Other Items Unique to Your Family</h4>
+            <p>Examples: prescription medications, baby formula, important documents</p>
+          </label>
         </li>
       </ul>
-      <h3>Resources</h3>
+      <h3>Additional Resources</h3>
       <ul>
         <li>
-          <a href="https://www.ready.gov/build-a-kit" target="_blank" rel="noopener noreferrer">Build a Kit</a>
-          <p>Ready.gov's emergency kit building resources gives a good overview of what to include in a disaster supply kit, plus several printable checklists.</p>
+          <a href="http://www.sanjoseca.gov/index.aspx?NID=1409" target="_blank" rel="noopener noreferrer">San Jose - Be Supplied</a>
+          <p>Emergency kit building information from the City of San Jose's Office of Emergency Management, including local stores to purchase items and organizations you can purchase ready-made kits from.</p>
+        </li>
+        <li>
+          <a href="https://www.ready.gov/build-a-kit" target="_blank" rel="noopener noreferrer">Ready.gov - Build a Kit</a>
+          <p>Offcial emergency kit building information from the government with a good overview of what to include in a kit, plus several printable checklists.</p>
         </li>
         <li>
           <a href="http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg" target="_blank" rel="noopener noreferrer">Visual Checklist for a Disaster Supply Kit</a>
@@ -118,23 +164,35 @@ const infoResourcesMarkup = () => {
       <ul className="fancy-checklist">
         <li>
           <input type="checkbox" id="plan-comms"/>
-          <label for="plan-comms">Communication Plan</label>
+          <label for="plan-comms">
+            <h4>Communication Plan</h4>
+            <p>How will you receive emergency alerts or warnings? How will you contact family members--does everyone have each others contact information? How about emergency meeting places or out-of-town contacts if you are can't be reached?</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="plan-shelter"/>
-          <label for="plan-shelter">Shelter Plan</label>
+          <label for="plan-shelter">
+            <h4>Shelter Plan</h4>
+            <p>Many disasters require taking shelter somewhere appropriate to the hazard. Do you know the safest locations for each type of hazard in your area? Where will you go during a disaster?</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="plan-evac"/>
-          <label for="plan-evac">Evacuation Plan</label>
+          <label for="plan-evac">
+            <h4>Evacuation Plan</h4>
+            <p>If there is a call for evacuation, do you know where you will go and where you will stay? What routes will you take? What supplies will you need?</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="plan-practice"/>
-          <label for="plan-practice">Practice Plan</label>
+          <label for="plan-practice">
+            <h4>Practice Plan</h4>
+            <p>All the planning in the world is useless if you don't know what to do when disaster strikes. Practice your plan regularly to make sure it works and you can remember the information.</p>
+          </label>
         </li>
       </ul>
       <h3>
-        Resources
+        Additional Resources
       </h3>
       <ul>
         <li>
@@ -151,7 +209,7 @@ const infoResourcesMarkup = () => {
           Offical federally maintained Ready.gov guide to emergency planning. Lists steps and provides templates for emergency planning.
           </p>
         </li>
-        <li>https://www.fema.gov/media-library/assets/documents/22187
+        <li>
           <a href="https://www.fema.gov/media-library/assets/documents/22187" target="_blank" rel="noopener noreferrer">
             FEMA - Family Emergency Plans
           </a>
@@ -166,7 +224,7 @@ const infoResourcesMarkup = () => {
       <h2>Be Informed</h2>
       <p>Stay updated with the latest emergency alerts and warnings. Know the type of disasters that can affect your area so you can plan accordingly.</p>
       <h3>
-        Resources
+        Additional Resources
       </h3>
       <ul>
         <li>
@@ -232,7 +290,7 @@ const infoResourcesMarkup = () => {
       <h2>Get Involved</h2>
       <p>Be proactive in helping your community prepare for disaters. You can help make your community safer and stronger.</p>
       <h3>
-        Resources
+        Additional Resources
       </h3>
       <ul>
         <li>

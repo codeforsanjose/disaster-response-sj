@@ -70,13 +70,13 @@
 }
 
 .fancy-checklist li label {
-    /* so child elements are positioned relative to this */
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    margin: 0.5em;
-    /* width of fake checkbox + padding desired between fake checkbox and text */
-    padding-left: calc(var(--checkbox-size) + 1em);
+  /* so child elements are positioned relative to this */
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0.5em;
+  /* width of fake checkbox + padding desired between fake checkbox and text */
+  padding-left: calc(var(--checkbox-size) + 1em);
 }
 
 /* For extra UX, little hover effect for a checklist item */
