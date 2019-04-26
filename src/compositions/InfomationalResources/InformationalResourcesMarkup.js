@@ -23,13 +23,16 @@ const infoResourcesMarkup = () => {
       <h2>Get a Kit</h2>
       <p>The emergency supplies in a basic disaster readiness kit can help you keep alive. Think first about essentials like food, water, shelter, and clean air. Also keep in mind how you will receive information during a disaster.</p>
       <aside>
-        Protip: Aim for at least 3 days worth of supplies for your household. Consider 2 kits--one for the house and one portable if you need to leave.
+        Protip: Aim for at least 3 days worth of supplies for your household. Consider 2 kits—one for the house and one portable if you need to leave home.
       </aside>
       <h3>Emergency Kit Checklist</h3>
       <ul className="fancy-checklist">
         <li>
           <input type="checkbox" id="kit-water" />
-          <label for="kit-water">Water</label>
+          <label for="kit-water">
+            <h4>Water</h4>
+            <p>At least 1 gallon per person, per day</p>
+          </label>
         </li>
         <li>
           <input type="checkbox" id="kit-food"/>

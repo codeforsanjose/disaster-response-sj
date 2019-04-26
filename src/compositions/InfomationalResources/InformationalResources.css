@@ -49,16 +49,18 @@
 .fancy-checklist {
   --green: #22b573;
   --gray: #777;
-  --normal-speed: 200ms;
-  line-height: 1.2em;
+  --transition-speed: 200ms;
+  --checkbox-size: 1em;
+  line-height: calc(var(--checkbox-size) + 0.2em);
+  /* To allow for columns */
   display: flex;
   flex-wrap: wrap;
 }
 
 .fancy-checklist li {
-  margin: 0.5em;
   text-align: left;
-  flex: 1 45%;
+  /* for 2 columns in the checklist */
+  flex: 1 1 50%;
 }
 
 .fancy-checklist li input[type="checkbox"] {
@@ -72,13 +74,23 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
+    margin: 0.5em;
     /* width of fake checkbox + padding desired between fake checkbox and text */
-    padding-left: 2em;
+    padding-left: calc(var(--checkbox-size) + 1em);
 }
 
 /* For extra UX, little hover effect for a checklist item */
 .fancy-checklist li label:hover {
   opacity: 0.7;
+}
+
+.fancy-checklist li label h4 {
+  margin: 0;
+}
+
+.fancy-checklist li label p {
+  margin: 0;
+  font-size: 80%;
 }
 
 /* Styled text label checked state */
@@ -99,9 +111,9 @@
 
 /* Outer box unchecked state*/
 .fancy-checklist li label::before{
-    height: 1em;
-    width: 1em;
-    transition: all ease-out 200ms;
+    height: var(--checkbox-size);
+    width: var(--checkbox-size);
+    transition: all ease-out var(--transition-speed);
     border: 1px solid var(--gray);
     border-radius: 100%;
     left: 0;
@@ -112,20 +124,22 @@
 .fancy-checklist li label::after {
     opacity: 0;
     /* checkmark left side = height, right side = width */
-    width: 4em;
-    height: 1em;
+    width: calc(var(--checkbox-size) + 3em);
+    height: var(--checkbox-size);
     border-left: 1px solid var(--green);
     border-bottom: 1px solid var(--green);
-    transition: all ease-out var(--normal-speed);
-/*  Positioning of checkmark  */
+    transition: all ease-out var(--transition-speed);
+/*  Position checkmark as close to centered in the box */
     left: 0.2em;
     top: 0;
 }
 
 /* Styled checkmark checked state */
 .fancy-checklist li input[type="checkbox"]:checked + label::after {
-    height: 0.35em;
-    width: 1.5em;
+    /* height: calc(var(--checkbox-size) - 0.65em); */
+    /* width: calc(var(--checkbox-size) + 0.5em); */
+    height: calc(var(--checkbox-size) * 0.35);
+    width: calc(var(--checkbox-size) * 1.5);
     opacity: 1;
     border-width: 3px;
     transform: rotate(-45deg);
