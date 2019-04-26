@@ -46,6 +46,10 @@
   padding: 5px;
 }
 
+.tiles li a {
+  color: #fff;
+}
+
 .fancy-checklist {
   --green: #22b573;
   --gray: #777;

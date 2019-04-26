@@ -12,15 +12,24 @@ const infoResourcesMarkup = () => {
         Get disaster ready <strong>before</strong> an emergency strikes. Here's how to get started:
       </p>
       <ol className="tiles">
-        <li>Get a Kit</li>
-        <li>Make a Plan</li>
-        <li>Be Informed</li>
-        <li>Get Involved</li>
+        <li>
+          <a href="#kit">Get a Kit</a>
+        </li>
+        <li>
+          <a href="#plan">Make a Plan</a>
+        </li>
+        <li>
+          <a href="#info">Be Informed</a>
+        </li>
+        <li>
+          <a href="#involve">Get Involved</a>
+        </li>
       </ol>
     </section>
 
     <section>
       <h2>Get a Kit</h2>
+      <a name="kit"></a>
       <p>The emergency supplies in a basic disaster readiness kit can help you keep alive. Think first about essentials like food, water, shelter, and clean air. Also keep in mind how you will receive information during a disaster.</p>
       <aside>
         Protip: Aim for at least 3 days worth of supplies for your household. Consider 2 kits—one for the house and one portable if you need to leave home.
@@ -141,7 +150,7 @@ const infoResourcesMarkup = () => {
         </li>
         <li>
           <a href="https://www.ready.gov/build-a-kit" target="_blank" rel="noopener noreferrer">Ready.gov - Build a Kit</a>
-          <p>Offcial emergency kit building information from the government with a good overview of what to include in a kit, plus several printable checklists.</p>
+          <p>Official emergency kit building information from the US government with a good overview of what to include in a kit, plus several printable checklists.</p>
         </li>
         <li>
           <a href="http://www.conovernc.gov/vertical/Sites/%7BBAB0D760-E669-4331-9C22-9FB14833B6B9%7D/uploads/Visual-Checklist-Disaster-Supply-Kit.jpg" target="_blank" rel="noopener noreferrer">Visual Checklist for a Disaster Supply Kit</a>
@@ -155,6 +164,7 @@ const infoResourcesMarkup = () => {
     </section>
 
     <section>
+      <a name="plan"></a>
       <h2>Make a Plan</h2>
       <p>Know what to do in an emergency situation, especially if you're separated. A good plan can help prevent panic and keep you safe during chaotic situations.</p>
       <aside>
@@ -202,6 +212,18 @@ const infoResourcesMarkup = () => {
           <p>San Jose Office of Emergency Management's 10 step disaster preparation guide. Includes several planning resources and tools to learn about local hazards.</p>
         </li>
         <li>
+          <a href="https://www.sccgov.org/sites/oes/residents/Pages/ReadySCC.aspx" target="_blank" rel="noopener noreferrer">
+            ReadySCC
+          </a>
+          <p>Paid for by the County of Santa Clara, ReadySCC is a free mobile app that helps create a family disaster preparedness plan. It can help store contacts and resources.</p>
+        </li>
+        <li>
+          <a href="https://www.sccgov.org/sites/oes/residents/Pages/twelve-month-emergency-preparedness-calendar.aspx" target="_blank" rel="noopener noreferrer">
+            Twelve Month Emergency Preparedness Calendar
+          </a>
+          <p>Created by County of Santa Clara's Emergency Management office, this 12 month program called Do 1 Thing helps you prepare for disasters by doing one thing each month.</p>
+        </li>
+        <li>
           <a href="https://www.ready.gov/make-a-plan" target="_blank" rel="noopener noreferrer">
             Ready.gov - Make a Plan
           </a>
@@ -221,6 +243,7 @@ const infoResourcesMarkup = () => {
     </section>
 
     <section>
+      <a name="info"></a>
       <h2>Be Informed</h2>
       <p>Stay updated with the latest emergency alerts and warnings. Know the type of disasters that can affect your area so you can plan accordingly.</p>
       <h3>
@@ -233,6 +256,14 @@ const infoResourcesMarkup = () => {
           </a>
           <p>
           San Jose Office of Emergency Management's guide to staying informed, including key emergency contact information and useful apps.
+          </p>
+        </li>
+        <li>
+          <a href="https://www.211bayarea.org/disaster-information/" target="_blank" rel="noopener noreferrer">
+            211 Bay Area - Disaster Information
+          </a>
+          <p>
+          During a disaster, residents can call 2-1-1 for critical information about evacuation routes, food, and shelter, as well as resources during recovery. You can also text your zip code to 898211 and a resource specialist can help you find what you need.
           </p>
         </li>
         <li>
@@ -287,6 +318,7 @@ const infoResourcesMarkup = () => {
     </section>
 
     <section>
+      <a name="involve"></a>
       <h2>Get Involved</h2>
       <p>Be proactive in helping your community prepare for disaters. You can help make your community safer and stronger.</p>
       <h3>
