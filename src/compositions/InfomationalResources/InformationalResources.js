@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-
-import './InformationalResources.css'
 import './InformationalResources.js'
 import { infoResourcesMarkup } from './InformationalResourcesMarkup.js'
 
