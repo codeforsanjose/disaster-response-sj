@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './FEMAChecklist.css'
 
-import FEMAChecklistMarkup from './FEMAChecklistMarkup.js'
+import { FEMAChecklistMarkup } from './FEMAChecklistMarkup.js'
 
 class FEMAChecklist extends Component {
     constructor(props) {

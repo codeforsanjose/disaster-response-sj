@@ -8,14 +8,10 @@ const FEMAChecklistMarkup = () => {
     <React.Fragment>
     <section>
       <h1>Recovering: What to Do After a Disaster</h1>
-      <p>
-        Recovering from a major disaster is usually a gradual process. Safety is a primary issue, as are mental and physical well-being. If assistance is available, knowing how to access it makes the process faster and less stressful. Here's general advice on steps to take after disaster strikes in order to begin getting your home, your community, and your life back to normal.
-      </p>
     </section>
 
     <section>
-      <h2>Steps to Recovering from Disaster</h2>
-      <p>After a disaster, you will need to put your life back together. You may need to evaluate damage, assign responsibilities, contact insurance, and apply for assistance if available. If FEMA has declared a disaster in your area, federal aid may be available</p>
+      <p>After a disaster, you will need to put your life back together. You may need to evaluate damage, assign responsibilities, contact insurance, and apply for assistance if available. If FEMA has declared a disaster in your area, federal aid may be available. <a href="#femalist">View a FEMA disaster assistance specific checklist</a> further down the page.</p>
 
       <h3>General Recovery Checklist</h3>
       <ul className="fancy-checklist">
@@ -72,7 +68,7 @@ const FEMAChecklistMarkup = () => {
           <input type="checkbox" id="use-help" />
           <label for="use-help">
             <h4>Use Helpers</h4>
-            <p>Recovery can be a large, daunting process. Tap the connections like family, friends, co-workers, groups you are part of, and the community to see what they can do to help. Spreading a big project into smaller tasks can ease recovery. It can be as simple as someone watching your children, helping you photograph damage, or checking out new places to live. Consider professional guidance with an accredited financial counselor or CPA with a personal finance credential.</p>
+            <p>Recovery can be a large, daunting process. Tap the connections like family, friends, co-workers, groups you are part of, and the community to see what they can do to help. Spreading a big project into smaller tasks can ease recovery. It can be as simple as someone watching your children, helping you photograph damage, or checking out new places to live. Consider professional guidance with an accredited financial counselor or CPA with a personal finance credential. After that, you will likely require the service of contractors, building planners, and other skilled labor during repairs.</p>
           </label>
         </li>
 
@@ -101,7 +97,7 @@ const FEMAChecklistMarkup = () => {
         </li>
         <li>
           <a href="https://www.redcross.org/content/dam/redcross/atg/PDF_s/Preparedness___Disaster_Recovery/General_Preparedness___Recovery/Financial/picking-up-the-pieces-A5076.pdf" target="_blank" rel="noopener noreferrer">UMN Extension - Recovery After Disaster: The Family Financial Toolkit</a>
-          <p>An award winning toolkit for financial recovery after a disaster featuring written and video forms. It's book length at nearly 200 pages and is one of the most complete disaster recovery resources available. Structured in organized units, the toolkit offers important strategies, checklists, questions to answer, resource lists, and work sheets to aid the disaster recovery process. Produced by the University of Minnesota, the toolkit is available in a non-state specific form (just click the link). The toolkit is also available in video form, check for the link in the sidebar.</p>
+          <p>An award winning toolkit for financial recovery after a disaster featuring written and video forms. At nearly 200 pages it's book length and one of the most complete disaster recovery resources available. Organized into units, the toolkit offers strategies, checklists, questions to answer, resource lists, and work sheets to aid the disaster recovery process. Produced by the University of Minnesota, the toolkit is available in a non-state specific form (just click the link). The toolkit is also available in video form, check for the link in the sidebar.</p>
         </li>
         <li>
           <a href="https://www.ready.gov/recovering-disaster" target="_blank" rel="noopener noreferrer">Ready.gov - Recovering from Disaster</a>
@@ -127,6 +123,7 @@ const FEMAChecklistMarkup = () => {
     </section>
 
     <section>
+      <a name="femalist"></a>
       <h2>Eligible for FEMA Disaster Assistance?</h2>
       <p>If you are eligible for disaster assistance from FEMA use this checklist for the aid application process.</p>
       <aside>
