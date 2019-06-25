@@ -9,6 +9,14 @@
 1. Get DB credentials file from project lead through Slack channel https://codeforsanjose.slack.com/messages/C77546YF6
 2. Move projectInfoData.js into config directory
 3. `nodemon --exec babel-node server.js`
+For continuously running, do run this in a screen
+screen
+nodemon --exec babel-node server.js`
+To view again: 
+
+screen -x
+[detached from 5210.pts-0.ip-172-31-7-186]
+
 
 
 # disaster-response-sj
@@ -84,3 +92,35 @@ _note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.
 #### Examples
 
 [irmaresponse.org](https://www.irmaresponse.org)
+
+
+
+## SSL Certificate Configuration
+https://www.youtube.com/watch?v=m9aa7xqX67c
+https://mozilla.github.io/server-side-tls/ssl-config-generator/
+
+Make sure that you update the security group rules on AWS to include 443 connections in addition to 80 
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+    # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
+        return 301 https://$host$request_uri;
+
+}
+server {
+        listen 443 ssl;
+        server_name disaster-response.codeforsanjose.com;
+
+
+        ssl_certificate /etc/letsencrypt.../full.pem;
+        ssl_certificate_key /etc/letsencrypt.../priv.pem;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
+        ssl_prefer_server_ciphers on;
+
+
+
+...
+
+
