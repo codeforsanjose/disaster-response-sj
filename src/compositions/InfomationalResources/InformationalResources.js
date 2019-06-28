@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-
-import './InformationalResources.css'
-
+import './InformationalResources.js'
+import { infoResourcesMarkup } from './InformationalResourcesMarkup.js'
 
 
 class InformationalResources extends Component {
@@ -10,15 +9,17 @@ class InformationalResources extends Component {
         super(props)
         this.props = props
         this.state = {
-            
+
         }
     }
 
     render() {
-        
+
+      const resourcesContent = infoResourcesMarkup();
+
         return (
             <div className='InformationalResources'>
-                InformationalResources
+                { resourcesContent }
             </div>
         )
     }
