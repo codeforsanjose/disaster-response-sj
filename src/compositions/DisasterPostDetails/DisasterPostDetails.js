@@ -5,9 +5,6 @@ import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/P
 
 export default function DisasterPostDetails(props) {
     const post = props.post
-    const {
-        title,
-    } = post
     const markup = <ContactMarkup details = { post } />
     const contactDetails = <aside className='contact-details'>
         { markup }
