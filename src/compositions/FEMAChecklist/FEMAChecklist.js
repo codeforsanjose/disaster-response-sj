@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import './FEMAChecklist.css'
 
+import { FEMAChecklistMarkup } from './FEMAChecklistMarkup.js'
+
 class FEMAChecklist extends Component {
     constructor(props) {
         super(props)
@@ -13,9 +15,12 @@ class FEMAChecklist extends Component {
 
     render() {
 
+
+      const recoveryContent = FEMAChecklistMarkup();
+
         return (
             <div className='FEMAChecklist'>
-
+                { recoveryContent }
             </div>
         )
     }
