@@ -36,18 +36,23 @@ export default function DisasterModalPostDetails(props) {
 
     return (
         <div className='modal-details'>
-          <div className='modal-col'>
+          <section>
             { map }
-            <h4>Contact Details</h4>
-            { contactDetails }
+            <div className='contact-info'>
+              <h4>Contact Details</h4>
+              { contactDetails }
+            </div>
             { editButtonMarkup }
-          </div>
-          <section className='disaster-details'>
+          </section>
+          <section>
             { closeButton }
-            <h4>Address</h4>
-            { addressDetails }
-            <h4>Updates</h4>
-            { postDetailsMarkup }
+            <div className='address-info'>
+              <h4>Address</h4>
+              { addressDetails }
+            </div>
+            <div className='disaster-details'>
+              { postDetailsMarkup }
+            </div>
           </section>
         </div>
     )
