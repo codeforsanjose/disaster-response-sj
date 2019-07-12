@@ -2,6 +2,7 @@ import _ from 'lodash'
 import bcrypt from 'bcrypt'
 import passport from 'passport'
 import Strategy from 'passport-local'
+import { users_db_name } from '../Utilities/API_utilities'
 
 //const FacebookStrategy = require('passport-facebook').Strategy
 //const constants = require('../config/projectInfoData.json')
@@ -27,7 +28,7 @@ function init(app) {
         passwordField: 'passphrase'
     },
         function (email, passphrase, done) {
-            db.findOne('users', { email: email }).then(doc => {
+            db.findOne(users_db_name, { email: email }).then(doc => {
                 login({ email, passphrase }).then(user => {
                     if (user) {
                         console.log('login response', doc)
@@ -96,7 +97,7 @@ function init(app) {
     })
 
     passport.deserializeUser((_id, done) => {
-        db.getById('user', _id).then(user => {
+        db.getById(users_db_name, _id).then(user => {
             done(null, user)
         }).catch(err => {
             console.log('error in deserializeUser', err)
@@ -106,7 +107,7 @@ function init(app) {
 }
 
 function login(credentials) {
-    return db.findOne('users', { email: credentials.email }).then(doc => {
+    return db.findOne(users_db_name, { email: credentials.email }).then(doc => {
         if (doc) {
             return bcrypt.compare(credentials.passphrase, doc[0].passphrase)
         }

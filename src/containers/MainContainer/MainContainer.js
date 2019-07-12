@@ -16,7 +16,7 @@ class MainContainer extends Component {
         this.state = {
             posts: [],
             tabIndex: 0,
-            tabs: ['Active Disasters', 'Resources', 'FEMA Checklist'],
+            tabs: ['Active Disasters', 'Preparing for Disaster', 'After a Disaster'],
         }
     }
 
@@ -73,7 +73,7 @@ class MainContainer extends Component {
             </div>
         )
         let activeTab = this.getActiveTab(tabIndex, posts)
-        
+
         return (
             <div className='MainContainer'>
                 { tabNavContainer }

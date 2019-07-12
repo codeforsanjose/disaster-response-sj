@@ -1,0 +1,46 @@
+.input-group
+{
+    text-align: left;
+    padding: 10px;
+}
+
+.input-group label 
+{
+    display: block;
+    padding-bottom: 5px;
+}
+
+.input-group input, .input-group textarea
+{
+    display: block;
+    width: 250px;
+
+    font-size: 11pt;
+}
+
+.update-container
+{
+    display: flex;
+    align-items: flex-end;
+}
+
+.update-item-btn
+{
+    display: block;
+    height: 24px;
+    margin-bottom: 10px;
+}
+
+.input-error-msg
+{
+    display: block;
+    padding: 5px 0px;
+    font-size: 10pt;
+    color: #B46969;
+}
+
+.input-error
+{
+    /* box-shadow: 0 0 3px #B46969; */
+    border: 2px solid #B46969;
+}

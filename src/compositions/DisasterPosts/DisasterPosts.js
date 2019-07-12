@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import DisasterPostDetails from '../DisasterPosDetails/DisasterPostDetails'
+import DisasterPostDetails from '../DisasterPostDetails/DisasterPostDetails'
 import DisasterModalPostDetails from '../DisasterModalPostDetails/DisasterModalPostDetails'
 
 import './DisasterPosts.css'
@@ -23,9 +23,9 @@ function DisasterPosts(props) {
     }
     
     const postsMockup = (posts, openPostModal) => {
-        return posts.map( (post, index) => {
+        return posts ? posts.map( (post, index) => {
             return <DisasterPostDetails key={`post-${index}`} post={post} openPostModal={openPostModal} />;
-        })
+        }) : null
     }
 
     const dismissModal = (e) => {

@@ -1,3 +1,156 @@
 .InformationalResources {
-    
+  /* limit content width for readability/usability ~80 charcters per line*/
+  max-width: 37em;
+  margin: auto;
+}
+
+.InformationalResources section {
+  margin: 2em 0;
+}
+
+.InformationalResources ul, .InformationalResources ol {
+  /* clear default list styling */
+  list-style: none;
+  padding: 0;
+}
+
+.tiles {
+  display: flex;
+  /* init a counter to use for our styled numbers*/
+  counter-reset: tile-count;
+}
+
+.tiles li {
+  width: 25%;
+  color: #fff;
+  text-transform: uppercase;
+  background: #2C3E50;
+  padding: 1em;
+  margin: 0.5em;
+  transform: skewX(-5deg);
+  /* flex vertical/horizontal centering of contents*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiles li:before {
+  /* increment and display the counter number */
+  content: counter(tile-count);
+  counter-increment: tile-count;
+  font-size: 1.5em;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #598dbb;
+  padding: 5px;
+}
+
+.tiles li a {
+  color: #fff;
+}
+
+.fancy-checklist {
+  --green: #22b573;
+  --gray: #777;
+  --transition-speed: 200ms;
+  --checkbox-size: 1em;
+  line-height: calc(var(--checkbox-size) + 0.2em);
+  /* To allow for columns */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fancy-checklist li {
+  text-align: left;
+  /* for 2 columns in the checklist */
+  flex: 1 1 50%;
+}
+
+.fancy-checklist li input[type="checkbox"] {
+  /* hide the original checkbox and make it take up no space*/
+  opacity: 0;
+  position: absolute;
+}
+
+.fancy-checklist li label {
+  /* so child elements are positioned relative to this */
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0.5em;
+  /* width of fake checkbox + padding desired between fake checkbox and text */
+  padding-left: calc(var(--checkbox-size) + 1em);
+}
+
+/* For extra UX, little hover effect for a checklist item */
+.fancy-checklist li label:hover {
+  opacity: 0.7;
+}
+
+.fancy-checklist li label h4 {
+  margin: 0;
+}
+
+.fancy-checklist li label p {
+  margin: 0;
+  font-size: 80%;
+}
+
+/* Styled text label checked state */
+.fancy-checklist li input[type="checkbox"]:checked + label {
+  color: var(--gray);
+  text-decoration: line-through;
+}
+
+.fancy-checklist li label::before,
+.fancy-checklist li label::after {
+    /* allow checkbox/mark to overlay each other */
+    position: absolute;
+    /* so it displays */
+    content: "";
+    /*Needed for the line-height to take effect*/
+    display: inline-block;
+}
+
+/* Outer box unchecked state*/
+.fancy-checklist li label::before{
+    height: var(--checkbox-size);
+    width: var(--checkbox-size);
+    transition: all ease-out var(--transition-speed);
+    border: 1px solid var(--gray);
+    border-radius: 100%;
+    left: 0;
+    top: 0;
+}
+
+/* Checkmark unchecked state*/
+.fancy-checklist li label::after {
+    opacity: 0;
+    /* checkmark left side = height, right side = width */
+    width: calc(var(--checkbox-size) + 3em);
+    height: var(--checkbox-size);
+    border-left: 1px solid var(--green);
+    border-bottom: 1px solid var(--green);
+    transition: all ease-out var(--transition-speed);
+/*  Position checkmark as close to centered in the box */
+    left: 0.2em;
+    top: 0;
+}
+
+/* Styled checkmark checked state */
+.fancy-checklist li input[type="checkbox"]:checked + label::after {
+    /* height: calc(var(--checkbox-size) - 0.65em); */
+    /* width: calc(var(--checkbox-size) + 0.5em); */
+    height: calc(var(--checkbox-size) * 0.35);
+    width: calc(var(--checkbox-size) * 1.5);
+    opacity: 1;
+    border-width: 3px;
+    transform: rotate(-45deg);
+}
+
+/* Styled outer box checked state */
+.fancy-checklist li input[type="checkbox"]:checked + label::before {
+  border-color: var(--green);
+  border-width: 3px;
 }
