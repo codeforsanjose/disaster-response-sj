@@ -34,39 +34,35 @@ const posts = [
 
     },
     {
-        title: 'building on fire',
-        description: 'large fire in region effecting following neighborhoods with smoke, neiborhood 1, 2, 3',
+        title: 'Radioactive Hazmat Breach',
+        description: 'Workers were removing cesium chloride salt when the breach occurred around 9am',
         updates: [
-            '10am fire spread to next building',
-            '11am fire contained'
+            '10am 13 people have tested positive for exposure to radioactive materials'
         ],
-        disasterAddress: '',
-        disasterPinPoint: '',
+        disasterAddress: 'Regional Medical Center of San Jose, 225 N Jackson Ave, 95116',
+        disasterPinPoint: '37,-121',
         effectedRadius: 5,
         resolved: false,
-        started: '8am',
+        started: '9am',
         reportedBy: 'John Doe',
-        contactName: 'Bob da Builder',
-        contactPhone: '(456) 555-6785',
-        contactEmail: 'bob@builder.com',
+        contactName: 'Aaron Hill',
+        contactPhone: '(408) 259-5050',
+        contactEmail: 'ahill@cdc.ca.gov',
 
     },
     {
-        title: 'building on fire',
-        description: 'large fire in region effecting following neighborhoods with smoke, neiborhood 1, 2, 3',
-        updates: [
-            '10am fire spread to next building',
-            '11am fire contained'
-        ],
-        disasterAddress: '',
-        disasterPinPoint: '',
-        effectedRadius: 5,
+        title: 'Hwy 87 Bridge Collapses near Hwy 85',
+        description: 'The on-ramp bridge from Hwy 85 South to Hwy 87 North collapsed during the AM commute. 5 vehicles fell from the bridge during the collapse with 8 people sustaining life-threatening injuries.',
+        updates: [],
+        disasterAddress: 'Hwy 87 at Hwy 85',
+        disasterPinPoint: '37,-121',
+        effectedRadius: 1,
         resolved: '',
-        started: '8am',
-        reportedBy: 'John Doe',
-        contactName: 'Bob da Builder',
-        contactPhone: '(456) 555-6785',
-        contactEmail: 'bob@builder.com',
+        started: '7am',
+        reportedBy: 'Gerome Every',
+        contactName: 'Gerome Every',
+        contactPhone: '(408) 252-2680',
+        contactEmail: 'gerome@every.com',
 
     },
 ]
