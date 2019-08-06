@@ -3,13 +3,13 @@ import { InputField, TextAreaField } from '../../components/FormFields/FormField
 
 /**
  * Markup for post information
- *  
- * @param {object}      details 
+ *
+ * @param {object}      details
  * @param {function}    updateHandler
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
 export function InformationMarkup({ details = {}, updateHandler = null, editMode = false }) {
-    
+
     const {
         title,
         description,
@@ -27,20 +27,20 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
 
     const editInformationMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'title'
                 value = { title }
                 type = 'text'
                 label = 'Title'
             />
-            <TextAreaField 
+            <TextAreaField
                 name = 'description'
                 value = { description }
                 type = 'text'
                 label = 'Description'
             />
             <div className = 'update-container'>
-                <InputField 
+                <InputField
                     name = 'updateItem'
                     value = { updateItem }
                     type = 'text'
@@ -72,13 +72,13 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
 
 /**
  * Markup for address information
- *  
+ *
  * @param {object}      details
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
-export function AddressMarkup({ details = {}, editMode = false }) {
-    
-    const { 
+export function AddressMarkup({ details = {}, editMode = false , geocodeHandler = null, loading = false}) {
+
+    const {
         addressLine1,
         addressLine2,
         zipcode,
@@ -86,41 +86,44 @@ export function AddressMarkup({ details = {}, editMode = false }) {
         latitude,
         radius,
     } = details
-    
+
+    const geocodeButton = <button className='geocode-btn' disabled={ loading} onClick={ geocodeHandler }>Get Latitude & Longitude</button>
+
     const editAddressMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'addressLine1'
                 value = { addressLine1 }
                 type = 'text'
                 label = 'Address Line 1'
             />
-            <InputField 
+            <InputField
                 name = 'addressLine2'
                 value = { addressLine2 }
                 type = 'email'
                 label = 'Address Line 2'
                 required = { false }
             />
-            <InputField 
+            <InputField
                 name = 'zipcode'
                 value = { zipcode }
                 type = 'tel'
                 label = 'Zipcode'
             />
-            <InputField 
+            { geocodeHandler && geocodeButton }
+            <InputField
                 name = 'longitude'
                 value = { longitude }
                 type = 'number'
                 label = 'Longitude'
             />
-            <InputField 
+            <InputField
                 name = 'latitude'
                 value = { latitude }
                 type = 'number'
                 label = 'Latitude'
             />
-            <InputField 
+            <InputField
                 name = 'radius'
                 value = { radius }
                 type = 'number'
@@ -163,12 +166,12 @@ export function AddressMarkup({ details = {}, editMode = false }) {
 
 /**
  * Markup for contact information
- *  
+ *
  * @param {object}      details
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
 export function ContactMarkup({ details = {}, editMode = false }) {
-    
+
     const {
         contactName,
         contactEmail,
@@ -177,19 +180,19 @@ export function ContactMarkup({ details = {}, editMode = false }) {
 
     const editContactMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'contactName'
                 value = { contactName }
                 type = 'text'
                 label = 'Name'
             />
-            <InputField 
+            <InputField
                 name = 'contactEmail'
                 value = { contactEmail }
                 type = 'email'
                 label = 'Email'
             />
-            <InputField 
+            <InputField
                 name = 'contactPhone'
                 value = { contactPhone }
                 type = 'tel'
