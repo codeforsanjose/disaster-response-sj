@@ -1,6 +1,4 @@
-let key = 'pk.14e2b47682ac5bddfee57e91f717db14';
-
-class Geocoder = {
+class Geocoder {
   constructor(apiKey) {
     /*
     Makes geocoder api instances for connecting to a geocoding api with the provided credentials..
@@ -66,8 +64,8 @@ class Geocoder = {
                    '&format=json';
 
     return fetch(apiURL)
-      .then(response => _checkResponseJSON(response))
-      .then(json => _checkAPIErrors(json))
+      .then(response => this._checkResponseJSON(response))
+      .then(json => this._checkAPIErrors(json))
   }
 
   getAddressJSON(settings) {
@@ -86,8 +84,8 @@ class Geocoder = {
                    '&format=json';
 
     return fetch(apiURL)
-      .then(response => _checkResponseJSON(response))
-      .then(json => _checkAPIErrors(json))
+      .then(response => this._checkResponseJSON(response))
+      .then(json => this._checkAPIErrors(json))
   }
 
 }
