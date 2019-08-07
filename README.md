@@ -16,21 +16,21 @@ You'll need to setup the frontend (aka the interface you interact on the web bro
 
 ## Prerequisites
 
-* Updated versions of [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/get-npm), and [git](https://git-scm.com/downloads) installed.
+* Updated versions of [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/get-npm), and [git](https://git-scm.com/downloads) installed. Check node/npm versions with `node -v` and `npm -v`
 * Tested as working with npm v6.4.1 and Node.js v10.15.1.
-* Updated [Python version >= 2.7](https://www.python.org/downloads/)
-* Windows users may need Windows Build Tools (Install with NPM using `npm install -g --production windows-build-tools@4.0.0`). For more help see Troubleshooting section.
+* Updated [Python version >= 2.7](https://www.python.org/downloads/). Check Python version with `python`
+* Windows users may need additional setup. See Troubleshooting section for help.
 
 ## Setup Guide
 
 You'll need to run the following on the command line.
 
 1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer into a directory titled disaster-response-sj.
-2. Change to the **develop** branch `git checkout develop` in the disaster-response sj directory.
-3. Install dependencies `npm i`.
-4. Install nodemon `npm i nodemon -g`
+2. Change to the **develop** branch `git checkout develop` while in the disaster-response sj directory.
+3. Install dependencies `npm i`. These are programs and files the project requires to run.
+4. Install nodemon `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
 5. Get database credentials file `projectInfoData.js` from project lead through Slack channel [https://codeforsanjose.slack.com/messages/C77546YF6](https://codeforsanjose.slack.com/messages/C77546YF6)
-6. Move `projectInfoData.js` into the `config` directory
+6. Move downloaded `projectInfoData.js` into the `config` directory to enable the back end.
 
 Issues installing? See Troubleshooting section.
 
@@ -42,10 +42,18 @@ The easy way:
 
 The detailed way:
 
-1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`
-2. Start the React frontend `npm start`
+1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`. Make sure it finishes launching before starting the frontend.
+2. Start the React frontend `npm start`. You'll need to do this in another command window.
 
-`npm run all` is essentially just an alias to run the above two commands.
+`npm run all` is essentially just an alias to run the above two commands. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask if you want to terminate currently running jobs.
+
+### Creating a Disaster Post
+
+You can create disaster posts or update existing disaster posts from the administrative part of the app, which requires a login. You might also want to do development on this part of the app.
+
+To access this part, go to [http://localhost:3000/login](http://localhost:3000/login)
+
+You will need a username and password to login to the admin area. Contact the project lead for the login credentials: [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
 
 ## Troubleshooting
 
@@ -69,7 +77,12 @@ Run the following as an administrator. Any command line windows should be specif
 11. Start the back end server: `nodemon --exec babel-node server.js` while in project directory
 12. Start the front end React app (open another command prompt window): `npm start`
 
-If you encounter issues, you may have to restart your computer or run commands a second time. I'd also verify packages are actually installed by using npm list <package name to check> to see if they show up.
+### Additional Troubleshooting Tips
+
+* If you encounter issues, you may have to restart your computer or run commands a second time. I'd also verify packages are actually installed by using npm list <package name to check> to see if they show up.
+* If you encounter an error running nodemon and close your command window to try again, sometimes the node process won't be terminated and you'll get an error if you try to start nodemon again. Just go to task manager and kill any node.js processes.
+* If you get an error about a missing module, you might have to update the project dependencies again, especially if you haven't kept the project directory up to date. Just do an npm i again
+* To quit running the app, hit Ctrl + C in your command window and it'll ask you if you want to terminate the batch job. Type Y and hit enter, and it'll stop the running process. You can do that in both windows to stop the front and back end or you can just close the windows.
 
 # Need Help?
 
@@ -95,9 +108,42 @@ disaster response and planning.
 
 # Development Details
 
+## How to Contribute
+
+Ask to be added as a collaborator to the disaster-response-sj repo if you want to be able to add branches on the main repo. You'll need to provide your GitHub name.
+
+If you want your own copy of the main repo on GitHub to work with, you can fork it. This will more effort to configure correctly when syncing updates/making pull requests, but you will have full control over your own version of the repo.
+
+### Contribution Process & Workflow
+
+* Create a new branch for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`
+* Commit changes to your feature branch then push it to the repo: `git push origin name-of-the-branch`
+* Create a pull request on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members
+* If the changes look good, the project lead will merge your branch into the `develop` branch
+
+### Contribution Ideas
+
+Resources:
+* https://opensource.guide/how-to-contribute/
+
+### Rebasing: Aka What to Do If Your Repo Isn't Updated But You Already Committed Changes
+
+Sometimes you'll work on a feature for a while
+
 ## Project Structure
 
+You'll likely be doing all your development work in the /src directory.
 
+The app is organized into 3 general categories of things that is based on the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
+
+1. Components - the most reusable react components, aka atoms in atomic design
+2. Compositions - more specific components that will have some reusable components, aka molecules in atomic design
+3. Containers - made of compositional components and other reusable components, aka organisms in atomic design
+
+There are also:
+
+* Contexts - things for state management that can replace redux
+* Utilities - other functions to be used generally
 
 ## React Style
 
@@ -151,6 +197,7 @@ Some resources on React hooks:
 ## Libraries
 
 * Leaflet.js - Used for easy Open Street Maps integration for displaying maps
+* Jest - Used for unit testing
 
 # Other Info
 
