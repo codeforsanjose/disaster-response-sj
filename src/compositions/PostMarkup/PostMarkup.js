@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { InputField, TextAreaField } from '../../components/FormFields/FormFields'
+import MapDisplay from '../../components/MapDisplay/MapDisplay'
 
 /**
  * Markup for post information
@@ -89,6 +90,17 @@ export function AddressMarkup({ details = {}, editMode = false , geocodeHandler 
 
     const geocodeButton = <button className='geocode-btn' disabled={ loading} onClick={ geocodeHandler }>Get Latitude & Longitude</button>
 
+    const map = (longitude && latitude)
+        ?   <aside className='map'>
+                <MapDisplay
+                    longitude={longitude}
+                    latitude={latitude}
+                    radius={radius}
+                />
+            </aside>
+        :   <aside className='map'>
+            </aside>
+
     const editAddressMarkup = (
         <Fragment>
             <InputField
@@ -111,6 +123,7 @@ export function AddressMarkup({ details = {}, editMode = false , geocodeHandler 
                 label = 'Zipcode'
             />
             { geocodeHandler && geocodeButton }
+            { map }
             <InputField
                 name = 'longitude'
                 value = { longitude }

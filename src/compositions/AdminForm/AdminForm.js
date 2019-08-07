@@ -187,7 +187,6 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             // prevent clicks while loading
             setApiLoading(true);
 
-            // call the geocode api with the address parameters
             geocoder.getLatLngJSON({
               address: fields.addressLine1,
               city: LOCATION.CITY,
@@ -196,8 +195,6 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             })
               .then(json => {
                 const result = json[0];
-
-                window.alert(result.lat +', '+ result.lon);
 
                 setFields({
                   ...fields,
