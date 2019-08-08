@@ -10,13 +10,13 @@ Disaster Response SJ is a React based web application that displays active disas
 
 If you've never used GitHub before, cloning is basically downloading the disaster-response-sj app so you can work on it. Here's a [Git/GitHub tutorial to help you get started](https://www.youtube.com/watch?v=SWYqp7iY_Tc).
 
-# Setup & Installation
+# Installation
 
-You'll need to setup the frontend (aka the interface you interact on the web browser) and the backend (the mock server containing disaster data) before you run the web app.
+You'll need to setup the frontend (the interface you interact with on the browser) and the backend (the mock server containing disaster data) before you can run the web app.
 
 ## Prerequisites
 
-* Updated versions of [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/get-npm), and [git](https://git-scm.com/downloads) installed. Check node/npm versions with `node -v` and `npm -v`
+* Updated versions of [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/get-npm), and [git](https://git-scm.com/downloads) installed. Check node/npm versions in a command window with `node -v` and `npm -v`
 * Tested as working with npm v6.4.1 and Node.js v10.15.1.
 * Updated [Python version >= 2.7](https://www.python.org/downloads/). Check Python version with `python`
 * Windows users may need additional setup. See Troubleshooting section for help.
@@ -25,35 +25,41 @@ You'll need to setup the frontend (aka the interface you interact on the web bro
 
 You'll need to run the following on the command line.
 
-1. Clone repo `git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer into a directory titled disaster-response-sj.
+1. Clone the repository `git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer in a directory called disaster-response-sj.
 2. Change to the **develop** branch `git checkout develop` while in the disaster-response sj directory.
 3. Install dependencies `npm i`. These are programs and files the project requires to run.
 4. Install nodemon `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
-5. Get database credentials file `projectInfoData.js` from project lead through Slack channel [https://codeforsanjose.slack.com/messages/C77546YF6](https://codeforsanjose.slack.com/messages/C77546YF6)
+5. Ask for database credentials file `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
 6. Move downloaded `projectInfoData.js` into the `config` directory to enable the back end.
 
 Issues installing? See Troubleshooting section.
 
-## Running the App
+## Usage & Running the App
 
-The easy way:
+Easy way:
 
 1. `npm run all` should start the backend and frontend, then automatically open a tab in your web browser with the web app. If the tab doesn't open, you can manually enter [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-The detailed way:
+Manual way:
 
-1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`. Make sure it finishes launching before starting the frontend.
+1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`. Let it finish launching before starting the frontend. Manually restart the server with the comand `rs`
 2. Start the React frontend `npm start`. You'll need to do this in another command window.
 
-`npm run all` is essentially just an alias to run the above two commands. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask if you want to terminate currently running jobs.
+`npm run all` is essentially just an alias to run the above two commands. If on Windows and that command doesn't work, you can try `npm run win-all`. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask to terminate running jobs.
+
+Either way, you should land on the main page showing active disaster posts with tab navigation options and a header reading Disaster Response SJ.
+
+This part of the app is aimed at public citizens.
 
 ### Creating a Disaster Post
 
 You can create disaster posts or update existing disaster posts from the administrative part of the app, which requires a login. You might also want to do development on this part of the app.
 
-To access this part, go to [http://localhost:3000/login](http://localhost:3000/login)
+To access, go to [http://localhost:3000/login](http://localhost:3000/login)
 
 You will need a username and password to login to the admin area. Contact the project lead for the login credentials: [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
+
+This part of the app is aimed at government employees.
 
 ## Troubleshooting
 
@@ -72,7 +78,7 @@ Run the following as an administrator. Any command line windows should be specif
 6. Install app dependencies: `npm i`
 7. Install Nodemon globally: `npm install -g nodemon`
 8. Install Babel globally: `npm install -g @babel/core @babel/cli @babel/node`
-9. Ask project lead for the database credentials file, download it, and put it in the /config directory of the project [https://codeforsanjose.slack.com/messages/C77546YF6](https://codeforsanjose.slack.com/messages/C77546YF6)
+9. Ask project lead for the database credentials file on Slack, download it, and put it in the /config directory of the project. This link should take you to the file: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
 10. Change to the **develop** branch `git checkout develop` in the disaster-response sj directory.
 11. Start the back end server: `nodemon --exec babel-node server.js` while in project directory
 12. Start the front end React app (open another command prompt window): `npm start`
@@ -87,6 +93,8 @@ Run the following as an administrator. Any command line windows should be specif
 # Need Help?
 
 Questions? Reach out to the project team on the #disaster-respons-sj Slack channel [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
+
+Running this web app and working on it assumes some level of command line knowledge, familiarity with git, and using npm. If you're unfamiliar with this, you may want to review some web development resources. You can also ask for some guidance from other contributors.
 
 # Background
 
@@ -110,9 +118,9 @@ disaster response and planning.
 
 ## How to Contribute
 
-Ask to be added as a collaborator to the disaster-response-sj repo if you want to be able to add branches on the main repo. You'll need to provide your GitHub name.
+Ask to be added as a collaborator to the disaster-response-sj repo if you want to add branches on the main repo. You'll need to provide your GitHub name.
 
-If you want your own copy of the main repo on GitHub to work with, you can fork it. This will more effort to configure correctly when syncing updates/making pull requests, but you will have full control over your own version of the repo.
+If you want your own copy of the main repo on GitHub to work with, you can fork it. This will take more effort to configure correctly when syncing updates/making pull requests, but you will have full control over your own version of the repo. If you want to create a pull request right away without waiting to be added as a collaborator, you can do it through your fork.
 
 ### Contribution Process & Workflow
 
@@ -123,29 +131,67 @@ If you want your own copy of the main repo on GitHub to work with, you can fork 
 
 ### Contribution Ideas
 
-Resources:
+* Test the app for bugs and report them by opening issues
+* Review the usability and report possible improvements
+* Review security, accessiblity, page speed, SEO, and other website concerns
+* Create art assets
+* Add animations & transitions
+* Add a new feature
+* Improve the design/styling
+* Update or expand documentation
+* Answer code questions contributors may have on Slack
+* Improve the app setup process
+* Report/close resolved issues
+* Provide code review & feedback on pull requests
+* Create unit tests for functionality
+* Explore partnerships with other organizations
+* Research disaster management personnel needs
+
+More Resources:
 * https://opensource.guide/how-to-contribute/
 
-### Rebasing: Aka What to Do If Your Repo Isn't Updated But You Already Committed Changes
+### Keeping Your Branch in Sync: Rebasing
 
-Sometimes you'll work on a feature for a while
+Sometimes you'll work on a feature branch for a while and during that time someone else will merge updates into the main develop branch of the GitHub repo. The local copy of the develop branch on your computer won't be updated with those changes. When you already have several commits and go to create a pull request to merge your changes into the main repository, it's more likely you'll have merge conflicts to resolve.
+
+You can prevent those conflicts by first merging in the updated version of the main repository with your local copy before you create a pull request.
+
+There's 2 ways to do this: [by merging or by rebasing.](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+
+* Merging adds a new commit to your history just for merging the updates into your branch
+* Rebasing adds all the updates then replays your commits after those updates, without creating a new commit
+
+Rebasing can help preserve a cleaner commit history for a project. For example, if you and a dev named Jane added commits to the develop branch, rebasing is like adding your changes on top of what John has already done.
+
+To rebase:
+
+```
+// gets the upstream changes from the origin
+git fetch
+// switch to your feature branch if not already on it
+git checkout your-feature-branch-name
+// rebases changes from the origin develop branch onto the local develop branch
+git rebase origin/develop
+```
+
+If you forked the repo, you'll also need to push the new develop branch to your fork before creating your pull request `git push -f fork-origin-name-here develop`
 
 ## Project Structure
 
-You'll likely be doing all your development work in the /src directory.
+You'll do most development work in the `/src` directory.
 
 The app is organized into 3 general categories of things that is based on the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
 
-1. Components - the most reusable react components, aka atoms in atomic design
-2. Compositions - more specific components that will have some reusable components, aka molecules in atomic design
-3. Containers - made of compositional components and other reusable components, aka organisms in atomic design
+1. Components - Most reusable react components, aka atoms in atomic design
+2. Compositions - More specific components that will have some reusable components, aka molecules in atomic design
+3. Containers - Made of compositional components and other reusable components, aka organisms in atomic design
 
 There are also:
 
-* Contexts - things for state management that can replace redux
-* Utilities - other functions to be used generally
+* Contexts - Things for state management that can replace redux
+* Utilities - Stateless functions to be used generally in several places
 
-## React Style
+## React Style & Hooks
 
 This project uses React hooks, which is a newer, cleaner way of writing a React app versus the more traditional class style.
 
@@ -196,8 +242,8 @@ Some resources on React hooks:
 
 ## Libraries
 
-* Leaflet.js - Used for easy Open Street Maps integration for displaying maps
-* Jest - Used for unit testing
+* [Leaflet.js](https://leafletjs.com/) - Used for easy Open Street Maps integration for displaying maps
+* [Jest](https://jestjs.io/) - Used for unit testing
 
 # Other Info
 
@@ -205,7 +251,7 @@ Some resources on React hooks:
 
 1. Gather information on existing system
 2. Determine pain points or missing pieces of existing system
-3. Look for existing tools to address #2
+3. Look for existing tools to address number 2
 
 ## Resources
 
@@ -219,7 +265,6 @@ via @mthong:
 
 
 See particularly Sec. 3.6 Memorandum; it's 130 pages total (!!) but the TL;DR is Appendix B and C.
-
 
 ### Generic
 
