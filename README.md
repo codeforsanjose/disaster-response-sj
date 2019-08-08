@@ -1,6 +1,15 @@
 Disaster Response SJ is a React based web application that notifies people of active disaster information for San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
 
-# Getting Started Contributing
+# Contents
+####* [Installation](#installation)
+####* [Usage & Running the App](#usage-and-running-the-app)
+####* [Troubleshooting](#troubleshooting)
+####* [Contact & Help](#contact-and-help)
+####* [Background](#background)
+####* [Developer Documentation](#developer-documentation)
+####* [Other Info](#other-info)
+
+# Getting Started
 
 1. **Join the disaster-response-sj Slack channel** to introduce yourself and meet contributors [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
 2. **Browse issues** posted on the disaster-response-sj repository on GitHub for some contribution ideas [https://github.com/codeforsanjose/disaster-response-sj/issues](https://github.com/codeforsanjose/disaster-response-sj/issues)
@@ -40,20 +49,20 @@ You'll need to run the following on the command line.
 
 Issues installing? See [Troubleshooting section](#troubleshooting).
 
-## Usage & Running the App
+# Usage and Running the App
 
-#### Easy way:
+## Easy way:
 
 1. `npm run all` should start the backend and frontend, then automatically open a tab in your web browser with the web app. If the tab doesn't open, you can manually enter [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-#### Manual way:
+## Manual way:
 
 1. **Start the server** `nodemon --exec babel-node server.js` or alternatively `npm run server`.
  Let it finish launching before starting the frontend. Manually restart the server with the comand `rs`
 2. **Start the React frontend** `npm start`.
 You'll need to do this in another command window.
 
-### Ready to Work?
+## Ready to Work?
 
 Skip ahead to the [Development Details section.](#development-details)
 
@@ -63,7 +72,7 @@ Either way, you should land on the main page showing active disaster posts with 
 
 This part of the app is aimed at public citizens.
 
-### Creating a Disaster Post
+## Creating a Disaster Post
 
 You can create disaster posts or update existing disaster posts from the administrative part of the app, which requires a login. You might also want to do development on this part of the app.
 
@@ -79,7 +88,7 @@ Some developers may run into issues installing and running the app on their loca
 
 A long thread containing information on the issues [can be found here](https://github.com/codeforsanjose/disaster-response-sj/issues/43).
 
-### Extended Setup & Run Guide (Windows)
+## Extended Setup & Run Guide (Windows)
 
 Run the following as an administrator. Any command line windows should be specifically ran as an administrator.
 
@@ -97,18 +106,23 @@ Run the following as an administrator. Any command line windows should be specif
 12. Start the back end server: `nodemon --exec babel-node server.js` while in project directory
 13. Start the front end React app (open another command prompt window): `npm start`
 
-### Additional Troubleshooting Tips
+## Additional Troubleshooting Tips
 
 * You may have to restart your computer or run commands a second time. Verify packages are actually installed by using `npm list <package name to check>` to see if they show up.
 * If you encounter an error running nodemon and close your command window to try again, sometimes the node process won't be terminated and you'll get an error if you try to start nodemon again. Just go to task manager and kill any node.js processes.
 * If you get an error about a missing module, you might have to update the project dependencies again, especially if you haven't kept the project directory up to date. Just do an `npm i` again
 * To quit running the app, hit Ctrl + C in your command window and it'll ask you if you want to terminate the batch job. Type Y and hit enter, and it'll stop the running process. You can do that in both windows to stop the front and back end.
 
-# Need Help?
+# Contact and Help
 
 Questions? Reach out to the project team on the #disaster-response-sj Slack channel [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
 
 Running this web app and working on it assumes some level of command line knowledge, familiarity with git, and using npm. If you're unfamiliar with this, you may want to review some web development resources. You can also ask for some guidance from other contributors.
+
+## Team
+
+Project Leader:
+* Joseph, reachable on the [Code for San Jose Slack](https://codeforsanjose.slack.com/messages/disaster-response-sj) as @joester
 
 # Background
 
@@ -124,12 +138,7 @@ disaster response and planning.
 1. **Citizens** - Any range of citizen from young, elderly, disabled, and speaking other languages. These users will read active disaster info and disaster planning resources.
 2. **Government Disaster Response Employees** - These are the government employees responsible for disaster response using the administrative parts of the app to create and update disaster information posts for publication.
 
-## Team
-
-Project Leader:
-* Joseph, reachable on the [Code for San Jose Slack](https://codeforsanjose.slack.com/messages/disaster-response-sj) as @joester
-
-# Development Details
+# Developer Documentation
 
 ## Code Guidelines
 
