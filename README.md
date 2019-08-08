@@ -1,16 +1,16 @@
 Disaster Response SJ is a React based web application that notifies people of active disaster information for San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
 
-## Getting Started Contributing
+# Getting Started Contributing
 
-1. Join the disaster-response-sj Slack channel to introduce yourself and meet contributors [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
-2. Browse issues posted on the disaster-response-sj repository on GitHub for some contribution ideas [https://github.com/codeforsanjose/disaster-response-sj/issues](https://github.com/codeforsanjose/disaster-response-sj/issues)
-3. Clone [the **develop** branch](https://github.com/codeforsanjose/disaster-response-sj/tree/develop) of the disaster-response-sj repository from GitHub onto your computer. The main files to work on will be in the `src` directory.
-4. Run the webapp (refer to setup & installation), click around, and explore the different features. Any bugs to fix? Anything to improve? Features to add? Documentation to update?
-5. Create new issues or assign yourself an existing issue/notify others if you want to work on something so others can keep track of who's doing what.
+1. **Join the disaster-response-sj Slack channel** to introduce yourself and meet contributors [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
+2. **Browse issues** posted on the disaster-response-sj repository on GitHub for some contribution ideas [https://github.com/codeforsanjose/disaster-response-sj/issues](https://github.com/codeforsanjose/disaster-response-sj/issues)
+3. **Clone [the *develop* branch](https://github.com/codeforsanjose/disaster-response-sj/tree/develop)** of the disaster-response-sj repository from GitHub onto your computer. The main files to work on will be in the `src` directory.
+4. **Run the webapp** (refer to setup & installation), click around, and explore the different features. Any bugs to fix? Anything to improve? Features to add? Documentation to update?
+5. **Report issues** or assign yourself an existing issue/notify others if you want to work on something so others can keep track of who's doing what.
 
 If you've never used GitHub before, here's a [Git/GitHub tutorial to help you get started](https://www.youtube.com/watch?v=SWYqp7iY_Tc).
 
-Read more in the How to Contribute section.
+Read more in the [How to Contribute](#how-to-contribute) section.
 
 # Installation
 
@@ -23,18 +23,22 @@ You'll need to setup the frontend (the interface you interact with on the browse
 * Updated [Python version >= 2.7](https://www.python.org/downloads/). Check Python version with `python`
 * Windows users may need additional setup. See Troubleshooting section for help.
 
-## Setup Guide
+## Setup
 
 You'll need to run the following on the command line.
 
-1. Clone the repository `git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer in a directory called disaster-response-sj.
-2. Change to the **develop** branch `git checkout develop` while in the disaster-response sj directory.
-3. Install dependencies `npm i`. These are programs and files the project requires to run.
-4. Install nodemon `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
+1. Clone the repository
+`git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer in a directory called disaster-response-sj.
+2. Change to the **develop** branch
+`git checkout develop` while in the disaster-response sj directory.
+3. Install dependencies
+`npm i`. These are programs and files the project requires to run.
+4. Install nodemon
+`npm i nodemon -g`. This restarts the server whenever you make changes to the code.
 5. Ask for database credentials file `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
-6. Move downloaded `projectInfoData.js` into the `config` directory to enable the back end.
+6. Move downloaded `projectInfoData.js` into the `config` directory in your disaster-response-sj repo to enable the back end.
 
-Issues installing? See Troubleshooting section.
+Issues installing? See [Troubleshooting section](#troubleshooting).
 
 ## Usage & Running the App
 
@@ -44,10 +48,16 @@ Easy way:
 
 Manual way:
 
-1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`. Let it finish launching before starting the frontend. Manually restart the server with the comand `rs`
-2. Start the React frontend `npm start`. You'll need to do this in another command window.
+1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`.
+ Let it finish launching before starting the frontend. Manually restart the server with the comand `rs`
+2. Start the React frontend `npm start`.
+You'll need to do this in another command window.
 
-`npm run all` is essentially just an alias to run the above two commands. If on Windows and that command doesn't work, you can try `npm run win-all`. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask to terminate running jobs.
+### Ready to Work?
+
+Skip ahead to the [Development Details section.](#development-details)
+
+`npm run all` is just an alias to run the manual commands. If on Windows and that command doesn't work, you can try `npm run win-all`. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask to terminate running jobs.
 
 Either way, you should land on the main page showing active disaster posts with tab navigation options and a header reading Disaster Response SJ.
 
@@ -63,27 +73,29 @@ You will need a username and password to login to the admin area. Contact the pr
 
 This part of the app is aimed at government employees.
 
-## Troubleshooting
+# Troubleshooting
 
-Some developers may run into issues installing and running the app on their local machine. There have been some reported issues getting the app to run on Windows. A long thread containing information on the issues [can be found here](https://github.com/codeforsanjose/disaster-response-sj/issues/43).
+Some developers may run into issues installing and running the app on their local machine. There have been some reported issues getting the app to run on Windows.
+
+A long thread containing information on the issues [can be found here](https://github.com/codeforsanjose/disaster-response-sj/issues/43).
 
 ### Extended Setup & Run Guide (Windows)
 
 Run the following as an administrator. Any command line windows should be specifically ran as an administrator.
 
-0. Clone the disaster-response-sj repository `git clone https://github.com/codeforsanjose/disaster-response-sj.git`
-1. Install latest version of Node.js and NPM
-2. Install latest version of Python (maybe unnecessary because Python is installed as part of windows-build-tools)
-3. Install Windows Build Tools globally: `npm install -g --production windows-build-tools@4.0.0`
-4. Install bcrypt manually (make sure you're in the project directory): `npm install bcrypt --save`
-5. Install react manually (make sure you're in the project directory): `npm install react --save`
-6. Install app dependencies: `npm i`
-7. Install Nodemon globally: `npm install -g nodemon`
-8. Install Babel globally: `npm install -g @babel/core @babel/cli @babel/node`
-9. Ask project lead for the database credentials file on Slack, download it, and put it in the /config directory of the project. This link should take you to the file: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
-10. Change to the **develop** branch `git checkout develop` in the disaster-response sj directory.
-11. Start the back end server: `nodemon --exec babel-node server.js` while in project directory
-12. Start the front end React app (open another command prompt window): `npm start`
+1. Clone the disaster-response-sj repository `git clone https://github.com/codeforsanjose/disaster-response-sj.git`
+2. Install latest version of Node.js and NPM
+3. Install latest version of Python (maybe unnecessary because Python is installed as part of windows-build-tools)
+4. Install Windows Build Tools globally: `npm install -g --production windows-build-tools@4.0.0`
+5. Install bcrypt manually (make sure you're in the project directory): `npm install bcrypt --save`
+6. Install react manually (make sure you're in the project directory): `npm install react --save`
+7. Install app dependencies: `npm i`
+8. Install Nodemon globally: `npm install -g nodemon`
+9. Install Babel globally: `npm install -g @babel/core @babel/cli @babel/node`
+10. Ask project lead for the database credentials file on Slack, download it, and put it in the /config directory of the project. This link should take you to the file: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
+11. Change to the **develop** branch `git checkout develop` in the disaster-response sj directory.
+12. Start the back end server: `nodemon --exec babel-node server.js` while in project directory
+13. Start the front end React app (open another command prompt window): `npm start`
 
 ### Additional Troubleshooting Tips
 
@@ -94,7 +106,7 @@ Run the following as an administrator. Any command line windows should be specif
 
 # Need Help?
 
-Questions? Reach out to the project team on the #disaster-respons-sj Slack channel [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
+Questions? Reach out to the project team on the #disaster-response-sj Slack channel [https://codeforsanjose.slack.com/messages/disaster-response-sj](https://codeforsanjose.slack.com/messages/disaster-response-sj)
 
 Running this web app and working on it assumes some level of command line knowledge, familiarity with git, and using npm. If you're unfamiliar with this, you may want to review some web development resources. You can also ask for some guidance from other contributors.
 
@@ -120,7 +132,7 @@ disaster response and planning.
 
 ## Code Guidelines
 
-* Add comments where necessary, but try to write self explanatory code
+* Add comments if necessary, but try to write readable code
 * Be a fan of [functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa)
 * [Keep code organized](https://itnext.io/rethinking-separation-of-concerns-with-react-7e5de1b5c0f7) and try to [separate your concerns](https://krasimirtsonev.com/blog/article/react-separation-of-concerns)
 
