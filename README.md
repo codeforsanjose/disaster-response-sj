@@ -1,4 +1,4 @@
-Disaster Response SJ is a React based web application that displays active disasters in San Jose for public knowledge, disaster planning resources, and contains an administrative interface for disaster response managers to create active disaster posts.
+Disaster Response SJ is a React based web application that notifies people of active disaster information for San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
 
 ## Getting Started Contributing
 
@@ -8,7 +8,9 @@ Disaster Response SJ is a React based web application that displays active disas
 4. Run the webapp (refer to setup & installation), click around, and explore the different features. Any bugs to fix? Anything to improve? Features to add? Documentation to update?
 5. Create new issues or assign yourself an existing issue/notify others if you want to work on something so others can keep track of who's doing what.
 
-If you've never used GitHub before, cloning is basically downloading the disaster-response-sj app so you can work on it. Here's a [Git/GitHub tutorial to help you get started](https://www.youtube.com/watch?v=SWYqp7iY_Tc).
+If you've never used GitHub before, here's a [Git/GitHub tutorial to help you get started](https://www.youtube.com/watch?v=SWYqp7iY_Tc).
+
+Read more in the How to Contribute section.
 
 # Installation
 
@@ -85,10 +87,10 @@ Run the following as an administrator. Any command line windows should be specif
 
 ### Additional Troubleshooting Tips
 
-* If you encounter issues, you may have to restart your computer or run commands a second time. I'd also verify packages are actually installed by using npm list <package name to check> to see if they show up.
+* You may have to restart your computer or run commands a second time. Verify packages are actually installed by using `npm list <package name to check>` to see if they show up.
 * If you encounter an error running nodemon and close your command window to try again, sometimes the node process won't be terminated and you'll get an error if you try to start nodemon again. Just go to task manager and kill any node.js processes.
-* If you get an error about a missing module, you might have to update the project dependencies again, especially if you haven't kept the project directory up to date. Just do an npm i again
-* To quit running the app, hit Ctrl + C in your command window and it'll ask you if you want to terminate the batch job. Type Y and hit enter, and it'll stop the running process. You can do that in both windows to stop the front and back end or you can just close the windows.
+* If you get an error about a missing module, you might have to update the project dependencies again, especially if you haven't kept the project directory up to date. Just do an `npm i` again
+* To quit running the app, hit Ctrl + C in your command window and it'll ask you if you want to terminate the batch job. Type Y and hit enter, and it'll stop the running process. You can do that in both windows to stop the front and back end.
 
 # Need Help?
 
@@ -107,8 +109,8 @@ disaster response and planning.
 
 ## Target Users
 
-1. Citizens - Any range of citizen from young, elderly, disabled, and speaking other languages. These users will read active disaster info and disaster planning resources.
-2. Government Disaster Response Employees - These are the government employees responsible for disaster response using the administrative parts of the app to create and update disaster information posts for publication.
+1. **Citizens** - Any range of citizen from young, elderly, disabled, and speaking other languages. These users will read active disaster info and disaster planning resources.
+2. **Government Disaster Response Employees** - These are the government employees responsible for disaster response using the administrative parts of the app to create and update disaster information posts for publication.
 
 ## Team
 
@@ -116,25 +118,39 @@ disaster response and planning.
 
 # Development Details
 
+## Code Guidelines
+
+* Add comments where necessary, but try to write self explanatory code
+* Be a fan of [functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa)
+* [Keep code organized](https://itnext.io/rethinking-separation-of-concerns-with-react-7e5de1b5c0f7) and try to [separate your concerns](https://krasimirtsonev.com/blog/article/react-separation-of-concerns)
+
 ## How to Contribute
+
+If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work.
 
 Ask to be added as a collaborator to the disaster-response-sj repo if you want to add branches on the main repo. You'll need to provide your GitHub name.
 
-If you want your own copy of the main repo on GitHub to work with, you can fork it. This will take more effort to configure correctly when syncing updates/making pull requests, but you will have full control over your own version of the repo. If you want to create a pull request right away without waiting to be added as a collaborator, you can do it through your fork.
+### Forking
+
+Many contributors will just clone the main repo to their local machine for development instead of forking.
+
+It's more complicated to manage than pushing branches directly to the main repo, but if you want your own copy of the main repo on GitHub under your GitHub account, you can fork it. It's more effort in syncing updates/making pull requests, but you get full control over your own forked repo. You can also create a pull request right away without waiting to be added as a collaborator.
 
 ### Contribution Process & Workflow
 
-* Create a new branch for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`
-* Commit changes to your feature branch then push it to the repo: `git push origin name-of-the-branch`
-* Create a pull request on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members
-* If the changes look good, the project lead will merge your branch into the `develop` branch
+1. Assign issue to yourself and notify team of what you'll work on.
+2. Create a new branch for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`.
+3. Commit changes to your feature branch then push it to the repo: `git push origin name-of-the-branch`.
+4. Create a pull request on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members. Share it in the Slack channel.
+5. If the changes look good, the project lead will merge your branch into the `develop` branch.
 
 ### Contribution Ideas
 
-* Test the app for bugs and report them by opening issues
+* Test the app for bugs and report them by opening issues on GitHub
 * Review the usability and report possible improvements
 * Review security, accessiblity, page speed, SEO, and other website concerns
 * Create art assets
+* Integrate an API that supports project goals
 * Add animations & transitions
 * Add a new feature
 * Improve the design/styling
@@ -145,10 +161,11 @@ If you want your own copy of the main repo on GitHub to work with, you can fork 
 * Provide code review & feedback on pull requests
 * Create unit tests for functionality
 * Explore partnerships with other organizations
-* Research disaster management personnel needs
+* Evaluate product fit to disaster management personnel needs
+* Talk to disaster responders for use cases
 
 More Resources:
-* https://opensource.guide/how-to-contribute/
+* [https://opensource.guide/how-to-contribute/](https://opensource.guide/how-to-contribute/)
 
 ### Keeping Your Branch in Sync: Rebasing
 
@@ -158,8 +175,8 @@ You can prevent those conflicts by first merging in the updated version of the m
 
 There's 2 ways to do this: [by merging or by rebasing.](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
-* Merging adds a new commit to your history just for merging the updates into your branch
-* Rebasing adds all the updates then replays your commits after those updates, without creating a new commit
+* **Merging** adds a new commit to your history just for merging the updates into your branch
+* **Rebasing** adds all the updates then replays your commits after those updates, without creating a new commit
 
 Rebasing can help preserve a cleaner commit history for a project. For example, if you and a dev named Jane added commits to the develop branch, rebasing is like adding your changes on top of what John has already done.
 
@@ -178,13 +195,15 @@ If you forked the repo, you'll also need to push the new develop branch to your 
 
 ## Project Structure
 
-You'll do most development work in the `/src` directory.
+You'll do most frontend interface development work in the `/src` directory. Backend development work can be done in the `/backend` directory and `server.js`
 
-The app is organized into 3 general categories of things that is based on the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
+The React app is organized into 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
 
-1. Components - Most reusable react components, aka atoms in atomic design
-2. Compositions - More specific components that will have some reusable components, aka molecules in atomic design
-3. Containers - Made of compositional components and other reusable components, aka organisms in atomic design
+1. **Components** - Most reusable react components, aka atoms in atomic design
+2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
+3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
+
+You'll notice each type of block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to. The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
 
 There are also:
 
@@ -194,6 +213,8 @@ There are also:
 ## React Style & Hooks
 
 This project uses React hooks, which is a newer, cleaner way of writing a React app versus the more traditional class style.
+
+Here's an example of equivalent components written in each style:
 
 ```javascript
 // React Hooks style
@@ -235,15 +256,16 @@ class Example extends React.Component {
 }
 ```
 
-Some resources on React hooks:
+Some resources to learn more about React hooks:
 
 * [React Today and Tomorrow and 90% Cleaner React With Hooks - Video](https://www.youtube.com/watch?v=dpw9EHDh2bM)
 * [https://reactjs.org/docs/hooks-intro.html](https://reactjs.org/docs/hooks-intro.html)
 
-## Libraries
+## Libraries & Tools
 
 * [Leaflet.js](https://leafletjs.com/) - Used for easy Open Street Maps integration for displaying maps
 * [Jest](https://jestjs.io/) - Used for unit testing
+* [create-react-app](https://github.com/facebook/create-react-app) - Used for initial scaffolding of the app so you can expect all the basics that comes with it like webpack, babel, and autoprefixer
 
 # Other Info
 
