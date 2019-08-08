@@ -27,30 +27,30 @@ You'll need to setup the frontend (the interface you interact with on the browse
 
 You'll need to run the following on the command line.
 
-1. Clone the repository
+1. **Clone the repository**
 `git clone https://github.com/codeforsanjose/disaster-response-sj.git`. This should download the project to your computer in a directory called disaster-response-sj.
-2. Change to the **develop** branch
+2. **Change to the *develop* branch**
 `git checkout develop` while in the disaster-response sj directory.
-3. Install dependencies
+3. **Install dependencies**
 `npm i`. These are programs and files the project requires to run.
-4. Install nodemon
+4. **Install nodemon**
 `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
-5. Ask for database credentials file `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
-6. Move downloaded `projectInfoData.js` into the `config` directory in your disaster-response-sj repo to enable the back end.
+5. **Ask for database credentials file** `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
+6. **Move downloaded `projectInfoData.js` into `config`** directory in your disaster-response-sj repo to enable the back end.
 
 Issues installing? See [Troubleshooting section](#troubleshooting).
 
 ## Usage & Running the App
 
-Easy way:
+#### Easy way:
 
 1. `npm run all` should start the backend and frontend, then automatically open a tab in your web browser with the web app. If the tab doesn't open, you can manually enter [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-Manual way:
+#### Manual way:
 
-1. Start the server `nodemon --exec babel-node server.js` or alternatively `npm run server`.
+1. **Start the server** `nodemon --exec babel-node server.js` or alternatively `npm run server`.
  Let it finish launching before starting the frontend. Manually restart the server with the comand `rs`
-2. Start the React frontend `npm start`.
+2. **Start the React frontend** `npm start`.
 You'll need to do this in another command window.
 
 ### Ready to Work?
@@ -126,7 +126,8 @@ disaster response and planning.
 
 ## Team
 
-* Project Leader: Joseph, reachable on the [Code for San Jose Slack](https://codeforsanjose.slack.com/messages/disaster-response-sj) as @joester
+Project Leader:
+* Joseph, reachable on the [Code for San Jose Slack](https://codeforsanjose.slack.com/messages/disaster-response-sj) as @joester
 
 # Development Details
 
@@ -150,11 +151,11 @@ It's more complicated to manage than pushing branches directly to the main repo,
 
 ### Contribution Process & Workflow
 
-1. Assign issue to yourself and notify team of what you'll work on.
-2. Create a new branch for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`.
-3. Commit changes to your feature branch then push it to the repo: `git push origin name-of-the-branch`.
-4. Create a pull request on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members. Share it in the Slack channel.
-5. If the changes look good, the project lead will merge your branch into the `develop` branch.
+1. **Assign issue** to yourself and notify team of what you'll work on.
+2. **Create a new branch** for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`.
+3. **Commit changes** to your feature branch then push it to the repo: `git push origin name-of-the-branch`.
+4. **Create a pull request** on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members. Share it in the Slack channel.
+5. **Project lead will merge changes** in your branch into the `develop` branch if everything looks good
 
 ### Contribution Ideas
 
