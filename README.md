@@ -2,13 +2,13 @@ Disaster Response SJ is a React based web application that notifies people of ac
 
 # Contents
 
-* ### [Installation](#installation)
+* ### [Installation](#installation-1)
 * ### [Usage & Running the App](#usage-and-running-the-app)
-* ### [Troubleshooting](#troubleshooting)
+* ### [Troubleshooting](#troubleshooting-1)
 * ### [Contact & Help](#contact-and-help)
-* ### [Background](#background)
-* ### [Developer Documentation](#developer-documentation)
-* ### [Other Info](#other-info)
+* ### [Background](#background-1)
+* ### [Developer Documentation](#developer-documentation-1)
+* ### [Other Info](#other-info-1)
 
 # Getting Started
 
@@ -31,7 +31,7 @@ You'll need to setup the frontend (the interface you interact with on the browse
 * Updated versions of [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/get-npm), and [git](https://git-scm.com/downloads) installed. Check node/npm versions in a command window with `node -v` and `npm -v`
 * Tested as working with npm v6.4.1 and Node.js v10.15.1.
 * Updated [Python version >= 2.7](https://www.python.org/downloads/). Check Python version with `python`
-* Windows users may need additional setup. See Troubleshooting section for help.
+* Windows users may need additional setup. See [Troubleshooting section](#troubleshooting-1) for help.
 
 ## Setup
 
@@ -48,7 +48,7 @@ You'll need to run the following on the command line.
 5. **Ask for database credentials file** `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
 6. **Move downloaded `projectInfoData.js` into `config`** directory in your disaster-response-sj repo to enable the back end.
 
-Issues installing? See [Troubleshooting section](#troubleshooting).
+Issues installing? See [Troubleshooting section](#troubleshooting-1).
 
 # Usage and Running the App
 
@@ -65,7 +65,7 @@ You'll need to do this in another command window.
 
 ## Ready to Work?
 
-Skip ahead to the [Developer Documentation section.](#developer-documentation)
+Skip ahead to the [Developer Documentation section.](#developer-documentation-1)
 
 `npm run all` is just an alias to run the manual commands. If on Windows and that command doesn't work, you can try `npm run win-all`. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask to terminate running jobs.
 
@@ -151,7 +151,7 @@ disaster response and planning.
 
 If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work.
 
-Ask to be added as a collaborator to the disaster-response-sj repo if you want to add branches on the main repo. You'll need to provide your GitHub name.
+Ask to be added as a collaborator to the [disaster-response-sj repo](https://github.com/codeforsanjose/disaster-response-sj/) if you want to add branches on the main repo. You'll need to provide your GitHub name.
 
 ### Forking
 
@@ -171,7 +171,7 @@ It's more complicated to manage than pushing branches directly to the main repo,
 
 * Test the app for bugs and report them by opening issues on GitHub
 * Review the usability and report possible improvements
-* Review security, accessiblity, page speed, SEO, and other website concerns
+* Review security, accessibility, page speed, SEO, and other website concerns
 * Create art assets
 * Integrate an API that supports project goals
 * Add animations & transitions
