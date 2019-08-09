@@ -1,13 +1,14 @@
 Disaster Response SJ is a React based web application that notifies people of active disaster information for San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
 
 # Contents
-####* [Installation](#installation)
-####* [Usage & Running the App](#usage-and-running-the-app)
-####* [Troubleshooting](#troubleshooting)
-####* [Contact & Help](#contact-and-help)
-####* [Background](#background)
-####* [Developer Documentation](#developer-documentation)
-####* [Other Info](#other-info)
+
+* ### [Installation](#installation)
+* ### [Usage & Running the App](#usage-and-running-the-app)
+* ### [Troubleshooting](#troubleshooting)
+* ### [Contact & Help](#contact-and-help)
+* ### [Background](#background)
+* ### [Developer Documentation](#developer-documentation)
+* ### [Other Info](#other-info)
 
 # Getting Started
 
@@ -64,7 +65,7 @@ You'll need to do this in another command window.
 
 ## Ready to Work?
 
-Skip ahead to the [Development Details section.](#development-details)
+Skip ahead to the [Developer Documentation section.](#developer-documentation)
 
 `npm run all` is just an alias to run the manual commands. If on Windows and that command doesn't work, you can try `npm run win-all`. To stop running the app, you can hit Ctrl + C in a Windows command prompt and it'll ask to terminate running jobs.
 
@@ -142,8 +143,8 @@ disaster response and planning.
 
 ## Code Guidelines
 
-* Add comments if necessary, but try to write readable code
-* Be a fan of [functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa)
+* Add comments if necessary, but aim for readable code
+* [Functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa) is your friend
 * [Keep code organized](https://itnext.io/rethinking-separation-of-concerns-with-react-7e5de1b5c0f7) and try to [separate your concerns](https://krasimirtsonev.com/blog/article/react-separation-of-concerns)
 
 ## How to Contribute
@@ -217,24 +218,50 @@ If you forked the repo, you'll also need to push the new develop branch to your 
 
 ## Project Structure
 
-You'll do most frontend interface development work in the `/src` directory. Backend development work can be done in the `/backend` directory and `server.js`
+### Frontend
 
-The React app is organized into 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
+You'll do most frontend interface development work in the `/src` directory.
 
-1. **Components** - Most reusable react components, aka atoms in atomic design
-2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
-3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
+This app uses [React](https://reactjs.org/) as a front end framework.
 
-You'll notice each type of block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to. The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
+The project is organized into 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
 
-There are also:
+### 1. **Components** - Most reusable react components, aka atoms in atomic design
 
-* Contexts - Things for state management that can replace redux
-* Utilities - Stateless functions to be used generally in several places
+Small components for form input fields, the logo, and Open Street Maps elements
 
-## React Style & Hooks
+### 2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
 
-This project uses React hooks, which is a newer, cleaner way of writing a React app versus the more traditional class style.
+Contains the majority of the interface blocks, with compositions for the main disaster posts tab (`/DisasterPosts`), the preparing for disaster tab (`/FEMAChecklist`), and the after a disaster tab (`/InfomationalResources`). The admin area (`/AdminForm`) and login (`/Login`) tabs are also here.
+
+There's also blocks for smaller parts of the interface like the detailed view for a clicked disaster post that shows in a modal popup (`/DisasterModalPostDetails`) and the HTML markup for each disaster post (`/PostMarkup`) that gets used in both the disaster posts tab plus the admin area.
+
+### 3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
+
+Contains the layout for the largest interface blocks, essentially the overall admin area and the public part of the app.
+
+#### Other Notes
+
+You'll notice each type of interface block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to. The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
+
+There is also:
+
+* **Contexts** - Things for state management that can replace redux
+* **Utilities** - Stateless functions to be used generally in several places
+* **Api** - Functions for fetching data from the backend for use in the frontend
+
+### Backend
+
+Backend development work can be done in the `/backend` directory and `server.js`.
+
+The app uses [mongoDB](https://www.mongodb.com/what-is-mongodb) for the database and [Express](https://expressjs.com/) as a server side framework for [Node.js](https://nodejs.org/en/about/). It also uses [Passport](http://www.passportjs.org/) for authentication and [bcrypt](https://www.npmjs.com/package/bcrypt) for password hashing.
+
+* `/backend` contains stuff related to routing, the database, and authentication, and some utilities.
+* `server.js` manages most of the interaction between the front end and back end. It also contains some Twilio API interactions for sending disaster posts.
+
+## React Style: Hooks vs Classes
+
+This project uses React hooks, which is a [newer, cleaner way of writing a React app](https://www.youtube.com/watch?v=dpw9EHDh2bM) versus the more traditional class style.
 
 Here's an example of equivalent components written in each style:
 
