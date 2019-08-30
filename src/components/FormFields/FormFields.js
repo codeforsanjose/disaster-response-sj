@@ -9,8 +9,9 @@ import './FormFields.css'
  * @param {any}        value       field value
  * @param {string}     type        field type - text, number, etc.
  * @param {string}     label       field label
+ * @param {string}     tooltip     field tooltip
  */
-export function InputField({ name, value, type, label, required = true }) {
+export function InputField({ name, value, type, label, tooltip = null, required = true }) {
 
     const formContext = useContext(FormContext)
     const error = (name in formContext.Provider.errors)
@@ -18,7 +19,7 @@ export function InputField({ name, value, type, label, required = true }) {
 
     return (
         <Fragment>
-            <div key = { name } className = "input-group">
+            <div key = { name } className = "input-group tooltip">
                 <label htmlFor = { name }>{ label } { required && star }</label>
                 { /* Show error if exists */ }
                 { error && <span className = "input-error-msg">{ formContext.Provider.errors[name] }</span> }
@@ -32,6 +33,7 @@ export function InputField({ name, value, type, label, required = true }) {
                     type = { type }
                     className = { error ? "input-error" : "" }>
                 </input>
+                {tooltip !== null && <span className = "tooltip-text">{tooltip}</span>}
             </div>
         </Fragment>
     )
@@ -44,8 +46,9 @@ export function InputField({ name, value, type, label, required = true }) {
  * @param {any}        value       field value
  * @param {string}     type        field type - text, number, etc.
  * @param {string}     label       field label
+ * @param {string}     tooltip     field tooltip
  */
-export function TextAreaField({ name, value, type, label, required = true }) {
+export function TextAreaField({ name, value, type, label, tooltip = null, required = true }) {
 
     const formContext = useContext(FormContext)
     const error = (name in formContext.Provider.errors)
@@ -53,7 +56,7 @@ export function TextAreaField({ name, value, type, label, required = true }) {
 
     return (
         <Fragment>
-            <div key = { name } className = "input-group">
+            <div key = { name } className = "input-group tooltip">
                 <label htmlFor = { name }>{ label } { required && star }</label>
                 { /* Show error if exists */ }
                 { error && <span className = "input-error-msg">{ formContext.Provider.errors[name] }</span> }
@@ -67,6 +70,7 @@ export function TextAreaField({ name, value, type, label, required = true }) {
                     type = { type }
                     className = { error ? "input-error" : "" }>
                 </textarea>
+                {tooltip !== null && <span className = "tooltip-text">{tooltip}</span>}
             </div>
         </Fragment>
     )
