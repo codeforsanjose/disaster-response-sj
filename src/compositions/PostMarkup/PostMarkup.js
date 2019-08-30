@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { InputField, TextAreaField } from '../../components/FormFields/FormFields'
+import './PostMarkup.css' //for tooltips
 
 /**
  * Markup for post information
@@ -32,12 +33,14 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
                 value = { title }
                 type = 'text'
                 label = 'Title'
+                tooltip = 'Title'
             />
             <TextAreaField 
                 name = 'description'
                 value = { description }
                 type = 'text'
                 label = 'Description'
+                tooltip = 'Description'
             />
             <div className = 'update-container'>
                 <InputField 
@@ -46,6 +49,7 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
                     type = 'text'
                     label = 'Updates'
                     required = { false }
+                    tooltip = 'Any Updates'
                 />
                 { updateHandler && addUpdateButton}
                 { updatesMarkup }
@@ -94,12 +98,14 @@ export function AddressMarkup({ details = {}, editMode = false }) {
                 value = { addressLine1 }
                 type = 'text'
                 label = 'Address Line 1'
+                tooltip = 'Address Line 1'
             />
             <InputField 
                 name = 'addressLine2'
                 value = { addressLine2 }
                 type = 'email'
                 label = 'Address Line 2'
+                tooltip = 'Address Line 2'
                 required = { false }
             />
             <InputField 
@@ -107,24 +113,28 @@ export function AddressMarkup({ details = {}, editMode = false }) {
                 value = { zipcode }
                 type = 'tel'
                 label = 'Zipcode'
+                tooltip = 'Zipcode'
             />
             <InputField 
                 name = 'longitude'
                 value = { longitude }
                 type = 'number'
                 label = 'Longitude'
+                tooltip = 'Enter number from -118 to -124'
             />
             <InputField 
                 name = 'latitude'
                 value = { latitude }
                 type = 'number'
                 label = 'Latitude'
+                tooltip = 'Enter number from 34 to 41'
             />
             <InputField 
                 name = 'radius'
                 value = { radius }
                 type = 'number'
                 label = 'Radius'
+                tooltip = 'Enter number from 0 to 10 (miles)'
             />
         </Fragment>
     )
@@ -182,18 +192,21 @@ export function ContactMarkup({ details = {}, editMode = false }) {
                 value = { contactName }
                 type = 'text'
                 label = 'Name'
+                tooltip = 'Contact Name'
             />
             <InputField 
                 name = 'contactEmail'
                 value = { contactEmail }
                 type = 'email'
                 label = 'Email'
+                tooltip = 'Contact Email'
             />
             <InputField 
                 name = 'contactPhone'
                 value = { contactPhone }
                 type = 'tel'
                 label = 'Phone'
+                tooltip = "Contact Phone"
             />
         </Fragment>
     )
