@@ -43,7 +43,7 @@ function DisasterPosts(props) {
         return <DisasterModalPostDetails
                 selectedPost={state.selectedPost}
                 handleSelectPost={props.handleSelectPost}
-                dismissModal={props.dismissModal} />
+                dismissModal={dismissModal} />
     }
 
 

@@ -18,7 +18,7 @@ function AdminContainer(props) {
     }
 
     const [adminState, setAdminState] = useState(state)
-    
+
     useEffect(() => {
         if (adminState.user && !adminState.user._id) {
             const userID = props.match.params.id.split(':')[1]
@@ -141,7 +141,7 @@ function AdminContainer(props) {
             </div>
         )
         const activeTab = getActiveTab(tabIndex, posts)
-        
+
         return (
             <div className='AdminContainer'>
                 { tabNavContainer }
