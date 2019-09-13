@@ -65,7 +65,7 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
 
     // instantiate api utilities
 
-    const geocoder = new Geocoder('pk.14e2b47682ac5bddfee57e91f717db14');
+    const geocoder = new Geocoder(process.env.REACT_APP_LOCATION_IQ_KEY);
 
     // context handling
 
@@ -175,8 +175,7 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         }
     }
 
-    const handleGeocode = (event) => {
-        event.preventDefault()
+    const handleGeocode = () => {
 
         if (fields.addressLine1) {
             // location constants for use in geocoding
@@ -204,6 +203,11 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
 
                 // allow interactions with api interface again
                 setApiLoading(false);
+                return {};
+
+              }).then(something => {
+                console.log('something');
+                handleGeocode();
 
               }).catch(error => {
                 // allow interactions with api interface again
