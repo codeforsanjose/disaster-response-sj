@@ -1,10 +1,10 @@
 const KEY = process.env.REACT_APP_LOCATION_IQ_KEY;
-export const ENDPOINTS = {
+const ENDPOINTS = {
 	forwardGeocode: 'https://us1.locationiq.com/v1/search.php?key=',
   reverseGeocode: 'https://us1.locationiq.com/v1/reverse.php?key='
 };
 
-export const encodeAddress = ({address, zip, city, state}) => {
+const encodeAddress = ({address, zip, city, state}) => {
 	/*
   Formats address into a valid query string to append to the endpoint URL.
   Args: address components (obj) - object containing address components formatted: {address: '123 fake st.', zip: '94560', city: 'San Jose', state: 'CA'}
@@ -16,7 +16,7 @@ export const encodeAddress = ({address, zip, city, state}) => {
   return `&q=${encodedAddress}&format=json`
 }
 
-export const encodeLatLng = ({lat, lng}) => {
+const encodeLatLng = ({lat, lng}) => {
 	/*
   Formats latitude/longitude coordinates into a valid query string to append to the endpoint URL.
   Args: latitude/longitude coordinates (obj) - object containing the latitude and longitude values: {lat: 37.12312, lng: -121.12314}
@@ -25,7 +25,7 @@ export const encodeLatLng = ({lat, lng}) => {
   return `&lat=${lat}&lon=${lng}&format=json`
 }
 
-export const checkResponseJSON = (response) => {
+const responseToJSON = (response) => {
   /*
   Checks the http response from fetch requests for errors. If it contains errors, it will reject the Promise with that relevant status codes.
   Args: http response (obj) - passed from a fetch function
@@ -43,7 +43,7 @@ export const checkResponseJSON = (response) => {
   }
 }
 
-export const checkAPIErrors = (JSON) => {
+const checkAPIErrors = (JSON) => {
   /*
   Checks for an error returned from the API side ie unable to geocode a query or no results. Use after checking for http errors in the response because this just checks if the json response has a key with specifically 'error'
   Args: json (obj) - the json object returned from response.json()
@@ -61,38 +61,62 @@ export const checkAPIErrors = (JSON) => {
   }
 }
 
-export const get = async ({key, endpoint, encoder}, query) => {
+const formatJSON = async (response) => {
   /*
-  Fetches a json response containing place information from the api based on the passed query and using the specified API key, endpoint URL, and encoder to format the query with.
-  Args: settings (obj) - config obj containing the address strings to query aka street address, zip, city, and state
-  Return: Success: JSON response array of found coordinates (array) after first returning a promise obj
-  				Error: Rejected Promise containing error response status and status text (obj)
+  Formats an http response into JSON and checks for validates the data.
+  Args: http response (obj)
+  Return: Success: JSON response array (arr)
+  				Error: Rejected Promise containing error status and status text (obj)
   */
-  // construct the URL to fetch
-  const apiURL = endpoint + key + encoder(query);
-
   try {
-    const response = await fetch(apiURL);
-    const json = await checkResponseJSON(response);
+    const json = await responseToJSON(response);
 
     // no async ops in this check
-    const validatedJSON = checkAPIErrors(json);
-
-    return validatedJSON
+    return checkAPIErrors(json);
   }
   catch(error) {
     return error
   }
 }
 
-export const createGetter = (key, endpoint, encoder) => {
+const get = async ({url, formatter, encoder}, query) => {
+  /*
+  Fetches a response from the geocoding api based on the passed query, using the specified api URL, response formatting, and query formatting encoder.
+  Args: settings (obj) - config obj contains endpoint url w/ api key, formatter function to process response, query encoder function, and the query obj itself
+  Return: http response (obj)
+  */
+  // construct the URL to fetch
+  const apiURL = url + encoder(query);
+  const response = await fetch(apiURL);
+
+  return formatter(response);
+}
+
+const createGetter = (url, formatter, encoder) => {
   /*
   Predefine api key, endpoint url, and query encoding function for a desired type of get request so you don't have to enter environment info every request.
   Args: api key (str), endpoint url (str), query encoding function (obj)
   Return: getter function (obj) - with preset args, except the query
   */
-	return get.bind(this, {key, endpoint, encoder})
+	return get.bind(this, {url, formatter, encoder})
 }
 
-export const getLatLng = createGetter(KEY, ENDPOINTS.forwardGeocode, encodeAddress);
-export const getAddress = createGetter(KEY, ENDPOINTS.reverseGeocode, encodeLatLng);
+const latLngApiURL = ENDPOINTS.forwardGeocode + key;
+const addressApiURL = ENDPOINTS.reverseGeocode + key;
+
+// build preset getter functions for each type of geocoding api request
+const getLatLng = createGetter(latLngApiURL, formatJSON, encodeAddress);
+const getAddress = createGetter(addressApiURL, formatJSON, encodeLatLng);
+
+export {
+  ENDPOINTS,
+  encodeAddress,
+  encodeLatLng,
+  checkResponseJSON,
+  checkAPIErrors,
+  formatJSON,
+  get,
+  createGetter,
+  getLatLng,
+  getAddress
+}

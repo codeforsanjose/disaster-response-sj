@@ -5,7 +5,7 @@ import PostContext from '../../context/PostContext'
 import FormContext from '../../context/FormContext'
 import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/PostMarkup'
 import { validateEmail } from '../../Utilities/validationUtilities'
-import { Geocoder } from '../../Utilities/api'
+import { getLatLng } from '../../services/locationiq/api.js'
 
 import './AdminForm.css'
 
@@ -61,11 +61,6 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
     const [fields, setFields] = useState(state.fields)
     const [errors, setErrors] = useReducer(errorReducer, state.errors)
     const [apiLoading, setApiLoading] = useState(state.apiLoading)
-
-
-    // instantiate api utilities
-
-    const geocoder = new Geocoder(process.env.REACT_APP_LOCATION_IQ_KEY);
 
     // context handling
 
@@ -186,34 +181,28 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             // prevent clicks while loading
             setApiLoading(true);
 
-            geocoder.getLatLngJSON({
+            getLatLng({
               address: fields.addressLine1,
               city: LOCATION.CITY,
               state: LOCATION.STATE,
               zip: fields.zipcode
             })
               .then(json => {
-                const result = json[0];
+                const {lon, lat} = json[0];
 
                 setFields({
                   ...fields,
-                  longitude: result.lon,
-                  latitude: result.lat
+                  longitude: lon,
+                  latitude: lat
                 });
 
                 // allow interactions with api interface again
                 setApiLoading(false);
-                return {};
-
-              }).then(something => {
-                console.log('something');
-                handleGeocode();
-
               }).catch(error => {
                 // allow interactions with api interface again
                 setApiLoading(false);
                 // process api errors
-                console.log('API Request Failure');
+                window.alert('Sorry, could not get the coordinates for that address. Please check your connection and inputted address.');
                 console.log(error);
               });
 
