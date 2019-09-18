@@ -33,6 +33,8 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             contactPhone: '',
             addressLine1: '',
             addressLine2: '',
+            city: 'San Jose',
+            state: 'CA',
             zipcode:'',
             longitude: '',
             latitude: '',
@@ -170,42 +172,36 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         }
     }
 
-    const handleGeocode = () => {
+    const handleGeocode = async () => {
 
-        if (fields.addressLine1) {
-            // location constants for use in geocoding
-            const LOCATION = {
-              CITY: 'San Jose',
-              STATE: 'CA'
-            }
-            // prevent clicks while loading
-            setApiLoading(true);
+        if (!fields.addressLine1) {
+          return;
+        }
+        // prevent clicks while loading
+        setApiLoading(true);
+        try {
+          const coordinates = await getLatLng({
+            address: fields.addressLine1,
+            city: fields.city,
+            state: fields.state,
+            zip: fields.zipcode
+          })
+          const {lat, lon} = coordinates[0];
 
-            getLatLng({
-              address: fields.addressLine1,
-              city: LOCATION.CITY,
-              state: LOCATION.STATE,
-              zip: fields.zipcode
-            })
-              .then(json => {
-                const {lon, lat} = json[0];
-
-                setFields({
-                  ...fields,
-                  longitude: lon,
-                  latitude: lat
-                });
-
-                // allow interactions with api interface again
-                setApiLoading(false);
-              }).catch(error => {
-                // allow interactions with api interface again
-                setApiLoading(false);
-                // process api errors
-                window.alert('Sorry, could not get the coordinates for that address. Please check your connection and inputted address.');
-                console.log(error);
-              });
-
+          setFields({
+            ...fields,
+            longitude: lon,
+            latitude: lat
+          });
+        }
+        catch(error) {
+          // process api errors
+          window.alert('Sorry, could not get the coordinates for that address. Please check your connection and inputted address, then try again.');
+          console.log(error);
+        }
+        finally {
+          // allow interactions with api interface again
+          setApiLoading(false);
         }
     }
 

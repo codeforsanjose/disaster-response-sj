@@ -77,7 +77,7 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
  * @param {object}      details
  * @param {boolean}     editMode
  */
-export function AddressMarkup({ details = {}, editMode = false , geocodeHandler = null, loading = false}) {
+export function AddressMarkup({ details = {}, editMode = false , geocodeHandler = null, apiLoading = false}) {
 
     const {
         addressLine1,
@@ -88,7 +88,7 @@ export function AddressMarkup({ details = {}, editMode = false , geocodeHandler 
         radius,
     } = details
 
-    const geocodeButton = <button className='geocode-btn' disabled={ loading} onClick={ geocodeHandler }>Get Latitude & Longitude</button>
+    const geocodeButton = <button className='geocode-btn' disabled={ apiLoading } onClick={ geocodeHandler }>Get Latitude & Longitude</button>
 
     const map = (longitude && latitude)
         ?   <aside className='map'>
