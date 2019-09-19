@@ -180,11 +180,12 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         // prevent clicks while loading
         setApiLoading(true);
         try {
+          const {addressLine1: address, city, state, zipcode:zip} = fields;
           const coordinates = await getLatLng({
-            address: fields.addressLine1,
-            city: fields.city,
-            state: fields.state,
-            zip: fields.zipcode
+            address,
+            city,
+            state,
+            zip
           })
           const {lat, lon} = coordinates[0];
 

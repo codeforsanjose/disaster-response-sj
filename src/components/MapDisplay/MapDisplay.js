@@ -22,13 +22,13 @@ const styles = {
 class MapDisplay extends Component {
 
     componentDidMount () {
-        let {
+        const {
             latitude,
             longitude,
-            radius
         } = this.props;
 
-        // ensure radius is number
+        // ensure radius is number & convert to km
+        let {radius} = this.props;
         radius = isNaN(radius) ? 0 : radius * CONSTANTS.meterConversion;
 
         const coordinates = new window.L.LatLng(latitude, longitude);
@@ -60,11 +60,12 @@ class MapDisplay extends Component {
     }
 
     componentDidUpdate (prevProps) {
-      let {
+      const {
           latitude,
           longitude,
-          radius
       } = this.props;
+      // let for later conversion
+      let {radius} = this.props;
 
       if (latitude !== prevProps.latitude || longitude !== prevProps.longitude || radius !== prevProps.radius) {
           // ensure radius is number
