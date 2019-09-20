@@ -5,17 +5,18 @@ import PostContext from '../../context/PostContext'
 import FormContext from '../../context/FormContext'
 import { AddressMarkup, ContactMarkup, InformationMarkup } from '../PostMarkup/PostMarkup'
 import { validateEmail } from '../../Utilities/validationUtilities'
+import { getLatLng } from '../../services/locationiq/api.js'
 
 import './AdminForm.css'
 
 /**
  *  Form used in admin view to update or add new post information
- *  
+ *
  *  @param {string}     submitName          form button label
  *  @param {function}   submitHandler       form submit action
  */
 export default function AdminForm({ submitName, submitHandler = () => {} }) {
-    
+
     // state hooks + reducers
 
     const postContext = useContext(PostContext)
@@ -32,12 +33,15 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             contactPhone: '',
             addressLine1: '',
             addressLine2: '',
+            city: 'San Jose',
+            state: 'CA',
             zipcode:'',
             longitude: '',
             latitude: '',
             radius: '',
         },
         errors: {},
+        apiLoading: false
     }
 
     const errorReducer = (state, {type, name, message}) => {
@@ -58,6 +62,7 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
 
     const [fields, setFields] = useState(state.fields)
     const [errors, setErrors] = useReducer(errorReducer, state.errors)
+    const [apiLoading, setApiLoading] = useState(state.apiLoading)
 
     // context handling
 
@@ -91,26 +96,26 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         let message = ""
 
         // Check for empty entries first
-        if (input.length === 0 && (fieldName !== 'updateItem' || fieldName !== 'addressLine2')) 
+        if (input.length === 0 && (fieldName !== 'updateItem' || fieldName !== 'addressLine2'))
         {
             message = 'Required'
         }
         else
-        {   
+        {
             // Other errors
-            if (fieldName === 'contactEmail' && validateEmail(input)) 
-            {    
-                message = 'Invalid email, please re-enter valid email'   
-            } 
+            if (fieldName === 'contactEmail' && validateEmail(input))
+            {
+                message = 'Invalid email, please re-enter valid email'
+            }
             else if (fieldName === 'longitude' && (sanJoseRegionalPoints.minLong > input || input > sanJoseRegionalPoints.maxLong))
             {
                 message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.minLong } and ${ sanJoseRegionalPoints.maxLong }`
-            } 
-            else if (fieldName === 'latitude' && (sanJoseRegionalPoints.maxLat < input || input < sanJoseRegionalPoints.minLat)) 
+            }
+            else if (fieldName === 'latitude' && (sanJoseRegionalPoints.maxLat < input || input < sanJoseRegionalPoints.minLat))
             {
                 message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between ${ sanJoseRegionalPoints.minLat } and ${ sanJoseRegionalPoints.maxLat }`
-            } 
-            else if (fieldName === 'radius' && (0 > input || input > sanJoseRegionalPoints.maxRadius)) 
+            }
+            else if (fieldName === 'radius' && (0 > input || input > sanJoseRegionalPoints.maxRadius))
             {
                 message = `Invalid ${ fieldName }, please re-enter valid ${ fieldName } between 0 and ${ sanJoseRegionalPoints.maxRadius }`
             }
@@ -167,11 +172,45 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         }
     }
 
+    const handleGeocode = async () => {
+
+        if (!fields.addressLine1) {
+          return;
+        }
+        // prevent clicks while loading
+        setApiLoading(true);
+        try {
+          const {addressLine1: address, city, state, zipcode:zip} = fields;
+          const coordinates = await getLatLng({
+            address,
+            city,
+            state,
+            zip
+          })
+          const {lat, lon} = coordinates[0];
+
+          setFields({
+            ...fields,
+            longitude: lon,
+            latitude: lat
+          });
+        }
+        catch(error) {
+          // process api errors
+          window.alert('Sorry, could not get the coordinates for that address. Please check your connection and inputted address, then try again.');
+          console.log(error);
+        }
+        finally {
+          // allow interactions with api interface again
+          setApiLoading(false);
+        }
+    }
+
     return (
         <section id = 'adminForm' className = 'form-content'>
             <div className = 'form-group'>
                 <h3>Disaster Information</h3>
-                <InformationMarkup 
+                <InformationMarkup
                     details = { fields }
                     updateHandler = { handleAddUpdateItem }
                     editMode = { true }
@@ -179,14 +218,16 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
             </div>
             <div className = 'form-group'>
                 <h3>Disaster Location Details</h3>
-                <AddressMarkup 
+                <AddressMarkup
                     details = { fields }
+                    geocodeHandler = { handleGeocode }
                     editMode = { true }
+                    loading = { apiLoading }
                 />
             </div>
             <div className = 'form-group'>
                 <h3>Emergency Contact Information</h3>
-                <ContactMarkup 
+                <ContactMarkup
                     details = { fields }
                     editMode = { true }
                 />
@@ -197,4 +238,3 @@ export default function AdminForm({ submitName, submitHandler = () => {} }) {
         </section>
     )
 }
-

@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react'
 import { InputField, TextAreaField } from '../../components/FormFields/FormFields'
+import MapDisplay from '../../components/MapDisplay/MapDisplay'
 import './PostMarkup.css' //for tooltips
 
 /**
  * Markup for post information
- *  
- * @param {object}      details 
+ *
+ * @param {object}      details
  * @param {function}    updateHandler
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
 export function InformationMarkup({ details = {}, updateHandler = null, editMode = false }) {
-    
+
     const {
         title,
         description,
@@ -28,14 +29,14 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
 
     const editInformationMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'title'
                 value = { title }
                 type = 'text'
                 label = 'Title'
                 tooltip = 'Title'
             />
-            <TextAreaField 
+            <TextAreaField
                 name = 'description'
                 value = { description }
                 type = 'text'
@@ -43,7 +44,7 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
                 tooltip = 'Description'
             />
             <div className = 'update-container'>
-                <InputField 
+                <InputField
                     name = 'updateItem'
                     value = { updateItem }
                     type = 'text'
@@ -76,13 +77,13 @@ export function InformationMarkup({ details = {}, updateHandler = null, editMode
 
 /**
  * Markup for address information
- *  
+ *
  * @param {object}      details
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
-export function AddressMarkup({ details = {}, editMode = false }) {
-    
-    const { 
+export function AddressMarkup({ details = {}, editMode = false , geocodeHandler = null, apiLoading = false}) {
+
+    const {
         addressLine1,
         addressLine2,
         zipcode,
@@ -90,17 +91,30 @@ export function AddressMarkup({ details = {}, editMode = false }) {
         latitude,
         radius,
     } = details
-    
+
+    const geocodeButton = <button className='geocode-btn' disabled={ apiLoading } onClick={ geocodeHandler }>Get Latitude & Longitude</button>
+
+    const map = (longitude && latitude)
+        ?   <aside className='map'>
+                <MapDisplay
+                    longitude={longitude}
+                    latitude={latitude}
+                    radius={radius}
+                />
+            </aside>
+        :   <aside className='map'>
+            </aside>
+
     const editAddressMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'addressLine1'
                 value = { addressLine1 }
                 type = 'text'
                 label = 'Address Line 1'
                 tooltip = 'Address Line 1'
             />
-            <InputField 
+            <InputField
                 name = 'addressLine2'
                 value = { addressLine2 }
                 type = 'email'
@@ -108,28 +122,30 @@ export function AddressMarkup({ details = {}, editMode = false }) {
                 tooltip = 'Address Line 2'
                 required = { false }
             />
-            <InputField 
+            <InputField
                 name = 'zipcode'
                 value = { zipcode }
                 type = 'tel'
                 label = 'Zipcode'
                 tooltip = 'Zipcode'
             />
-            <InputField 
+            { geocodeHandler && geocodeButton }
+            { map }
+            <InputField
                 name = 'longitude'
                 value = { longitude }
                 type = 'number'
                 label = 'Longitude'
                 tooltip = 'Enter number from -118 to -124'
             />
-            <InputField 
+            <InputField
                 name = 'latitude'
                 value = { latitude }
                 type = 'number'
                 label = 'Latitude'
                 tooltip = 'Enter number from 34 to 41'
             />
-            <InputField 
+            <InputField
                 name = 'radius'
                 value = { radius }
                 type = 'number'
@@ -173,12 +189,12 @@ export function AddressMarkup({ details = {}, editMode = false }) {
 
 /**
  * Markup for contact information
- *  
+ *
  * @param {object}      details
- * @param {boolean}     editMode 
+ * @param {boolean}     editMode
  */
 export function ContactMarkup({ details = {}, editMode = false }) {
-    
+
     const {
         contactName,
         contactEmail,
@@ -187,21 +203,21 @@ export function ContactMarkup({ details = {}, editMode = false }) {
 
     const editContactMarkup = (
         <Fragment>
-            <InputField 
+            <InputField
                 name = 'contactName'
                 value = { contactName }
                 type = 'text'
                 label = 'Name'
                 tooltip = 'Contact Name'
             />
-            <InputField 
+            <InputField
                 name = 'contactEmail'
                 value = { contactEmail }
                 type = 'email'
                 label = 'Email'
                 tooltip = 'Contact Email'
             />
-            <InputField 
+            <InputField
                 name = 'contactPhone'
                 value = { contactPhone }
                 type = 'tel'
