@@ -9,6 +9,7 @@ Disaster Response SJ is a React based web application that notifies people of ac
 * ### [Background](#background-1)
 * ### [Developer Documentation](#developer-documentation-1)
 * ### [Other Info](#other-info-1)
+* ### [License](#license)
 
 # Getting Started
 
@@ -47,6 +48,7 @@ You'll need to run the following on the command line.
 `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
 5. **Ask for database credentials file** `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
 6. **Move downloaded `projectInfoData.js` into `config`** directory in your disaster-response-sj repo to enable the back end.
+7. **Create .env.local file** in root directory. This'll store api keys, follow instructions in the .env file to add variables.
 
 Issues installing? See [Troubleshooting section](#troubleshooting-1).
 
@@ -194,7 +196,7 @@ More Resources:
 
 Sometimes you'll work on a feature branch for a while and during that time someone else will merge updates into the main develop branch of the GitHub repo. The local copy of the develop branch on your computer won't be updated with those changes. When you already have several commits and go to create a pull request to merge your changes into the main repository, it's more likely you'll have merge conflicts to resolve.
 
-You can prevent those conflicts by first merging in the updated version of the main repository with your local copy before you create a pull request.
+You can prevent those conflicts by first merging in the updated version of the main repository with your local copy before you create a pull request. You'll need to either stash or commit any uncommitted changes before you rebase.
 
 There's 2 ways to do this: [by merging or by rebasing.](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
@@ -240,15 +242,25 @@ There's also blocks for smaller parts of the interface like the detailed view fo
 
 Contains the layout for the largest interface blocks, essentially the overall admin area and the public part of the app.
 
+You can think of these like separate pages.
+
+#### Styling Components
+
+You'll notice each type of interface block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to.
+
+What if you have a CSS style that you want to apply to multiple components on a page? You would simply add that CSS to the parent component's css file so it gets applied to the child components.
+
 #### Other Notes
 
-You'll notice each type of interface block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to. The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
+The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
 
 There is also:
 
 * **Contexts** - Things for state management that can replace redux
 * **Utilities** - Stateless functions to be used generally in several places
 * **Api** - Functions for fetching data from the backend for use in the frontend
+* **Services** - External API and 3rd party related modules
+* **Environmental Variables** - Variables (like API keys) stored in .env files are used to get the app running in a particular environment, but they can be added in a .gitignore so they don't get uploaded 
 
 ### Backend
 
@@ -256,12 +268,13 @@ Backend development work can be done in the `/backend` directory and `server.js`
 
 The app uses [mongoDB](https://www.mongodb.com/what-is-mongodb) for the database and [Express](https://expressjs.com/) as a server side framework for [Node.js](https://nodejs.org/en/about/). It also uses [Passport](http://www.passportjs.org/) for authentication and [bcrypt](https://www.npmjs.com/package/bcrypt) for password hashing.
 
+* `/config` - the `projectInfoData.js` file contains credentials that lets the app connect to mongoDB servers to load the app database. There is currently no local mongoDB database set up.
 * `/backend` contains stuff related to routing, the database, and authentication, and some utilities.
 * `server.js` manages most of the interaction between the front end and back end. It also contains some Twilio API interactions for sending disaster posts.
 
 ## React Style: Hooks vs Classes
 
-This project uses React hooks, which is a [newer, cleaner way of writing a React app](https://www.youtube.com/watch?v=dpw9EHDh2bM) versus the more traditional class style.
+This project uses React hooks, which is a [newer, cleaner way of writing a React app](https://www.youtube.com/watch?v=dpw9EHDh2bM) versus the more traditional class style. In some places, you may see the older style of React methods used. These are good candidates for refactoring to use React hooks.
 
 Here's an example of equivalent components written in each style:
 
@@ -310,11 +323,12 @@ Some resources to learn more about React hooks:
 * [React Today and Tomorrow and 90% Cleaner React With Hooks - Video](https://www.youtube.com/watch?v=dpw9EHDh2bM)
 * [https://reactjs.org/docs/hooks-intro.html](https://reactjs.org/docs/hooks-intro.html)
 
-## Libraries & Tools
+## Libraries, Tools, and Services
 
 * [Leaflet.js](https://leafletjs.com/) - Used for easy Open Street Maps integration for displaying maps
 * [Jest](https://jestjs.io/) - Used for unit testing
 * [create-react-app](https://github.com/facebook/create-react-app) - Used for initial scaffolding of the app so you can expect all the basics that comes with it like webpack, babel, and autoprefixer
+* [LocationIQ](https://locationiq.com/) - Location API used for interacting with Open Street Maps Data for things like geocoding
 
 # Other Info
 
@@ -347,12 +361,9 @@ See particularly Sec. 3.6 Memorandum; it's 130 pages total (!!) but the TL;DR is
 
 _note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.org
 
-
 [the Irma-Response api](https://github.com/Irma-Response/irma-api)
 
-
 [Willow's shelter needs flow chart](https://realtimeboard.com/app/board/o9J_k0xXucA=/?moveToWidget=3074457345905464147)
-
 
 #### Data
 
@@ -382,15 +393,13 @@ _note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.
 
 [irmaresponse.org](https://www.irmaresponse.org)
 
-
-
 ## SSL Certificate Configuration
 https://www.youtube.com/watch?v=m9aa7xqX67c
 https://mozilla.github.io/server-side-tls/ssl-config-generator/
 
 Make sure that you update the security group rules on AWS to include 443 connections in addition to 80
 
-server {
+`server {
         listen 80 default_server;
         listen [::]:80 default_server;
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
@@ -406,8 +415,23 @@ server {
         ssl_certificate_key /etc/letsencrypt.../priv.pem;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
-        ssl_prefer_server_ciphers on;
+        ssl_prefer_server_ciphers on;`
 
+# License
 
+This project is open source software licensed under the MIT License. Here's a short description from [choosealicense.com](https://choosealicense.com/licenses/mit/):
 
-...
+A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+### Permissions
+* Commercial use
+* Distribution
+* Modification
+* Private use
+
+### Conditions
+* License and copyright notice
+
+### Limitations
+* Liability
+* Warranty
