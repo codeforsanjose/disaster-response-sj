@@ -3,30 +3,37 @@
 }
 
 .AdminContainer .admin-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #ccc;
 }
 
 .AdminContainer .admin-tabs .tab-item {
-    cursor: pointer;
-    font-size: 24px;
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+  padding: 0.5em;
+}
 
+.AdminContainer .admin-tabs .tab-item:last-child {
+    border-right: none;
 }
 
 .AdminContainer .admin-tabs .active {
-    text-decoration: underline;
+    font-weight: 600;
 }
 
 .AdminContainer .admin-tabs .tab-item:hover {
-    color: rgb(0, 100, 200);
+  color: rgb(64, 104, 164);
+  background: #fcfcfc;
 }
 
 .AdminContainer .create-post-container {
     display: grid;
     grid-auto-rows: 1fr;
-    width: 60%;
+    max-width: 20em;
+    padding: 0 2em;
     margin: auto;
+    margin-bottom: 2em;
 }
 
 .AdminContainer .create-post-container .submit-post {
@@ -61,4 +68,3 @@
     display: grid;
     width: fit-content;
 }
-

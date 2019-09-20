@@ -4,20 +4,24 @@
 
 .MainContainer .tabNavContainer {
     display: grid;
-    margin: 40px;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px 30px;
+    border-bottom: 1px solid #ccc;
 }
 .MainContainer .tabNavContainer .tabItem {
-    font-size: 36px;
-    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
+    border-right: 1px solid #ccc;
+    padding: 0.5em;
+}
+
+.MainContainer .tabNavContainer .tabItem:last-child {
+  border-right: none;
 }
 
 .MainContainer .tabNavContainer .active {
-    text-decoration: underline;
+  font-weight: 600;
 }
 
 .MainContainer .tabNavContainer .tabItem:hover {
-    color: rgb(0, 100, 240)
+    color: rgb(64, 104, 164);
+    background: #fcfcfc;
 }

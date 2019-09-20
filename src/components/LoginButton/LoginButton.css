@@ -1,0 +1,25 @@
+.login-btn-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.login-btn-wrap a {
+  height: 100%;
+}
+
+.login-btn {
+  height: 100%;
+  border: none;
+  background: none;
+  color: #fff;
+  padding: 1em;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.login-btn:hover {
+  opacity: 0.8;
+}
