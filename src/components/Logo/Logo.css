@@ -1,14 +1,14 @@
-.logoContainer {
+.logo {
   background: #00AEEF;
   padding: 0.5em 1em;
 }
 
-.logo {
+.logo .logo-img {
   transition: opacity 0.3s ease;
   width: auto;
   max-height: 2em;
 }
 
-.logo:hover {
+.logo .logo-img:hover {
   opacity: 0.8;
 }

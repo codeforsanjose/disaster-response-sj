@@ -9,13 +9,14 @@ const CONSTANTS = {
 }
 
 export function Logo() {
+        // the homepage URL to link the logo to for easy user access
         const homeURL = window.location.origin.toString()
 
         return (
           <Fragment>
-            <div className="logoContainer">
+            <div className="logo">
                 <a href={ homeURL }>
-                  <img className="logo"
+                  <img className="logo-img"
                         src={ logoImg }
                         alt={ CONSTANTS.alt }
                         title= { CONSTANTS.title } />

@@ -11,17 +11,6 @@
 
 }
 
-@media (max-width: 1000px) {
-    /* .DisasterPosts .posts-list-container .post-details {
-        border: solid 1px red;
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas:
-            'map-area'
-            'disaster-details-area'
-            'contact-details-area';
-    } */
-}
 .DisasterPosts .posts-list-container .post-details {
     border: solid 1px #bcbcbc;
     background: #f9f9f9;
