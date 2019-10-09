@@ -224,35 +224,49 @@ If you forked the repo, you'll also need to push the new develop branch to your 
 
 You'll do most frontend interface development work in the `/src` directory.
 
-This app uses [React](https://reactjs.org/) as a front end framework.
+This app uses [React](https://reactjs.org/) as a front end framework, with the basic project set up using [Create React App](https://create-react-app.dev/docs/).
 
-The project is organized into 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
+Notice that `/src` has several directories. Most important are the `/components`, `/compositions`, and `/containers` directories, which are the 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/) used in the project:
 
-### 1. **Components** - Most reusable react components, aka atoms in atomic design
+#### 1. **Components** - Most reusable react components, aka atoms in atomic design
 
-Small components for form input fields, the logo, and Open Street Maps elements
+Small components for things like form input fields, the logo, and Open Street Maps elements. These are the smallest interface pieces a user can interact with. How small is a component supposed to be? It's a bit of a judgment call, but they should generally be something small with a single purpose--like an interface button or tooltip box. If you're going to reuse it across the interface, it should be small enough to be reusable. If interactive, it should contain just the pieces that frequently change so that the rest of the interface doesn't need to get rerendered every time.
 
-### 2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
+You can think of these like different kinds of individual Lego bricks (and if you've never played with Legos before, it's a kind of interconnecting building block toy).
+
+Note that even though only this directory is specifically named "components", compositions and containers are also React components. They just use the lower level components as building blocks in their own component code.
+
+#### 2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
+
+These use the lower level components in addition to adding their own specific logic and code to compose more complicated interface pieces. You can imagine it as using different individual Lego pieces to build a larger model.
 
 Contains the majority of the interface blocks, with compositions for the main disaster posts tab (`/DisasterPosts`), the preparing for disaster tab (`/FEMAChecklist`), and the after a disaster tab (`/InfomationalResources`). The admin area (`/AdminForm`) and login (`/Login`) tabs are also here.
 
 There's also blocks for smaller parts of the interface like the detailed view for a clicked disaster post that shows in a modal popup (`/DisasterModalPostDetails`) and the HTML markup for each disaster post (`/PostMarkup`) that gets used in both the disaster posts tab plus the admin area.
 
-### 3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
+#### 3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
 
 Contains the layout for the largest interface blocks, essentially the overall admin area and the public part of the app.
 
-You can think of these like separate pages.
+You can think of these like separate pages. Continuing our Lego analogy, this is like arranging each of the models into a complete scene or cityscape.
 
-#### Styling Components
+#### Directory Structure
 
-You'll notice each type of interface block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to.
+Every level of React component, whether component, composition, or container, has a common directory structure or way that it is organized. Here's an example using the MapDisplay component. Notice how the directory and files within share names:
 
-What if you have a CSS style that you want to apply to multiple components on a page? You would simply add that CSS to the parent component's css file so it gets applied to the child components.
+```
+MapDisplay
+ |_MapDisplay.css
+ |_MapDisplay.js
+ |_MapDisplay.test.js
+ |_mapPin.png
+```
 
-#### Other Notes
+Thus, if you want to add a new component, you would follow the same basic file structure. The directory has the name of the component and the js and css files share the name.
 
-The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
+#### Other Components
+
+There are other modules that make up the project which don't fit in the previously defined categories. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
 
 There is also:
 
@@ -260,7 +274,92 @@ There is also:
 * **Utilities** - Stateless functions to be used generally in several places
 * **Api** - Functions for fetching data from the backend for use in the frontend
 * **Services** - External API and 3rd party related modules
-* **Environmental Variables** - Variables (like API keys) stored in .env files are used to get the app running in a particular environment, but they can be added in a .gitignore so they don't get uploaded 
+* **Environmental Variables** - Variables (like API keys) stored in .env files are used to get the app running in a particular environment, but they can be added in a .gitignore so they don't get uploaded
+
+#### Styling Components
+
+If you want to apply styles to just a single component, you can add styles to the css file in that component's directory and it will apply to the component generated by the js file. This organization pattern makes the styles more modular so they apply specifically to the relevant component.
+
+Note that component styles have a kind of namespacing applied to prevent styles for one component from conflicting with styles that have the same name in other components. This is achieved through the [descendant CSS selector](https://www.sitepoint.com/descendant-selector-css-selector/). When adding CSS, you'll want to maintain that qualified selector to prevent conflicts:
+
+```
+/* For the AdminContainer component, notice the parent class added before every other style definition */
+
+.AdminContainer {
+}
+
+.AdminContainer .admin-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #ccc;
+}
+
+.AdminContainer .tab-item {
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+  padding: 0.5em;
+}
+```
+
+#### Where to Add Your CSS
+
+If we look at the previous MapDisplay component example and wanted to add some CSS styles, we would add it to the CSS file in the MapDisplay directory:
+
+```
+MapDisplay
+ |_MapDisplay.css <------ ADD YOUR STYLES HERE
+ |_MapDisplay.js
+ |_MapDisplay.test.js
+ |_mapPin.png
+```
+
+What if you have a CSS style that you want to apply to multiple components on a page?
+
+You would simply add that CSS to the parent component's css file so it gets applied to the child components. So if you had a Button component and a Map component that were both used in a Composition component called MapTab, and wanted both Button and Map to have the same background color, you would add the background color style in MapTab's css file so it applies to both components that are used in the MapTab:
+
+```
+MapTab (Renders a Button and a Map)
+ |_MapTab.css <------ ADD YOUR STYLES HERE
+ |_MapTab.js
+Button
+ |_Button.css
+ |_Button.js
+Map
+ |_Map.css
+ |_Map.js
+```
+
+#### Adding Images / Static Files
+
+Static assets/files should for a component should be placed in the same directory as the component it is used in, keeping components modular.
+
+To load a static file like an image in your component, you'll need to import it at the top of your js file, which gives you the path as a string, and then use it in the render function where you need it:
+
+```
+// We're in the Logo component file Logo.js
+import React, { Fragment } from 'react'
+import logoImg from './logo-dark-bg-web.png'
+
+...
+
+// Somewhere in your rendering function
+<img className="logo-img" src={ logoImg  alt="logo"} />
+...
+```
+
+You can read more on [importing static files here](https://create-react-app.dev/docs/adding-images-fonts-and-files).
+
+#### Adding a Component
+
+
+https://reactjs.org/docs/components-and-props.html
+https://reactjs.org/docs/hooks-overview.html
+
+#### Routing / Navigation
+
+Frontend routing is handled by [React Router](https://reacttraining.com/react-router/web/guides/quick-start) for navigating between the main app container, the admin container, and the login component. These can be viewed in `Navigation/Navigation.js`.
+
+Routing is a way of providing bookmarkable URLs for certain app components or rendered configurations, so someone could type in `www.someappname.com/login` and the React app would know to load the login component in the main container instead of sending the user to the main page component.
 
 ### Backend
 
