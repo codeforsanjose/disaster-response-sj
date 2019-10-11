@@ -1,49 +1,39 @@
-.input-group
-{
-    text-align: left;
-    padding: 10px;
+.input-group {
+  text-align: left;
+  padding: 10px;
 }
 
-.input-group label
-{
-    display: block;
-    padding-bottom: 5px;
+.input-group label {
+  display: block;
+  padding-bottom: 5px;
 }
 
-.input-group input, .input-group textarea
-{
-    display: block;
-    width: 100%;
-    font-size: 1em;
-    padding: 0.5em;
-    border-radius: 3px;
-    background: #f9f9f9;
+.input-group input,
+.input-group textarea {
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 3px;
+  background: #f9f9f9;
 }
 
-.update-container
-{
-    display: flex;
-    align-items: flex-end;
+.update-container {
+  display: flex;
+  align-items: flex-end;
 }
 
-.update-item-btn
-{
-    display: block;
-    height: 24px;
-    margin-bottom: 10px;
-    margin-left: 1em;
+.update-item-btn {
+  margin-left: 1.5em;
 }
 
-.input-error-msg
-{
-    display: block;
-    padding: 5px 0px;
-    font-size: 10pt;
-    color: #B46969;
+.input-error-msg {
+  display: block;
+  padding: 5px 0px;
+  font-size: 10pt;
+  color: #B46969;
 }
 
-.input-error
-{
-    /* box-shadow: 0 0 3px #B46969; */
-    border: 2px solid #B46969;
+.input-error {
+  border: 2px solid #B46969;
 }

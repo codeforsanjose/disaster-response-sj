@@ -10,7 +10,7 @@ const CONSTANTS = {
 
 export function Logo() {
         // the homepage URL to link the logo to for easy user access
-        const homeURL = window.location.origin.toString()
+        const homeURL = window.location.origin
 
         return (
           <Fragment>

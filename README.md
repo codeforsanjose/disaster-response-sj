@@ -226,7 +226,20 @@ You'll do most frontend interface development work in the `/src` directory.
 
 This app uses [React](https://reactjs.org/) as a front end framework, with the basic project set up using [Create React App](https://create-react-app.dev/docs/).
 
-Notice that `/src` has several directories. Most important are the `/components`, `/compositions`, and `/containers` directories, which are the 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/) used in the project:
+Notice that `/src` has several directories, though we'll focus on 3 in particular:
+
+```
+disaster-response-sj
+ | ...
+ |_src
+   | ...
+   |_components
+   |_compositions
+   |_containers
+   | ...
+```
+
+Most important are the `/components`, `/compositions`, and `/containers` directories, which are the 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/) used in the project:
 
 #### 1. **Components** - Most reusable react components, aka atoms in atomic design
 
@@ -331,7 +344,7 @@ Map
 
 #### Adding Images / Static Files
 
-Static assets/files should for a component should be placed in the same directory as the component it is used in, keeping components modular.
+Static assets/files for a component should be placed in the same directory as the component it is used in, keeping components modular.
 
 To load a static file like an image in your component, you'll need to import it at the top of your js file, which gives you the path as a string, and then use it in the render function where you need it:
 
@@ -351,9 +364,19 @@ You can read more on [importing static files here](https://create-react-app.dev/
 
 #### Adding a Component
 
+There are different ways to write a React component. You can read more about the [basics of creating a component here.](https://reactjs.org/docs/components-and-props.html).
 
-https://reactjs.org/docs/components-and-props.html
-https://reactjs.org/docs/hooks-overview.html
+When you create a component, organize your files to match the existing project structure. That means creating and labeling your component directory and your component files with the component name and separating the JS and CSS files:
+
+```
+ComponentName
+ |_ComponentName.css
+ |_ComponentName.js
+```
+
+You should also think about how to classify your component and place it in the appropriate directory: components, compositions, or containers.
+
+Read about how you can write your components [using React Hooks here, for a more modern approach that matches the current project direction.](https://reactjs.org/docs/hooks-overview.html)
 
 #### Routing / Navigation
 

@@ -1,10 +1,5 @@
 /* Tooltip container */
-/*
-.tooltip {
-    position: relative;
-    display: inline-block;  
-}
-*/  
+
 /* Tooltip text */
 .tooltip .tooltip-text {
     visibility: hidden;
@@ -15,12 +10,12 @@
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
-   
+
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
 }
-  
+
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltip-text {
     visibility: visible;

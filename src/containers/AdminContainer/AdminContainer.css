@@ -2,30 +2,41 @@
 
 }
 
+.AdminContainer button {
+  padding: 1em;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+/* Admin Tabs */
+
 .AdminContainer .admin-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid #ccc;
 }
 
-.AdminContainer .admin-tabs .tab-item {
+.AdminContainer .tab-item {
   cursor: pointer;
   border-right: 1px solid #ccc;
   padding: 0.5em;
 }
 
-.AdminContainer .admin-tabs .tab-item:last-child {
+.AdminContainer .tab-item:last-child {
     border-right: none;
 }
 
-.AdminContainer .admin-tabs .active {
-    font-weight: 600;
-}
-
-.AdminContainer .admin-tabs .tab-item:hover {
+.AdminContainer .tab-item:hover {
   color: rgb(64, 104, 164);
   background: #fcfcfc;
 }
+
+.AdminContainer .active {
+    font-weight: 600;
+    box-shadow: 0px -3px 0 #00aeef inset;
+}
+
+/* Create Post Container */
 
 .AdminContainer .create-post-container {
     display: grid;
@@ -36,35 +47,24 @@
     margin-bottom: 2em;
 }
 
-.AdminContainer .create-post-container .submit-post {
+.AdminContainer .submit-post {
     width: fit-content;
     height: fit-content;
     font-size: 36px;
 }
 
-.AdminContainer .create-post-container .inform-details {
+.AdminContainer .contact-details,
+.AdminContainer .address-details,
+.AdminContainer .inform-details {
     text-align: left;
     display: grid;
+    width: fit-content;
+}
+
+.AdminContainer .inform-details {
     gap: 30px;
-    width: fit-content;
 }
 
-.AdminContainer .create-post-container .inform-details .post-updates {
-
-}
-
-.AdminContainer .create-post-container .inform-details .post-updates .add-update-item {
+.AdminContainer .add-update-item {
    display: inline-block;
-}
-.AdminContainer .create-post-container .contact-details {
-    text-align: left;
-    display: grid;
-    width: fit-content;
-}
-
-
-.AdminContainer .create-post-container .address-details {
-    text-align: left;
-    display: grid;
-    width: fit-content;
 }

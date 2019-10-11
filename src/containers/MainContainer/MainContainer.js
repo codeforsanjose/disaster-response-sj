@@ -77,7 +77,9 @@ class MainContainer extends Component {
         return (
             <div className='MainContainer'>
                 { tabNavContainer }
+                <div className='content'>
                 { activeTab }
+                </div>
             </div>
         )
     }

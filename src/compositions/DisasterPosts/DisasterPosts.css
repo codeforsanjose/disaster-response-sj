@@ -18,7 +18,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-        'map-area disaster-details-area contact-details-area'
+        'map-area disaster-details-area contact-details-area';
+    cursor: pointer;
+    transition: 0.2s transform ease;
+}
+
+.DisasterPosts .posts-list-container .post-details:hover  {
+  background: #f0f0f0;
+  border: 1px solid #000;
+  transform: scale(1.02);
 }
 
 .DisasterPosts .posts-list-container .post-details .contact-details {
