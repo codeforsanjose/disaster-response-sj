@@ -58,6 +58,10 @@ Issues installing? See [Troubleshooting section](#troubleshooting-1).
 
 1. `npm run all` should start the backend and frontend, then automatically open a tab in your web browser with the web app. If the tab doesn't open, you can manually enter [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
+You should be greeted with the app homepage.
+
+![screenshot of the disaster response homepage](dr-main-screenshot.png)
+
 ## Manual way:
 
 1. **Start the server** `nodemon --exec babel-node server.js` or alternatively `npm run server`.
