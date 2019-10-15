@@ -72,6 +72,7 @@ class LoginComponent extends Component {
                 <section className='email'>
                     <label htmlFor='email'>Email:</label>
                     <input
+                        placeholder="youremail@mail.com"
                         type='email'
                         id='email'
                         name='email'
@@ -82,13 +83,14 @@ class LoginComponent extends Component {
                 <section className='passphrase'>
                     <label htmlFor='passphrase'>Passphrase:</label>
                     <input
+                        placeholder="Enter Your Password"
                         type='password'
                         name='passphrase'
                         value={this.state.passphrase}
                         onChange={e => this.handleField(e, 'passphrase')}
                     />
                 </section>
-                
+
                 <button className='login' onClick={e => this.handleSubmit(e)} >login</button>
                 { error }
             </div>

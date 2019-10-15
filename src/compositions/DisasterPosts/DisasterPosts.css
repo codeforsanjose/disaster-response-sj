@@ -1,49 +1,50 @@
 .DisasterPosts {
-    padding-left: 60px;
-    padding-right: 60px;
+  max-width: 50em;
+  padding: 0 2em;
+  margin: auto;
 }
 
 .DisasterPosts .posts-list-container {
     display: grid;
-    height: 800px;
-    overflow-y: scroll;
-    gap: 40px 0;
+    gap: 1em 0;
+    margin: 2em auto;
+
 }
 
-@media (max-width: 1000px) {
-    .DisasterPosts .posts-list-container .post-details {
-        border: solid 1px red;
-        display: grid;
-
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas:
-            'map-area'
-            'disaster-details-area'
-            'contact-details-area';
-    }
-}
 .DisasterPosts .posts-list-container .post-details {
     border: solid 1px #bcbcbc;
+    background: #f9f9f9;
+    border-radius: 0.5em;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-        'map-area disaster-details-area contact-details-area'
+        'map-area disaster-details-area contact-details-area';
+    cursor: pointer;
+    transition: 0.2s transform ease;
+}
+
+.DisasterPosts .posts-list-container .post-details:hover  {
+  background: #f0f0f0;
+  border: 1px solid #000;
+  transform: scale(1.02);
 }
 
 .DisasterPosts .posts-list-container .post-details .contact-details {
     grid-area: contact-details-area;
+    padding: 1em;
 }
 
 .DisasterPosts .posts-list-container .post-details .map {
     grid-area: map-area;
     border-right: 1px solid #bcbcbc;
+    padding: 1em;
 }
 
 .DisasterPosts .posts-list-container .post-details .disaster-details {
     grid-area: disaster-details-area;
     border-right: 1px solid #bcbcbc;
     text-align: left;
-    padding: 10px;
+    padding: 1em;
 }
 
 .DisasterPosts .posts-list-container .post-details .disaster-details .updates-list {

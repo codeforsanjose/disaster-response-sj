@@ -1,9 +1,8 @@
 .LoginComponent {
-
     display: grid;
-    width: 600px;
+    max-width: 400px;
     text-align: left;
-    margin: 30px auto;
+    margin: 2em auto;
     gap: 20px;
     grid-auto-rows: 1fr;
 }
@@ -15,24 +14,34 @@
     appearance: none;
     border: none;
     border-bottom: 1px solid #9c9c9c;
-    font-size: 36px;
+    font-size: 1em;
+    padding: 0.5em 0;
     width: 100%;
 }
 
 .LoginComponent .email {
     grid-row: 1;
-    font-size: 36px;
 }
 
 
 .LoginComponent .passphrase {
     grid-row: 2;
-    font-size: 36px;
 }
 
 .LoginComponent .login {
-    grid-row: 3;
-    width: fit-content;
-    font-size: 36px;
+  grid-row: 3;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  border: 1px solid #0793c7;
+  border-radius: 0.5em;
+  color: #fff;
+  text-shadow: -1px -1px #000;
+  background: #00aeef;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
+.LoginComponent .login:hover {
+  opacity: 0.8;
+}

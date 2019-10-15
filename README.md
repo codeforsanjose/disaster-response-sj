@@ -9,6 +9,7 @@ Disaster Response SJ is a React based web application that notifies people of ac
 * ### [Background](#background-1)
 * ### [Developer Documentation](#developer-documentation-1)
 * ### [Other Info](#other-info-1)
+* ### [License](#license)
 
 # Getting Started
 
@@ -47,6 +48,7 @@ You'll need to run the following on the command line.
 `npm i nodemon -g`. This restarts the server whenever you make changes to the code.
 5. **Ask for database credentials file** `projectInfoData.js` from project lead on disaster-response-sj Slack channel or click: [https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900](https://codeforsanjose.slack.com/archives/C77546YF6/p1555038461000900)
 6. **Move downloaded `projectInfoData.js` into `config`** directory in your disaster-response-sj repo to enable the back end.
+7. **Create .env.local file** in root directory. This'll store api keys, follow instructions in the .env file to add variables.
 
 Issues installing? See [Troubleshooting section](#troubleshooting-1).
 
@@ -55,6 +57,10 @@ Issues installing? See [Troubleshooting section](#troubleshooting-1).
 ## Easy way:
 
 1. `npm run all` should start the backend and frontend, then automatically open a tab in your web browser with the web app. If the tab doesn't open, you can manually enter [http://localhost:3000](http://localhost:3000) in your browser to view the app.
+
+You should be greeted with the app homepage.
+
+![screenshot of the disaster response homepage](dr-main-screenshot.png)
 
 ## Manual way:
 
@@ -194,7 +200,7 @@ More Resources:
 
 Sometimes you'll work on a feature branch for a while and during that time someone else will merge updates into the main develop branch of the GitHub repo. The local copy of the develop branch on your computer won't be updated with those changes. When you already have several commits and go to create a pull request to merge your changes into the main repository, it's more likely you'll have merge conflicts to resolve.
 
-You can prevent those conflicts by first merging in the updated version of the main repository with your local copy before you create a pull request.
+You can prevent those conflicts by first merging in the updated version of the main repository with your local copy before you create a pull request. You'll need to either stash or commit any uncommitted changes before you rebase.
 
 There's 2 ways to do this: [by merging or by rebasing.](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
@@ -222,33 +228,165 @@ If you forked the repo, you'll also need to push the new develop branch to your 
 
 You'll do most frontend interface development work in the `/src` directory.
 
-This app uses [React](https://reactjs.org/) as a front end framework.
+This app uses [React](https://reactjs.org/) as a front end framework, with the basic project set up using [Create React App](https://create-react-app.dev/docs/).
 
-The project is organized into 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/):
+Notice that `/src` has several directories, though we'll focus on 3 in particular:
 
-### 1. **Components** - Most reusable react components, aka atoms in atomic design
+```
+disaster-response-sj
+ | ...
+ |_src
+   | ...
+   |_components
+   |_compositions
+   |_containers
+   | ...
+```
 
-Small components for form input fields, the logo, and Open Street Maps elements
+Most important are the `/components`, `/compositions`, and `/containers` directories, which are the 3 general categories of interface blocks inspired by the [Atomic Design philosophy](http://bradfrost.com/blog/post/atomic-web-design/) used in the project:
 
-### 2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
+#### 1. **Components** - Most reusable react components, aka atoms in atomic design
+
+Small components for things like form input fields, the logo, and Open Street Maps elements. These are the smallest interface pieces a user can interact with. How small is a component supposed to be? It's a bit of a judgment call, but they should generally be something small with a single purpose--like an interface button or tooltip box. If you're going to reuse it across the interface, it should be small enough to be reusable. If interactive, it should contain just the pieces that frequently change so that the rest of the interface doesn't need to get rerendered every time.
+
+You can think of these like different kinds of individual Lego bricks (and if you've never played with Legos before, it's a kind of interconnecting building block toy).
+
+Note that even though only this directory is specifically named "components", compositions and containers are also React components. They just use the lower level components as building blocks in their own component code.
+
+#### 2. **Compositions** - More specific components that will have some reusable components, aka molecules in atomic design
+
+These use the lower level components in addition to adding their own specific logic and code to compose more complicated interface pieces. You can imagine it as using different individual Lego pieces to build a larger model.
 
 Contains the majority of the interface blocks, with compositions for the main disaster posts tab (`/DisasterPosts`), the preparing for disaster tab (`/FEMAChecklist`), and the after a disaster tab (`/InfomationalResources`). The admin area (`/AdminForm`) and login (`/Login`) tabs are also here.
 
 There's also blocks for smaller parts of the interface like the detailed view for a clicked disaster post that shows in a modal popup (`/DisasterModalPostDetails`) and the HTML markup for each disaster post (`/PostMarkup`) that gets used in both the disaster posts tab plus the admin area.
 
-### 3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
+#### 3. **Containers** - Made of compositional components and other reusable components, aka organisms in atomic design
 
 Contains the layout for the largest interface blocks, essentially the overall admin area and the public part of the app.
 
-#### Other Notes
+You can think of these like separate pages. Continuing our Lego analogy, this is like arranging each of the models into a complete scene or cityscape.
 
-You'll notice each type of interface block is in a separate directory containing a css file, a js file, and a test.js file. If you want to apply styles just to a single block, you can add styles to the css file. This makes the styles more modular and specific to the component they apply to. The js files will contain all the logic and rendering for the interface. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
+#### Directory Structure
+
+Every level of React component, whether component, composition, or container, has a common directory structure or way that it is organized. Here's an example using the MapDisplay component. Notice how the directory and files within share names:
+
+```
+MapDisplay
+ |_MapDisplay.css
+ |_MapDisplay.js
+ |_MapDisplay.test.js
+ |_mapPin.png
+```
+
+Thus, if you want to add a new component, you would follow the same basic file structure. The directory has the name of the component and the js and css files share the name.
+
+#### Other Components
+
+There are other modules that make up the project which don't fit in the previously defined categories. Some files and directories are denoted as markup. These contain detailed HTML elements for JSX render functions to use.
 
 There is also:
 
 * **Contexts** - Things for state management that can replace redux
 * **Utilities** - Stateless functions to be used generally in several places
 * **Api** - Functions for fetching data from the backend for use in the frontend
+* **Services** - External API and 3rd party related modules
+* **Environmental Variables** - Variables (like API keys) stored in .env files are used to get the app running in a particular environment, but they can be added in a .gitignore so they don't get uploaded
+
+#### Styling Components
+
+If you want to apply styles to just a single component, you can add styles to the css file in that component's directory and it will apply to the component generated by the js file. This organization pattern makes the styles more modular so they apply specifically to the relevant component.
+
+Note that component styles have a kind of namespacing applied to prevent styles for one component from conflicting with styles that have the same name in other components. This is achieved through the [descendant CSS selector](https://www.sitepoint.com/descendant-selector-css-selector/). When adding CSS, you'll want to maintain that qualified selector to prevent conflicts:
+
+```
+/* For the AdminContainer component, notice the parent class added before every other style definition */
+
+.AdminContainer {
+}
+
+.AdminContainer .admin-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #ccc;
+}
+
+.AdminContainer .tab-item {
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+  padding: 0.5em;
+}
+```
+
+#### Where to Add Your CSS
+
+If we look at the previous MapDisplay component example and wanted to add some CSS styles, we would add it to the CSS file in the MapDisplay directory:
+
+```
+MapDisplay
+ |_MapDisplay.css <------ ADD YOUR STYLES HERE
+ |_MapDisplay.js
+ |_MapDisplay.test.js
+ |_mapPin.png
+```
+
+What if you have a CSS style that you want to apply to multiple components on a page?
+
+You would simply add that CSS to the parent component's css file so it gets applied to the child components. So if you had a Button component and a Map component that were both used in a Composition component called MapTab, and wanted both Button and Map to have the same background color, you would add the background color style in MapTab's css file so it applies to both components that are used in the MapTab:
+
+```
+MapTab (Renders a Button and a Map)
+ |_MapTab.css <------ ADD YOUR STYLES HERE
+ |_MapTab.js
+Button
+ |_Button.css
+ |_Button.js
+Map
+ |_Map.css
+ |_Map.js
+```
+
+#### Adding Images / Static Files
+
+Static assets/files for a component should be placed in the same directory as the component it is used in, keeping components modular.
+
+To load a static file like an image in your component, you'll need to import it at the top of your js file, which gives you the path as a string, and then use it in the render function where you need it:
+
+```
+// We're in the Logo component file Logo.js
+import React, { Fragment } from 'react'
+import logoImg from './logo-dark-bg-web.png'
+
+...
+
+// Somewhere in your rendering function
+<img className="logo-img" src={ logoImg  alt="logo"} />
+...
+```
+
+You can read more on [importing static files here](https://create-react-app.dev/docs/adding-images-fonts-and-files).
+
+#### Adding a Component
+
+There are different ways to write a React component. You can read more about the [basics of creating a component here.](https://reactjs.org/docs/components-and-props.html).
+
+When you create a component, organize your files to match the existing project structure. That means creating and labeling your component directory and your component files with the component name and separating the JS and CSS files:
+
+```
+ComponentName
+ |_ComponentName.css
+ |_ComponentName.js
+```
+
+You should also think about how to classify your component and place it in the appropriate directory: components, compositions, or containers.
+
+Read about how you can write your components [using React Hooks here, for a more modern approach that matches the current project direction.](https://reactjs.org/docs/hooks-overview.html)
+
+#### Routing / Navigation
+
+Frontend routing is handled by [React Router](https://reacttraining.com/react-router/web/guides/quick-start) for navigating between the main app container, the admin container, and the login component. These can be viewed in `Navigation/Navigation.js`.
+
+Routing is a way of providing bookmarkable URLs for certain app components or rendered configurations, so someone could type in `www.someappname.com/login` and the React app would know to load the login component in the main container instead of sending the user to the main page component.
 
 ### Backend
 
@@ -256,12 +394,13 @@ Backend development work can be done in the `/backend` directory and `server.js`
 
 The app uses [mongoDB](https://www.mongodb.com/what-is-mongodb) for the database and [Express](https://expressjs.com/) as a server side framework for [Node.js](https://nodejs.org/en/about/). It also uses [Passport](http://www.passportjs.org/) for authentication and [bcrypt](https://www.npmjs.com/package/bcrypt) for password hashing.
 
+* `/config` - the `projectInfoData.js` file contains credentials that lets the app connect to mongoDB servers to load the app database. There is currently no local mongoDB database set up.
 * `/backend` contains stuff related to routing, the database, and authentication, and some utilities.
 * `server.js` manages most of the interaction between the front end and back end. It also contains some Twilio API interactions for sending disaster posts.
 
 ## React Style: Hooks vs Classes
 
-This project uses React hooks, which is a [newer, cleaner way of writing a React app](https://www.youtube.com/watch?v=dpw9EHDh2bM) versus the more traditional class style.
+This project uses React hooks, which is a [newer, cleaner way of writing a React app](https://www.youtube.com/watch?v=dpw9EHDh2bM) versus the more traditional class style. In some places, you may see the older style of React methods used. These are good candidates for refactoring to use React hooks.
 
 Here's an example of equivalent components written in each style:
 
@@ -310,11 +449,12 @@ Some resources to learn more about React hooks:
 * [React Today and Tomorrow and 90% Cleaner React With Hooks - Video](https://www.youtube.com/watch?v=dpw9EHDh2bM)
 * [https://reactjs.org/docs/hooks-intro.html](https://reactjs.org/docs/hooks-intro.html)
 
-## Libraries & Tools
+## Libraries, Tools, and Services
 
 * [Leaflet.js](https://leafletjs.com/) - Used for easy Open Street Maps integration for displaying maps
 * [Jest](https://jestjs.io/) - Used for unit testing
 * [create-react-app](https://github.com/facebook/create-react-app) - Used for initial scaffolding of the app so you can expect all the basics that comes with it like webpack, babel, and autoprefixer
+* [LocationIQ](https://locationiq.com/) - Location API used for interacting with Open Street Maps Data for things like geocoding
 
 # Other Info
 
@@ -347,12 +487,9 @@ See particularly Sec. 3.6 Memorandum; it's 130 pages total (!!) but the TL;DR is
 
 _note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.org
 
-
 [the Irma-Response api](https://github.com/Irma-Response/irma-api)
 
-
 [Willow's shelter needs flow chart](https://realtimeboard.com/app/board/o9J_k0xXucA=/?moveToWidget=3074457345905464147)
-
 
 #### Data
 
@@ -382,15 +519,13 @@ _note to self: add to KB_ https://www.projectptolemy.co https://disastersystems.
 
 [irmaresponse.org](https://www.irmaresponse.org)
 
-
-
 ## SSL Certificate Configuration
 https://www.youtube.com/watch?v=m9aa7xqX67c
 https://mozilla.github.io/server-side-tls/ssl-config-generator/
 
 Make sure that you update the security group rules on AWS to include 443 connections in addition to 80
 
-server {
+`server {
         listen 80 default_server;
         listen [::]:80 default_server;
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
@@ -406,8 +541,23 @@ server {
         ssl_certificate_key /etc/letsencrypt.../priv.pem;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
-        ssl_prefer_server_ciphers on;
+        ssl_prefer_server_ciphers on;`
 
+# License
 
+This project is open source software licensed under the MIT License. Here's a short description from [choosealicense.com](https://choosealicense.com/licenses/mit/):
 
-...
+A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+### Permissions
+* Commercial use
+* Distribution
+* Modification
+* Private use
+
+### Conditions
+* License and copyright notice
+
+### Limitations
+* Liability
+* Warranty
