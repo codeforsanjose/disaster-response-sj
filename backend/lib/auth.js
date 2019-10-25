@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import Strategy from 'passport-local'
 import { users_db_name } from '../Utilities/API_utilities'

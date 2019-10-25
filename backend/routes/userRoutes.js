@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { db } from '../lib/db'
 import { users_db_name } from '../Utilities/API_utilities'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const usersRouter = Router()
 

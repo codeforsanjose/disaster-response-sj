@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import fs from 'fs'
 
 import session from 'express-session'
