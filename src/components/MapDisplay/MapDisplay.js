@@ -81,7 +81,7 @@ class MapDisplay extends Component {
 
             // add circle if it isn't there
             const circleOnMap = (this.map.hasLayer(this.circle));
-            (circleOnMap) ? true : this.circle.addTo(this.map);
+            const circle = (circleOnMap) ? true : this.circle.addTo(this.map);
 
             // update circle properties
             this.circle.setLatLng(currentLatLng)
@@ -94,7 +94,7 @@ class MapDisplay extends Component {
 
             // add marker if it isn't there
             const markerOnMap = (this.map.hasLayer(this.marker));
-            (markerOnMap) ? true : this.marker.addTo(this.map);
+            const markerOnM = (markerOnMap) ? true : this.marker.addTo(this.map);
 
             // update marker location
             this.marker.setLatLng(currentLatLng);
