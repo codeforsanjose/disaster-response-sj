@@ -2,6 +2,7 @@ import assert from 'assert'
 import { ObjectID, MongoClient } from 'mongodb'
 
 import { MongoDBData } from '../../config/projectInfoData.js'
+import { setupLocalDB } from '../../config/setup_local_db.js'
 import { posts_db_name } from '../Utilities/API_utilities'
 class DataBase {
     constructor () {
@@ -16,15 +17,19 @@ class DataBase {
         if (process.env.NODE_ENV === 'production') {
             this.url = MongoDBData['mongoData']['productionURL']
         } else {
-            this.url = MongoDBData['mongoData']['productionURL']
+            this.url = MongoDBData['mongoData']['localURL']
         }
-        MongoClient.connect(this.url, (err, dbParam) => {
-            assert.equal(null, err)
-            console.log('Successfully connected to MongoDB server. ')
-            this.db = dbParam.db('DisasterResponse')
-            
-            return;
-        })
+
+        if ( process.env.NODE_ENV === 'production') {
+            MongoClient.connect(this.url, (err, dbParam) => {
+                assert.equal(null, err)
+                console.log('Successfully connected to production MongoDB server. ')
+                this.db = dbParam.db('DisasterResponse')
+                return;
+            })
+        } else {
+            setupLocalDB( MongoDBData['mongoData'], this )
+        }
     }
 
     getAll(collection, sortParam = {}) {
