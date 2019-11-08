@@ -16,7 +16,7 @@ const FEMAChecklistMarkup = () => {
           }, {
             id: 'call-insurance',
             title: 'Contact Insurance and/or Landlord ASAP',
-            description: "Contact your insurance company as soon as possible to report your loss. If renting, contact your landlord to find out if repairs are planned. If you have homeowner's or renter's insurance, check what's covered. Make sure you follow and understand instructions for completing your claim. Check your property, earthquake, flood, fire, and other applicable coverage.""
+            description: "Contact your insurance company as soon as possible to report your loss. If renting, contact your landlord to find out if repairs are planned. If you have homeowner's or renter's insurance, check what's covered. Make sure you follow and understand instructions for completing your claim. Check your property, earthquake, flood, fire, and other applicable coverage."
           }, {
             id: 'doc-damage',
             title: 'Document Damage, Document Everything',
@@ -114,7 +114,7 @@ const FEMAChecklistMarkup = () => {
         }, {
           id: "fema-contact",
           title: "Stay in Touch with FEMA",
-          description: "Go to <a href='https://www.disasterassistance.gov/' target='_blank' rel="noopener noreferrer">www.DisasterAssistance.gov/</a> or call the toll-free numbers below."
+          description: "Go to <a href='https://www.disasterassistance.gov/' target='_blank' rel='noopener noreferrer'>www.DisasterAssistance.gov/</a> or call the toll-free numbers below."
         }, {
           id: "visit-drc",
           title: "Visit a Disaster Recovery Center",
@@ -127,32 +127,32 @@ const FEMAChecklistMarkup = () => {
       ]
   }
 
-  const generalList = checklistData.general.map((item) =>
-    <li>
-      <input type="checkbox" id={item.id} />
-      <label htmlFor={item.id}>
-        <h4>{item.title}</h4>
-        <p>{item.description}</p>
-      </label>
-    </li>
-  )
+  const listItemTemplate = (item) => {
+      return (
+        <li>
+          <input type="checkbox" id={item.id} />
+          <label htmlFor={item.id}>
+            <h4>{item.title}</h4>
+            <p>{item.description}</p>
+          </label>
+        </li>
+      )
+    }
 
-  const resourcesList = checklistData.resources.map((item) =>
-    <li>
-      <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
-      <p>{item.description}</p>
-    </li>
-  )
+    const resourceTemplate = (item) => {
+      return (
+        <li>
+          <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+          <p>{item.description}</p>
+        </li>
+      )
+    }
 
-  const survivorList = checklistData.survivor.map((item) =>
-    <li>
-      <input type="checkbox" id={item.id} />
-      <label htmlFor={item.id}>
-        <h4>{item.title}</h4>
-        <p>{item.description}</p>
-      </label>
-    </li>
-  )
+  const generalList = checklistData.general.map((currentListItem) => listItemTemplate(currentListItem))
+
+  const resourcesList = checklistData.resources.map((currentResource) => resourceTemplate(currentResource))
+
+  const survivorList = checklistData.survivor.map((currentListItem) => listItemTemplate(currentListItem))
 
   return (
     <React.Fragment>
