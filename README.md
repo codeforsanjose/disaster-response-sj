@@ -5,6 +5,7 @@ Disaster Response SJ is a React based web application to notify people of active
 Live Demo:
 [https://disaster-response.codeforsanjose.com/](https://disaster-response.codeforsanjose.com/)
 
+Contributors Welcomed!
 [How to Contribute](#how-to-contribute)
 
 # Contents
@@ -155,7 +156,7 @@ disaster response and planning.
 
 # How to Contribute
 
-If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work.
+If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work. Non-technical people can help too, especially in meeting with disaster response officials/understanding stakeholder needs.
 
 Ask to be added as a collaborator to the [disaster-response-sj repo](https://github.com/codeforsanjose/disaster-response-sj/) if you want to add branches on the main repo. You'll need to provide your GitHub name.
 
@@ -175,6 +176,7 @@ It's more complicated to manage than pushing branches directly to the main repo,
 
 ## Contribution Ideas
 
+* Talk to disaster responders and city emergency management personnel to understand needs/requirements
 * Test the app for bugs and report them by opening issues on GitHub
 * Review the usability and report possible improvements
 * Review security, accessibility, page speed, SEO, and other website concerns
@@ -193,7 +195,6 @@ It's more complicated to manage than pushing branches directly to the main repo,
 * Create unit tests for functionality
 * Explore partnerships with other organizations
 * Evaluate product fit to disaster management personnel needs
-* Talk to disaster responders for use cases
 
 More Resources:
 * [https://opensource.guide/how-to-contribute/](https://opensource.guide/how-to-contribute/)
