@@ -6,7 +6,7 @@ Live Demo:
 [https://disaster-response.codeforsanjose.com/](https://disaster-response.codeforsanjose.com/)
 
 Contributors Welcomed!
-[How to Contribute](#how-to-contribute)
+[How to Contribute](#how-to-contribute-1)
 
 # Contents
 
@@ -15,7 +15,7 @@ Contributors Welcomed!
 * ### [Troubleshooting](#troubleshooting-1)
 * ### [Contact & Help](#contact-and-help)
 * ### [Background](#background-1)
-* ### [How to Contribute](#how-to-contribute)
+* ### [How to Contribute](#how-to-contribute-1)
 * ### [Developer Documentation](#developer-documentation-1)
 * ### [Other Info](#other-info-1)
 * ### [License](#license)
