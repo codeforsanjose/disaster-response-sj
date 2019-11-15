@@ -1,4 +1,12 @@
-Disaster Response SJ is a React based web application that notifies people of active disaster information for San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
+![Disaster Response Logo Horizontal Orientation](logo-horizontal-light-bg-large.png)
+
+Disaster Response SJ is a React based web application to notify people of active disasters in San Jose and includes disaster planning resources, plus an administrative interface for disaster response managers to create/maintain active disaster updates.
+
+Live Demo:
+[https://disaster-response.codeforsanjose.com/](https://disaster-response.codeforsanjose.com/)
+
+Contributors Welcomed!
+[How to Contribute](#how-to-contribute-1)
 
 # Contents
 
@@ -7,6 +15,7 @@ Disaster Response SJ is a React based web application that notifies people of ac
 * ### [Troubleshooting](#troubleshooting-1)
 * ### [Contact & Help](#contact-and-help)
 * ### [Background](#background-1)
+* ### [How to Contribute](#how-to-contribute-1)
 * ### [Developer Documentation](#developer-documentation-1)
 * ### [Other Info](#other-info-1)
 * ### [License](#license)
@@ -145,27 +154,19 @@ disaster response and planning.
 1. **Citizens** - Any range of citizen from young, elderly, disabled, and speaking other languages. These users will read active disaster info and disaster planning resources.
 2. **Government Disaster Response Employees** - These are the government employees responsible for disaster response using the administrative parts of the app to create and update disaster information posts for publication.
 
-# Developer Documentation
+# How to Contribute
 
-## Code Guidelines
-
-* Add comments if necessary, but aim for readable code
-* [Functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa) is your friend
-* [Keep code organized](https://itnext.io/rethinking-separation-of-concerns-with-react-7e5de1b5c0f7) and try to [separate your concerns](https://krasimirtsonev.com/blog/article/react-separation-of-concerns)
-
-## How to Contribute
-
-If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work.
+If you aren't sure how your skills can support the project, talk to other contributors and they can help you find suitable work. Non-technical people can help too, especially in meeting with disaster response officials/understanding stakeholder needs.
 
 Ask to be added as a collaborator to the [disaster-response-sj repo](https://github.com/codeforsanjose/disaster-response-sj/) if you want to add branches on the main repo. You'll need to provide your GitHub name.
 
-### Forking
+## Forking
 
 Many contributors will just clone the main repo to their local machine for development instead of forking.
 
 It's more complicated to manage than pushing branches directly to the main repo, but if you want your own copy of the main repo on GitHub under your GitHub account, you can fork it. It's more effort in syncing updates/making pull requests, but you get full control over your own forked repo. You can also create a pull request right away without waiting to be added as a collaborator.
 
-### Contribution Process & Workflow
+## Contribution Process & Workflow
 
 1. **Assign issue** to yourself and notify team of what you'll work on.
 2. **Create a new branch** for the feature you will be working on from the `develop` branch: `git checkout develop` then `git checkout -b name-of-your-new-branch-here`.
@@ -173,14 +174,17 @@ It's more complicated to manage than pushing branches directly to the main repo,
 4. **Create a pull request** on GitHub for merging your feature branch with the `develop` branch so it can be reviewed by team members. Share it in the Slack channel.
 5. **Project lead will merge changes** in your branch into the `develop` branch if everything looks good
 
-### Contribution Ideas
+## Contribution Ideas
 
+* Talk to disaster responders and city emergency management personnel to understand needs/requirements
 * Test the app for bugs and report them by opening issues on GitHub
 * Review the usability and report possible improvements
 * Review security, accessibility, page speed, SEO, and other website concerns
-* Create art assets
-* Integrate an API that supports project goals
+* Add/update necessary meta tags
+* Create art assets (like icons, branding, info sheets, etc)
+* Integrate an API that supports project goals (like earthquake data, city alerts, etc)
 * Add animations & transitions
+* Improve responsive styling
 * Add a new feature
 * Improve the design/styling
 * Update or expand documentation
@@ -191,12 +195,11 @@ It's more complicated to manage than pushing branches directly to the main repo,
 * Create unit tests for functionality
 * Explore partnerships with other organizations
 * Evaluate product fit to disaster management personnel needs
-* Talk to disaster responders for use cases
 
 More Resources:
 * [https://opensource.guide/how-to-contribute/](https://opensource.guide/how-to-contribute/)
 
-### Keeping Your Branch in Sync: Rebasing
+## Keeping Your Branch in Sync: Rebasing
 
 Sometimes you'll work on a feature branch for a while and during that time someone else will merge updates into the main develop branch of the GitHub repo. The local copy of the develop branch on your computer won't be updated with those changes. When you already have several commits and go to create a pull request to merge your changes into the main repository, it's more likely you'll have merge conflicts to resolve.
 
@@ -221,6 +224,14 @@ git rebase origin/develop
 ```
 
 If you forked the repo, you'll also need to push the new develop branch to your fork before creating your pull request `git push -f fork-origin-name-here develop`
+
+# Developer Documentation
+
+## Code Guidelines
+
+* Add comments if necessary, but aim for readable code
+* [Functional programming](https://medium.com/the-renaissance-developer/concepts-of-functional-programming-in-javascript-6bc84220d2aa) is your friend
+* [Keep code organized](https://itnext.io/rethinking-separation-of-concerns-with-react-7e5de1b5c0f7) and try to [separate your concerns](https://krasimirtsonev.com/blog/article/react-separation-of-concerns)
 
 ## Project Structure
 
@@ -393,6 +404,8 @@ Routing is a way of providing bookmarkable URLs for certain app components or re
 Backend development work can be done in the `/backend` directory and `server.js`.
 
 The app uses [mongoDB](https://www.mongodb.com/what-is-mongodb) for the database and [Express](https://expressjs.com/) as a server side framework for [Node.js](https://nodejs.org/en/about/). It also uses [Passport](http://www.passportjs.org/) for authentication and [bcrypt](https://www.npmjs.com/package/bcrypt) for password hashing.
+
+You will need an active internet connection in order for the app to connect to the online mongoDB instance hosted remotely, which contains all of the current test post data.
 
 * `/config` - the `projectInfoData.js` file contains credentials that lets the app connect to mongoDB servers to load the app database. There is currently no local mongoDB database set up.
 * `/backend` contains stuff related to routing, the database, and authentication, and some utilities.
