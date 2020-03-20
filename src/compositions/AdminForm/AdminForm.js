@@ -233,7 +233,7 @@ export default function AdminForm({ submitName, submitHandler = () => {}, langua
         />
     )
     return (
-        <section id = 'adminForm' className = 'form-content'>
+        <section id = 'adminForm' className = 'AdminForm'>
             <div className = 'form-group'>
                 <h3>Disaster Information</h3>
                 <InformationMarkup
