@@ -4,6 +4,9 @@ import bcrypt from 'bcryptjs'
 import fs from 'fs'
 
 import session from 'express-session'
+const redis = require('redis')
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_URL)
 import _ from 'lodash'
 import errorHandler from 'errorhandler'
 import passport from 'passport'
@@ -31,7 +34,11 @@ app.use((req, res, next) =>{
 });
 app.use('/public', express.static('public'))
 app.use(cookieParser())
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+const HALF_HOUR = 1000 * 60 * 30
+let sessionConfigs = { secret: 'keyboard cat', cookie: { maxAge: HALF_HOUR, sameSite: true }, rolling: true, resave: false, saveUninitialized: false };
+if (process.env.NODE_ENV === 'production') { sessionConfigs.store = new RedisStore({ client: redisClient }); sessionConfigs.cookie.secure = true; sessionConfigs.resave = false; sessionConfigs.secret = process.env.SESSION_SECRET };
+app.use(session(sessionConfigs))
+// app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 app.use(postsRouter)
 app.use(usersRouter)
 
