@@ -15,7 +15,8 @@ class DataBase {
         }
         this.posts_db_name = posts_db_name
         if (process.env.NODE_ENV === 'production') {
-            this.url = MongoDBData['mongoData']['productionURL']
+            // this.url = MongoDBData['mongoData']['productionURL']
+            this.url = process.env.MONGODB_URI
         } else {
             this.url = MongoDBData['mongoData']['localURL']
         }
